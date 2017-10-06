@@ -1,25 +1,23 @@
 #include <iostream>
+#include <time.h>
+#include <fstream>
 
 #include "Mat.h"
+#include "Vec.h"
+#include "Network.h"
 using namespace std;
 
 int main(void)
 {
-	// Just testing out basic matrices operations
+	srand(time(NULL));
+	int sizes[] = { 5, 3, 4 };
+	Network n(3, sizes);
+	n.save("network1.net");
+	n.getLayerWeights(0).visualize();
 
-	float dat1[][3] = {
-		{ 1, 2, 3 },
-		{ 4, 5, 6 }
-	};
-	float dat2[][2] = {
-		{ 7,  8  },
-		{ 9,  10 },
-		{ 11, 12 }
-	};
-	Mat m1(2, 3, (float*)dat1);
-	Mat m2(3, 2, (float*)dat2);
-	Mat mul = m2 * m1;
-	mul.visualize();
+	Network m("network1.net");
+	m.getLayerWeights(0).visualize();
+
 	system("pause");
 	return 0;
 }

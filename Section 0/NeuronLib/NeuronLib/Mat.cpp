@@ -56,6 +56,20 @@ Mat::Mat(int height, int width, float * data)
 	}
 }
 
+/*Mat::Mat(int height, int width, const function<float(int, int)>& pred)
+{
+	h = height;
+	w = width;
+	vals = new float[h * w];
+	for (int i = 0; i < h; i++)
+	{
+		for (int j = 0; j < w; j++)
+		{
+			(*this)(i, j) = pred(i, j);
+		}
+	}
+}*/
+
 /*
 Copy constructor
 */
@@ -131,7 +145,7 @@ Mat & Mat::operator=(const Mat & ref)
 /*
 Compares two matrices. Returns true if for any i,j in matrix a, b[i, j] = a[i, j]
 */
-bool Mat::operator==(const Mat & ref)
+bool Mat::operator==(const Mat & ref) const
 {
 	for (int i = 0; i < h; i++)
 	{
@@ -149,7 +163,7 @@ bool Mat::operator==(const Mat & ref)
 /*
 Adds two matrices and returns the result
 */
-Mat Mat::operator+(const Mat & ref)
+Mat Mat::operator+(const Mat & ref) const
 {
 	validate_same_size(ref);
 	return Mat::mask(ref, [this](float v, int row, int col) -> int {
@@ -160,14 +174,14 @@ Mat Mat::operator+(const Mat & ref)
 /*
 Adds a scalar to a matrix and returns the result.
 */
-Mat Mat::operator+(float f)
+Mat Mat::operator+(float f) const
 {
 	return Mat::mask(*this, [f](float v) -> int {
 		return v + f;
 	});
 }
 
-Mat Mat::operator-(const Mat & ref)
+Mat Mat::operator-(const Mat & ref) const
 {
 	validate_same_size(ref);
 	return Mat::mask(ref, [this](float v, int row, int col) -> int {
@@ -175,28 +189,28 @@ Mat Mat::operator-(const Mat & ref)
 	});
 }
 
-Mat Mat::operator-(float f)
+Mat Mat::operator-(float f) const
 {
 	return Mat::mask(*this, [f](float v) {
 		return v - f;
 	});
 }
 
-Mat Mat::operator*(float f)
+Mat Mat::operator*(float f) const
 {
 	return Mat::mask(*this, [f](float v) {
 		return v * f;
 	});
 }
 
-Mat Mat::operator/(float f)
+Mat Mat::operator/(float f) const
 {
 	return Mat::mask(*this, [f](float v) {
 		return v / f;
 	});
 }
 
-Mat Mat::operator*(Mat & ref)
+Mat Mat::operator*(const Mat & ref) const
 {
 	if (ref.h != w)
 	{
@@ -218,14 +232,14 @@ Mat Mat::operator*(Mat & ref)
 	return result;
 }
 
-Mat Mat::neg(Mat & mat)
+Mat Mat::neg(const Mat & mat)
 {
 	return Mat::mask(mat, [](float v) {
 		return -v;
 	});
 }
 
-Mat Mat::inv(Mat & mat)
+Mat Mat::inv(const Mat & mat)
 {
 	return Mat::mask(mat, [](float v) {
 		return 1/v;
@@ -258,7 +272,7 @@ Mat Mat::mask(const Mat & matrix, const std::function<float(float)>& pred)
 	return result;
 }
 
-void Mat::validate_same_size(const Mat & ref)
+void Mat::validate_same_size(const Mat & ref) const
 {
 	if (h != ref.h || w != ref.w)
 	{

@@ -112,11 +112,16 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Mat.cpp" />
+    <ClCompile Include="Network.cpp" />
     <ClCompile Include="Source.cpp" />
+    <ClCompile Include="Vec.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="binfile.h" />
     <ClInclude Include="Mat.h" />
+    <ClInclude Include="Network.h" />
     <ClInclude Include="np.h" />
+    <ClInclude Include="Vec.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

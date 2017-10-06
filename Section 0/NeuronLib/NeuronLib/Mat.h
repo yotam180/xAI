@@ -16,6 +16,7 @@ public:
 	Mat();
 	Mat(int height, int width);
 	Mat(int height, int width, float *data);
+	//Mat(int height, int width, const std::function<float(int, int)>& pred);
 	Mat(const Mat& ref);
 	~Mat();
 
@@ -39,7 +40,7 @@ public:
 	/*
 	Random access to a specific matrix element at (row, col)
 	*/
-	float& operator()(int row, int col) const;
+	virtual float& operator()(int row, int col) const;
 
 	/*
 	Copy-assignment operator
@@ -49,52 +50,52 @@ public:
 	/*
 	Checks if 2 matrices are equal (returns true if every (i,j) in ([0,h], [0,w]) satisfy ref[i,j] == this[i,j]
 	*/
-	bool operator==(const Mat& ref);
+	bool operator==(const Mat& ref) const;
 
 	/*
 	Matrix addition
 	*/
-	Mat operator+(const Mat& ref);
+	Mat operator+(const Mat& ref) const;
 
 	/*
 	Matrix addition by scalar
 	*/
-	Mat operator+(float f);
+	Mat operator+(float f) const;
 
 	/*
 	Matrix substraction
 	*/
-	Mat operator-(const Mat& ref);
+	Mat operator-(const Mat& ref) const;
 
 	/*
 	Matrix substraction by scalar
 	*/
-	Mat operator-(float f);
+	Mat operator-(float f) const;
 
 	/*
 	Matrix multiplication by scalar
 	*/
-	Mat operator*(float f);
+	Mat operator*(float f) const;
 
 	/*
 	Matrix division by scalar
 	*/
-	Mat operator/(float f);
+	Mat operator/(float f) const;
 
 	/*
 	Matrix multiplication (dot product)
 	*/
-	Mat operator*(Mat& ref);
+	Mat operator*(const Mat& ref) const;
 
 	/*
 	Negates the matrix (-mat)
 	*/
-	static Mat neg(Mat& mat);
+	static Mat neg(const Mat& mat);
 
 	/*
 	Inverts the matrix (1/mat)
 	*/
-	static Mat inv(Mat& mat);
+	static Mat inv(const Mat& mat);
 
 
 	/*
@@ -105,17 +106,18 @@ public:
 	static Mat mask(const Mat& mat, const std::function<float(float, int, int)>& pred);
 	static Mat mask(const Mat& mat, const std::function<float(float)>& pred);
 
-private:
+protected:
 	// The dimensions of the matrix
 	int h = 0, w = 0;
 
 	// The data of the matrix
 	float* vals = nullptr;
 
+private:
 	/*
 	Throws an exception if shape(ref) != shape(this)
 	*/
-	void validate_same_size(const Mat& ref);
+	void validate_same_size(const Mat& ref) const;
 };
 
 /*
