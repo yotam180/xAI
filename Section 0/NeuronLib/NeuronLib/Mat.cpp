@@ -196,6 +196,28 @@ Mat Mat::operator/(float f)
 	});
 }
 
+Mat Mat::operator*(Mat & ref)
+{
+	if (ref.h != w)
+	{
+		throw "Second matrix 1st dimension must be equal to first matrix 2nd dimension"; // Wow, shitty grammar :P
+	}
+	Mat result(h, ref.w);
+	for (int row = 0; row < h; row++)
+	{
+		for (int col = 0; col < ref.w; col++)
+		{
+			float sum = 0;
+			for (int i = 0; i < w; i++)
+			{
+				sum += (*this)(row, i) * ref(i, col);
+			}
+			result(row, col) = sum;
+		}
+	}
+	return result;
+}
+
 Mat Mat::neg(Mat & mat)
 {
 	return Mat::mask(mat, [](float v) {
