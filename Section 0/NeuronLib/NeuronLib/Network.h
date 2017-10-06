@@ -21,6 +21,8 @@ public:
 	Vec getLayerBiases(int layer);
 	Mat getLayerWeights(int layer);
 
+	Vec feed_forward(Vec& x);
+
 	void save(string file_name); // To save to file
 
 	Network& operator=(const Network& ref);

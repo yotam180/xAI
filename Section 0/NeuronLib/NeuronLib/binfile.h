@@ -10,34 +10,36 @@ using namespace std;
 
 typedef char byte;
 
+#define DOUBLE_SIZE 8 // In bytes
+
 namespace bin
 {
-	float readFloat(fstream& file)
+	double readdouble(fstream& file)
 	{
-		byte n[4];
-		file.read(n, 4);
-		float *f = reinterpret_cast<float*>(n);
+		byte n[DOUBLE_SIZE];
+		file.read(n, DOUBLE_SIZE);
+		double *f = reinterpret_cast<double*>(n);
 		return *f;
 	}
 
 	int readInt(fstream& file)
 	{
-		byte n[4];
-		file.read(n, 4);
+		byte n[DOUBLE_SIZE];
+		file.read(n, DOUBLE_SIZE);
 		int *f = reinterpret_cast<int*>(n);
 		return *f;
 	}
 
-	void writeFloat(fstream& file, float f)
+	void writedouble(fstream& file, double f)
 	{
 		byte *n = reinterpret_cast<byte*>(&f);
-		file.write(n, 4);
+		file.write(n, DOUBLE_SIZE);
 	}
 
 	void writeInt(fstream& file, int f)
 	{
 		byte *n = reinterpret_cast<byte*>(&f);
-		file.write(n, 4);
+		file.write(n, DOUBLE_SIZE);
 	}
 }
 

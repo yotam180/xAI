@@ -12,11 +12,10 @@ int main(void)
 	srand(time(NULL));
 	int sizes[] = { 5, 3, 4 };
 	Network n(3, sizes);
-	n.save("network1.net");
-	n.getLayerWeights(0).visualize();
-
-	Network m("network1.net");
-	m.getLayerWeights(0).visualize();
+	double input[] = { 1, 0.5, 0, 0.3, 0.7 };
+	Vec x(5, (double*)input);
+	Vec y = n.feed_forward(x);
+	y.visualize();
 
 	system("pause");
 	return 0;

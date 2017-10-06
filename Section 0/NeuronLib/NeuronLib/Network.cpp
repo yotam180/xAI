@@ -2,6 +2,7 @@
 #include <fstream>
 
 #include "binfile.h"
+#include "np.h"
 using namespace std;
 
 
@@ -80,7 +81,7 @@ Network::Network(string file_name)
 		biases[i] = Vec(sizes[i + 1]);
 		for (int j = 0; j < sizes[i + 1]; j++)
 		{
-			biases[i](j) = bin::readFloat(file);
+			biases[i](j) = bin::readdouble(file);
 		}
 	}
 	check = bin::readInt(file);
@@ -98,7 +99,7 @@ Network::Network(string file_name)
 		{
 			for (int k = 0; k < l2; k++)
 			{
-				weights[i](k, j) = bin::readFloat(file);
+				weights[i](k, j) = bin::readdouble(file);
 			}
 		}
 	}
@@ -152,6 +153,18 @@ Mat Network::getLayerWeights(int layer)
 	return weights[layer];
 }
 
+Vec Network::feed_forward(Vec & x)
+{
+	Mat a(x); // Matrix operations return a matrix and not a vector, so we have to work with matrices here
+	for (int i = 0; i < layers - 1; i++)
+	{
+		cout << "A after layer " << (i + 1) << endl;
+		a = np::sigmoid((weights[i] * a) + biases[i]);
+		a.visualize();
+	}
+	return Vec(a); // Now we can safely convert back to a vector
+}
+
 void Network::save(string file_name)
 {
 	fstream file;
@@ -167,7 +180,7 @@ void Network::save(string file_name)
 	{
 		for (int j = 0; j < sizes[i + 1]; j++)
 		{
-			bin::writeFloat(file, biases[i](j));
+			bin::writedouble(file, biases[i](j));
 		}
 	}
 	bin::writeInt(file, 12);
@@ -179,7 +192,7 @@ void Network::save(string file_name)
 		{
 			for (int k = 0; k < l2; k++)
 			{
-				bin::writeFloat(file, weights[i](k, j));
+				bin::writedouble(file, weights[i](k, j));
 			}
 		}
 	}

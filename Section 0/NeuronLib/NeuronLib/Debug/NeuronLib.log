@@ -1,5 +1,8 @@
 ﻿  Network.cpp
-c:\users\yotam\documents\xai\section 0\neuronlib\neuronlib\network.cpp(32): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\yotam\documents\xai\section 0\neuronlib\neuronlib\network.cpp(47): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\yotam\documents\xai\section 0\neuronlib\neuronlib\np.h(13): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\yotam\documents\xai\section 0\neuronlib\neuronlib\np.h(22): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+  Generating Code...
+  Skipping... (no relevant changes detected)
+  Source.cpp
   NeuronLib.vcxproj -> C:\Users\yotam\Documents\xAI\Section 0\NeuronLib\Debug\NeuronLib.exe
   NeuronLib.vcxproj -> C:\Users\yotam\Documents\xAI\Section 0\NeuronLib\Debug\NeuronLib.pdb (Partial PDB)
