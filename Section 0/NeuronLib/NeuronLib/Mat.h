@@ -82,6 +82,11 @@ public:
 	Mat operator/(float f);
 
 	/*
+	Matrix multiplication (dot product)
+	*/
+	Mat operator*(Mat& ref);
+
+	/*
 	Negates the matrix (-mat)
 	*/
 	static Mat neg(Mat& mat);
