@@ -22,6 +22,8 @@ public:
 	Mat getLayerWeights(int layer);
 
 	Vec feed_forward(Vec& x);
+	void train(const vector<Vec*>& x, const vector<Vec*>& y, int epochs, int mini_batch_size, double learning_rate, const vector<Vec*>& tx = vector<Vec*>(), const function<bool(int, Vec&)>& pred = [](int a, Vec& b) -> bool {});
+
 
 	void save(string file_name); // To save to file
 
@@ -33,5 +35,9 @@ private:
 
 	Vec *biases;
 	Mat *weights;
+
+	void update_mini_batch(vector<Vec*> x, vector<Vec*> y, double learning_rate);
+	double evaluate(vector<Vec*> x, const function<bool(int, Vec&)>& pred);
+	tuple<Mat*, Mat*> backprop(Vec& x, Vec& y);
 };
 

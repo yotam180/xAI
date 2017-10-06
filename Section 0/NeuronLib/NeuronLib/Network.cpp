@@ -1,5 +1,9 @@
 #include "Network.h"
 #include <fstream>
+#include <random>
+#include <algorithm>
+#include <iterator>
+#include <functional>
 
 #include "binfile.h"
 #include "np.h"
@@ -53,6 +57,7 @@ Network::Network(int layers, int *sizes)
 
 Network::Network(const Network & ref)
 {
+	// TODO make this one again (disappeared from the commit for a mysterious reason)
 }
 
 Network::Network(string file_name)
@@ -165,6 +170,50 @@ Vec Network::feed_forward(Vec & x)
 	return Vec(a); // Now we can safely convert back to a vector
 }
 
+void Network::train(const vector<Vec*>& x, const vector<Vec*>& y, int epochs, int mini_batch_size, double learning_rate, const vector<Vec*>& tx, const function<bool(int, Vec&)>& pred)
+{
+	if (x.size() != y.size())
+	{
+		throw string("x and y sizes must be the same!");
+	}
+	int n = x.size();
+	bool test = tx.size() > 0;
+
+	for (int epoch = 0; epoch < epochs; epoch++)
+	{
+		// Shuffling x and y
+		vector<int> indexes;
+		indexes.reserve(n);
+		for (int i = 0; i < n; i++) indexes.push_back(i);
+		std::random_shuffle(indexes.begin(), indexes.end());
+		
+		for (int b = 0; b < n; n += mini_batch_size)
+		{
+			// Creating a mini-batch
+			vector<Vec*> _x, _y;
+			_x.reserve(mini_batch_size);
+			_y.reserve(mini_batch_size);
+			for (int i = 0; i < mini_batch_size && b + i < n; i++)
+			{
+				_x.push_back(x[indexes[b + i]]);
+				_y.push_back(y[indexes[b + i]]);
+			}
+
+			// "Learning" the mini-batch
+			update_mini_batch(_x, _y, learning_rate);
+
+			if (test)
+			{
+				cout << "Epoch " << epoch << ": " << evaluate(tx, pred) * 100 << "%" << endl;
+			}
+			else
+			{
+				cout << "Epoch " << epoch << endl;
+			}
+		}
+	}
+}
+
 void Network::save(string file_name)
 {
 	fstream file;
@@ -204,4 +253,55 @@ Network & Network::operator=(const Network & ref)
 {
 	// TODO: insert return statement here
 	return *this;
+}
+
+void Network::update_mini_batch(vector<Vec*> x, vector<Vec*> y, double learning_rate)
+{
+	Mat *nb = new Mat[layers - 1];
+	Mat *nw = new Mat[layers - 1];
+
+	for (int i = 0; i < layers - 1; i++)
+	{
+		nb[i] = Mat(biases[i].height(), biases[i].width());
+		nw[i] = Mat(weights[i].height(), weights[i].width());
+	}
+
+	int n = x.size();
+
+	for (int i = 0; i < n; i++)
+	{
+		tuple<Mat*, Mat*> deltas = backprop(*x[i], *y[i]);
+		Mat *delta_nb = std::get<0>(deltas);
+		Mat *delta_nw = std::get<1>(deltas);
+		for (int j = 0; j < layers - 1; j++)
+		{
+			nb[j] = nb[j] + delta_nb[j];
+			nw[j] = nw[j] + delta_nw[j];
+		}
+	}
+
+	for (int i = 0; i < layers - 1; i++)
+	{
+		biases[i] = biases[i] - ((learning_rate / n) * nb[i]);
+		weights[i] = weights[i] - ((learning_rate  / n) * nw[i]);
+	}
+}
+
+double Network::evaluate(vector<Vec*> x, const function<bool(int, Vec&)>& pred)
+{
+	if (x.size() == 0)
+		return 0;
+
+	int success = 0;
+	for (int i = 0; i < x.size(); i++)
+	{
+		Vec result = feed_forward(*x[i]);
+		success += 1 * pred(i, result);
+	}
+	return (double)success / (double)x.size();
+}
+
+tuple<Mat*, Mat*> Network::backprop(Vec & x, Vec & y)
+{
+	return tuple<Mat*, Mat*>(0, 0);
 }
