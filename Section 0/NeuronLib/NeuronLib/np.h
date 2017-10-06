@@ -5,20 +5,28 @@
 namespace np
 {
 	/*
-	To perform exponent e^x
+	To perform exponent e^x for a matrix (or vector)
 	*/
-	float exp(float z)
+	Mat _exp(const Mat &ref)
 	{
-		return exp(z);
+		return Mat::mask(ref, [](double v) -> double {
+			return expf(v);
+		});
 	}
 
 	/*
-	To perform exponent e^x for a matrix (or vector)
+	To compute the sigmoid value of z
 	*/
-	Mat exp(Mat &ref)
+	double sigmoid(double z)
 	{
-		return Mat::mask(ref, [](float v) -> int {
-			return exp(v);
-		});
+		return 1 / (1 + expf(z));
+	}
+
+	/*
+	To compute the sigmoid value of matrix z
+	*/
+	Mat sigmoid(const Mat& z)
+	{
+		return 1 / (1 + _exp(z)); // I would not lie. I really love myself for this line of code.
 	}
 }

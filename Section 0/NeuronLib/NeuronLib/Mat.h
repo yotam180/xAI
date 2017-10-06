@@ -15,20 +15,20 @@ class Mat
 public:
 	Mat();
 	Mat(int height, int width);
-	Mat(int height, int width, float *data);
-	//Mat(int height, int width, const std::function<float(int, int)>& pred);
+	Mat(int height, int width, double *data);
+	//Mat(int height, int width, const std::function<double(int, int)>& pred);
 	Mat(const Mat& ref);
 	~Mat();
 
 	/*
 	Returns the height (1st dimension) of the matrix
 	*/
-	int height();
+	int height() const;
 
 	/*
 	Returns the width (2nd dimension) of the matrix
 	*/
-	int width();
+	int width() const;
 
 
 	/*
@@ -40,7 +40,7 @@ public:
 	/*
 	Random access to a specific matrix element at (row, col)
 	*/
-	virtual float& operator()(int row, int col) const;
+	virtual double& operator()(int row, int col) const;
 
 	/*
 	Copy-assignment operator
@@ -60,7 +60,7 @@ public:
 	/*
 	Matrix addition by scalar
 	*/
-	Mat operator+(float f) const;
+	Mat operator+(double f) const;
 
 	/*
 	Matrix substraction
@@ -70,17 +70,17 @@ public:
 	/*
 	Matrix substraction by scalar
 	*/
-	Mat operator-(float f) const;
+	Mat operator-(double f) const;
 
 	/*
 	Matrix multiplication by scalar
 	*/
-	Mat operator*(float f) const;
+	Mat operator*(double f) const;
 
 	/*
 	Matrix division by scalar
 	*/
-	Mat operator/(float f) const;
+	Mat operator/(double f) const;
 
 	/*
 	Matrix multiplication (dot product)
@@ -103,15 +103,15 @@ public:
 	For every (i,j) in ([0,h], [0,w]) in mat, runs the predicate with (mat[i,j], i, j) 
 		and sets result[i,j] to the result from the predicate.
 	*/
-	static Mat mask(const Mat& mat, const std::function<float(float, int, int)>& pred);
-	static Mat mask(const Mat& mat, const std::function<float(float)>& pred);
+	static Mat mask(const Mat& mat, const std::function<double(double, int, int)>& pred);
+	static Mat mask(const Mat& mat, const std::function<double(double)>& pred);
 
 protected:
 	// The dimensions of the matrix
 	int h = 0, w = 0;
 
 	// The data of the matrix
-	float* vals = nullptr;
+	double* vals = nullptr;
 
 private:
 	/*
@@ -123,19 +123,19 @@ private:
 /*
 Matrix addition by scalar (scalar first)
 */
-Mat operator+(float scalar, Mat& mat);
+Mat operator+(double scalar, Mat& mat);
 
 /*
 Negated matrix addition by scalar (scalar first)
 */
-Mat operator-(float scalar, Mat& mat);
+Mat operator-(double scalar, Mat& mat);
 
 /*
 Matrix multiplication by scalar (scalar first)
 */
-Mat operator*(float scalar, Mat& mat);
+Mat operator*(double scalar, Mat& mat);
 
 /*
 Inversed matrix multiplication by scalar (scalar first)
 */
-Mat operator/(float scalar, Mat& mat);
+Mat operator/(double scalar, Mat& mat);

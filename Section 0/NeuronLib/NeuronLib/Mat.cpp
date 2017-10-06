@@ -26,7 +26,7 @@ Constructs a zero-filled matrix of dimensions height,width
 */
 Mat::Mat(int height, int width)
 {
-	this->vals = new float[height * width];
+	this->vals = new double[height * width];
 	this->h = height;
 	this->w = width;
 	for (int i = 0; i < h; i++)
@@ -42,11 +42,11 @@ Mat::Mat(int height, int width)
 Constructs a matrix with dimensions of height,width and fills it with data
 data is preferred to be a pointer-cast of a 2d array.
 */
-Mat::Mat(int height, int width, float * data)
+Mat::Mat(int height, int width, double * data)
 {
 	this->h = height;
 	this->w = width;
-	this->vals = new float[h * w];
+	this->vals = new double[h * w];
 	for (int i = 0; i < h; i++)
 	{
 		for (int j = 0; j < w; j++)
@@ -56,11 +56,11 @@ Mat::Mat(int height, int width, float * data)
 	}
 }
 
-/*Mat::Mat(int height, int width, const function<float(int, int)>& pred)
+/*Mat::Mat(int height, int width, const function<double(int, int)>& pred)
 {
 	h = height;
 	w = width;
-	vals = new float[h * w];
+	vals = new double[h * w];
 	for (int i = 0; i < h; i++)
 	{
 		for (int j = 0; j < w; j++)
@@ -77,7 +77,7 @@ Mat::Mat(const Mat & ref)
 {
 	this->h = ref.h;
 	this->w = ref.w;
-	this->vals = new float[h * w];
+	this->vals = new double[h * w];
 	for (int i = 0; i < h; i++)
 	{
 		for (int j = 0; j < w; j++)
@@ -99,7 +99,7 @@ Mat::~Mat()
 /*
 Returns the height of the matrix (1st dimension)
 */
-int Mat::height()
+int Mat::height() const
 {
 	return h;
 }
@@ -107,7 +107,7 @@ int Mat::height()
 /*
 Returns the width of the matrix (2nd dimension)
 */
-int Mat::width()
+int Mat::width() const
 {
 	return w;
 }
@@ -116,7 +116,7 @@ int Mat::width()
 Random access operator (row, col) to a matrix element.
 Can be used to get and set.
 */
-float & Mat::operator()(int row, int col) const
+double & Mat::operator()(int row, int col) const
 {
 	return *(vals + row * w + col);
 }
@@ -130,7 +130,7 @@ Mat & Mat::operator=(const Mat & ref)
 	this->w = ref.w;
 	if (vals != nullptr)
 		delete[] this->vals;
-	this->vals = new float[h * w];
+	this->vals = new double[h * w];
 
 	for (int i = 0; i < h; i++)
 	{
@@ -166,7 +166,7 @@ Adds two matrices and returns the result
 Mat Mat::operator+(const Mat & ref) const
 {
 	validate_same_size(ref);
-	return Mat::mask(ref, [this](float v, int row, int col) -> int {
+	return Mat::mask(ref, [this](double v, int row, int col) -> double {
 		return (*this)(row, col) + v;
 	});
 }
@@ -174,9 +174,9 @@ Mat Mat::operator+(const Mat & ref) const
 /*
 Adds a scalar to a matrix and returns the result.
 */
-Mat Mat::operator+(float f) const
+Mat Mat::operator+(double f) const
 {
-	return Mat::mask(*this, [f](float v) -> int {
+	return Mat::mask(*this, [f](double v) -> double {
 		return v + f;
 	});
 }
@@ -184,28 +184,28 @@ Mat Mat::operator+(float f) const
 Mat Mat::operator-(const Mat & ref) const
 {
 	validate_same_size(ref);
-	return Mat::mask(ref, [this](float v, int row, int col) -> int {
+	return Mat::mask(ref, [this](double v, int row, int col) -> double {
 		return (*this)(row, col) - v;
 	});
 }
 
-Mat Mat::operator-(float f) const
+Mat Mat::operator-(double f) const
 {
-	return Mat::mask(*this, [f](float v) {
+	return Mat::mask(*this, [f](double v) {
 		return v - f;
 	});
 }
 
-Mat Mat::operator*(float f) const
+Mat Mat::operator*(double f) const
 {
-	return Mat::mask(*this, [f](float v) {
+	return Mat::mask(*this, [f](double v) {
 		return v * f;
 	});
 }
 
-Mat Mat::operator/(float f) const
+Mat Mat::operator/(double f) const
 {
-	return Mat::mask(*this, [f](float v) {
+	return Mat::mask(*this, [f](double v) {
 		return v / f;
 	});
 }
@@ -221,7 +221,7 @@ Mat Mat::operator*(const Mat & ref) const
 	{
 		for (int col = 0; col < ref.w; col++)
 		{
-			float sum = 0;
+			double sum = 0;
 			for (int i = 0; i < w; i++)
 			{
 				sum += (*this)(row, i) * ref(i, col);
@@ -234,19 +234,19 @@ Mat Mat::operator*(const Mat & ref) const
 
 Mat Mat::neg(const Mat & mat)
 {
-	return Mat::mask(mat, [](float v) {
+	return Mat::mask(mat, [](double v) {
 		return -v;
 	});
 }
 
 Mat Mat::inv(const Mat & mat)
 {
-	return Mat::mask(mat, [](float v) {
+	return Mat::mask(mat, [](double v) {
 		return 1/v;
 	});
 }
 
-Mat Mat::mask(const Mat & matrix, const std::function<float(float, int, int)>& pred)
+Mat Mat::mask(const Mat & matrix, const std::function<double(double, int, int)>& pred)
 {
 	Mat result(matrix.h, matrix.w);
 	for (int i = 0; i < matrix.h; i++)
@@ -259,7 +259,7 @@ Mat Mat::mask(const Mat & matrix, const std::function<float(float, int, int)>& p
 	return result;
 }
 
-Mat Mat::mask(const Mat & matrix, const std::function<float(float)>& pred)
+Mat Mat::mask(const Mat & matrix, const std::function<double(double)>& pred)
 {
 	Mat result(matrix.h, matrix.w);
 	for (int i = 0; i < matrix.h; i++)
@@ -299,30 +299,30 @@ void Mat::visualize()
 	cout << "]" << endl;
 }
 
-Mat operator+(float scalar, Mat & mat)
+Mat operator+(double scalar, Mat & mat)
 {
-	return Mat::mask(mat, [scalar](float v) {
+	return Mat::mask(mat, [scalar](double v) {
 		return scalar + v;
 	});
 }
 
-Mat operator-(float scalar, Mat & mat)
+Mat operator-(double scalar, Mat & mat)
 {
-	return Mat::mask(mat, [scalar](float v) {
+	return Mat::mask(mat, [scalar](double v) {
 		return scalar - v;
 	});
 }
 
-Mat operator*(float scalar, Mat & mat)
+Mat operator*(double scalar, Mat & mat)
 {
-	return Mat::mask(mat, [scalar](float v) {
+	return Mat::mask(mat, [scalar](double v) {
 		return scalar * v;
 	});
 }
 
-Mat operator/(float scalar, Mat & mat)
+Mat operator/(double scalar, Mat & mat)
 {
-	return Mat::mask(mat, [scalar](float v) {
+	return Mat::mask(mat, [scalar](double v) {
 		return scalar / v;
 	});
 }

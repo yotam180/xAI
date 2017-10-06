@@ -1,10 +1,10 @@
 #include "Vec.h"
 
-Vec::Vec(int dim, const function<float(int)>& pred)
+Vec::Vec(int dim, const function<double(int)>& pred)
 {
 	h = dim;
 	w = 1;
-	vals = new float[h];
+	vals = new double[h];
 	for (int i = 0; i < h; i++)
 	{
 		(*this)(i) = pred(i);
@@ -15,7 +15,7 @@ Vec::~Vec()
 {
 }
 
-float & Vec::operator()(int row) const
+double & Vec::operator()(int row) const
 {
 	return *(vals + row);
 }
