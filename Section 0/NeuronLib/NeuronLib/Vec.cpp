@@ -1,8 +1,3 @@
-#pragma once
-#ifdef UNIT_TEST
-#include "stdafx.h"
-#endif
-
 #include "Vec.h"
 
 Vec::Vec(int dim, const function<double(int)>& pred)

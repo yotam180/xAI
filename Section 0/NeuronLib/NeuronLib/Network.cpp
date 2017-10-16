@@ -1,8 +1,3 @@
-#pragma once
-#ifdef UNIT_TEST
-#include "stdafx.h"
-#endif
-
 #include "Network.h"
 #include <fstream>
 #include <random>

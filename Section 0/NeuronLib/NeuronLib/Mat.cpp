@@ -5,15 +5,6 @@
  * 
  */
 
-// This declaration is for unit testing,
-// for enabling stdafx only in unit test mode.
-// Please paste the following 3 lines at the 
-// top of every *.cpp file you want to unit test.
-#pragma once
-#ifdef UNIT_TEST
-#include "stdafx.h"
-#endif
-
 #include "Mat.h"
 #include <iostream>
 
