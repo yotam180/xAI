@@ -11,11 +11,11 @@ using namespace std;
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 namespace UnitTest1
-{		
+{
 	TEST_CLASS(MatrixUnitTesting)
 	{
 	public:
-		
+
 		TEST_METHOD(ValidMatrixMatrixAddition)
 		{
 			double a[][3] = {
@@ -62,6 +62,33 @@ namespace UnitTest1
 				Mat mb(3, 4, (double*)b);
 				Mat me = ma + mb;
 			});
+		}
+
+		TEST_METHOD(ScalarMatrixMultiplication)
+		{
+			double a[][3] = {
+				{ 1, 2, 3 },
+				{ 6, 4, 2.3 },
+				{ 1, 9, 9 }
+			};
+			Mat ma(3, 3, (double*)a);
+			double e[][3] = {
+				{ 5, 10, 15 },
+				{ 30, 20, 11.5 },
+				{ 5, 45, 45 }
+			};
+			Mat me(3, 3, (double*)e);
+			Mat mr = ma * 5;
+			Mat mr2 = 5 * ma;
+			Mat mr3 = ma * 5.0;
+			Mat mr4 = 5.0 * ma;
+			Mat mr5 = ma / 0.2;
+
+			Assert::IsTrue(mr == me);
+			Assert::IsTrue(mr2 == me);
+			//Assert::IsTrue(mr3 == me);
+			//Assert::IsTrue(mr4 == me);
+			//Assert::IsTrue(mr5 == me);
 		}
 	};
 }

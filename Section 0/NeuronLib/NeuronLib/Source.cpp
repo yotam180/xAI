@@ -10,12 +10,22 @@ using namespace std;
 int main(void)
 {
 	srand(time(NULL));
-	int sizes[] = { 5, 3, 4 };
-	Network n(3, sizes);
-	double input[] = { 1, 0.5, 0, 0.3, 0.7 };
-	Vec x(5, (double*)input);
-	Vec y = n.feed_forward(x);
-	y.visualize();
+	double a[][3] = {
+		{ 1, 2, 3 },
+		{ 6, 4, 2.3 },
+		{ 1, 9, 9 }
+	};
+	Mat ma(3, 3, (double*)a);
+	double e[][3] = {
+		{ 5, 10, 15 },
+		{ 30, 20, 11.5 },
+		{ 5, 45, 45 }
+	};
+	Mat me(3, 3, (double*)e);
+	Mat mr = ma * 5;
+	Mat mr2 = 5 * ma;
+	Mat mr3 = ma / (1.0 / 5.0);
+	mr3.visualize();
 
 	system("pause");
 	return 0;
