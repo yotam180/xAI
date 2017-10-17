@@ -5,8 +5,10 @@ VisualStudioVersion = 15.0.26228.9
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "NeuronLib", "NeuronLib\NeuronLib.vcxproj", "{839C1B45-8D1C-4709-897F-59A55E44A0D4}"
 EndProject
+<<<<<<< HEAD
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UnitTest1", "UnitTest1\UnitTest1.vcxproj", "{B6CFE9C4-EDD2-40B4-8874-A5E8DBE4D733}"
 EndProject
+=======
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -23,14 +25,6 @@ Global
 		{839C1B45-8D1C-4709-897F-59A55E44A0D4}.Release|x64.Build.0 = Release|x64
 		{839C1B45-8D1C-4709-897F-59A55E44A0D4}.Release|x86.ActiveCfg = Release|Win32
 		{839C1B45-8D1C-4709-897F-59A55E44A0D4}.Release|x86.Build.0 = Release|Win32
-		{B6CFE9C4-EDD2-40B4-8874-A5E8DBE4D733}.Debug|x64.ActiveCfg = Debug|x64
-		{B6CFE9C4-EDD2-40B4-8874-A5E8DBE4D733}.Debug|x64.Build.0 = Debug|x64
-		{B6CFE9C4-EDD2-40B4-8874-A5E8DBE4D733}.Debug|x86.ActiveCfg = Debug|Win32
-		{B6CFE9C4-EDD2-40B4-8874-A5E8DBE4D733}.Debug|x86.Build.0 = Debug|Win32
-		{B6CFE9C4-EDD2-40B4-8874-A5E8DBE4D733}.Release|x64.ActiveCfg = Release|x64
-		{B6CFE9C4-EDD2-40B4-8874-A5E8DBE4D733}.Release|x64.Build.0 = Release|x64
-		{B6CFE9C4-EDD2-40B4-8874-A5E8DBE4D733}.Release|x86.ActiveCfg = Release|Win32
-		{B6CFE9C4-EDD2-40B4-8874-A5E8DBE4D733}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
