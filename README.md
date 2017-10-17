@@ -18,7 +18,7 @@ This repository is being Auto-Secured and Unit-Tested by [![](https://i.imgur.co
 
 ### Shai Kimhi ###
 
-!(**Set a profile pic and remove this text**)[](https://avatars1.githubusercontent.com/u/24625060?s=200)
+![](https://avatars1.githubusercontent.com/u/24625060?s=200)
 
 *[About yourself here]*
 
