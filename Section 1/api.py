@@ -1,4 +1,6 @@
 import os
+import photosDownload as Pdownload
+import shutil
 def findFilesFormat(formatter):
     list = []
     l = os.listdir(os.getcwd())
@@ -8,10 +10,20 @@ def findFilesFormat(formatter):
             if(parts[len(parts)-1].lower()==formatter.lower()):
                 list.append(file)
     return list
-def formatPng():
-    
-l = findFilesFormat("png")
+def formatPng(file):
+    input()#to be changed
+def deleteFD(name):
+    l = name.split(".")
+    if(len(l)>1):
+        os.remove(name)
+    else:
+        shutil.rmtree(name)
+def iterateDownload(search,keyWords):
+    if("output" in os.listdir(os.getcwd())):
+        deleteFD("output")
+    Pdownload.download(search,keyWords)
+l = ["one","two","three"]
 for i in l:
-    print i
+    iterateDownload([str(i)],[""])
                 
     
