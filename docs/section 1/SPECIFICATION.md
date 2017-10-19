@@ -2,72 +2,46 @@
 
 ## 1. _Purpose_ ##
 
-Delineate the purpose of the software to be specified.
 
-> Partial example: The goal of this project is to provide a mobile application for Restaurant Clients and a web-portal for Restaurant Owners and Company’s administrators.
+The goal of this project is to provide an API for programmers to easily classify and process the contents of images, and by that to demonstrate the capabilites and concepts of Supervised Learning in the field of Machine Leraning.
 
 ## 2. _Scope_ ##
 
-Describe the scope of the software under consideration by:
-
-+ Identifying the software product(s) to be produced by name;
-+ Explaining what the software product(s) will do;
-+ Describing the application of the software being specified, including relevant benefits, objectives, and goals;
-+ Being consistent with similar statements in higher-level specifications (e.g., the system requirements specification), if they exist.
-
-> Partial example: The “Amazing Restaurant Finder” is a GPS-based mobile application, which helps people to find the closest restaurants based on the user’s current position, price, restaurant type and dish. Users view desired restaurants on a map and get navigation to them.
-> Restaurant owners provide their restaurant information using the web-portal.
-An administrator of the web-portal verifies restaurant owners and manages user information.
+The "xAI Vision" is an API, publically available in various interfaces, which's purpose is to recognize images' contents and to classify them, in a simple way for new programmers to integrate with and for novice researchers in the field of AI to get along with neural network design concepts via the open source nature of the project.
 
 ## 3. _Product Perspective_ ##
 
-Define the system's relationship to other related products. If the product is an element of a larger system, then relate the requirements of that larger system to the functionality of the product covered by the SRS. If the product is an element of a larger system, then identify the interfaces between the product covered by the SRS and the larger system of which the product is an element.
-
-A block diagram showing the major elements of the larger system, interconnections, and external interfaces can be helpful.
-
-Describe how the software operates within the following constraints:
-
-+ System interfaces;
-+ User interfaces;
-+ Hardware interfaces;
-+ Software interfaces;
-+ Communications interfaces;
-+ Site adaptation requirements.
-
-> Partial example: The mobile application requires both Internet and GPS connection to fetch and display results. All system information is maintained in a database, which is located on a web-server. The mobile application interacts with the GPS-Navigator software, which is required to be already installed on the user’s mobile phone.
+The REST API would have to communicate over Internet Network.
 
 ### 3.1 _System Interfaces_ ###
 
-List each system interface and identify the functionality of the software to accomplish the system requirement and the interface description to match the system.
+1. Microsoft's **httpd** for HTTP server (REST API server)
+2. Possible - GPU card for network training acceleration.
 
 ### 3.2 _User Interfaces_ ###
 
-+ **The logical characteristics of each interface between the software product and its users.** This includes those configuration characteristics (e.g., required screen formats, page or window layouts, content of any reports or menus, or availability of programmable function keys) necessary to accomplish the software requirements.
-+ **All the aspects of optimizing the interface with the person who uses, maintains, or provides other support to the system.** This may simply comprise a list of do's and don'ts on how the system will appear to the user. One example may be a requirement for the option of long or short error messages.
-
->Partial example: A first-time user of the mobile application should see the log-in page when he/she opens the application, see Figure 2. If the user has not registered, he/she should be able to do that on the log-in page. If the user is not a first-time user, he/she should be able to see the search page directly when the application is opened, see Figure 3. Here, the user chooses the type of search he/she wants to conduct.
+> A newcoming user will enter the GUI version of the software, will see 3 options - extending categories, creating categories, and classifying images. No login would be required for the demo GUI version.
 > 
->Every user should have a profile page where they can edit their e-mail address, phone number and password, see Figure 4. Also, the user can set the mobile application to his/her preferred language.
+> Selecting the 'create category' button would lead to a different form. The user will be asked to enter iamge URLs or select local storage images that apply for the category. The user will also be asked if they wish to create the category locally on their computer, or train the global network on the xAI vision servers. After submission, they will be asked to verify that a list of random images they will be given is **not** of the same categoy they have just created. They will be able to verify or mark the image as correct, and they will be applied to the same category. The user will be asked if they wish to enter specific images that do not classify to their newly created category. After the progress is done, they are redirected to the main screen.
+> 
+> Clicking the 'extend category' will show an alphabetically ordered list of all registered classes. After choosing a class to extend, they will be able to upload images and select if they classify to the category or not.
+> 
+> Clicking the 'classify image' will show a form, asking the user to enter an image. After entring an image the user will be shown the results of the network feed-forward (what the image was classified as) and will be given some similar images from the same category.
 
-![](https://belitsoft.com/sites/default/files/assets/software-requirement-specification-example-1.png)
+[ optional - entering images]
 
 ### 3.3 _Hardware Interfaces_ ###
 
-Specify the logical characteristics of each interface between the software product and the hardware elements of the system. This includes configuration characteristics (number of ports, instruction sets, etc.). It also covers such matters as what devices are to be supported, how they are to be supported, and protocols. For example, terminal support may specify full-screen support as opposed to line-by-line support.
+The system has no hardware interfaces.
 
 ### 3.4 _Software Interfaces_ ###
 
-Specify the use of other required software products (e.g., a data management system, an operating system, or a mathematical package), and interfaces with other application systems (e.g., the linkage between an accounts receivable system and a general ledger system).
+#### C++ NeuronLib interface ####
+An own-made interface for mathematical operations and for neural networks, providing a fast way to perform mathematical calculations and to design convolutional neural networks. 
+ 
+The interface mainly defines the `Mat` (matrix) and `Vec` (vector) classes, and multiple and various math operations like `dot`, `cross`, `+ - * /`, masking operations and different utilities to work with mathematical objects. 
 
-For each required software product, specify:
-
-+ Specification number;
-+ Version number;
-
-For each interface specify:
-
-+ Discussion of the purpose of the interfacing software as related to this software product;
-+ Definition of the interface in terms of message content and format. It is not necessary to detail any well-documented interface, but a reference to the document defining the interface is required.
+All source code for the library is included and self-made (no 3rd party software).
 
 ### 3.5 _Communication Interfaces_ ###
 
