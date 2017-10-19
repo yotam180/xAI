@@ -1,4 +1,5 @@
-# xAI
+# xAI [![Build status](https://ci.appveyor.com/api/projects/status/tauop0ntg9w83npp?svg=true)](https://ci.appveyor.com/project/yotam180/xai)
+
 xAI - A Research Project in the Field of Machine Learning
 
 ## Do you watch us from GitLab™? #
