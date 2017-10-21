@@ -1,6 +1,4 @@
-# xAI [![Build status](https://ci.appveyor.com/api/projects/status/tauop0ntg9w83npp?svg=true)](https://ci.appveyor.com/project/yotam180/xai)
-
-xAI - A Research Project in the Field of Machine Learning
+# xAI <span style='font-size: medium;'>- A Research Project in the Field of Machine Learning</span> <br/> [![Build status](https://ci.appveyor.com/api/projects/status/tauop0ntg9w83npp?svg=true)](https://ci.appveyor.com/project/yotam180/xai) [![BCH compliance](https://bettercodehub.com/edge/badge/yotam180/xAI?branch=master)](https://bettercodehub.com/)
 
 ## Do you watch us from GitLab™? #
 
