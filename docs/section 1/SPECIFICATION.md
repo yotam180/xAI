@@ -3,7 +3,7 @@
 
 ## Features and main processes ##
 
-#### Adding a category ###
+### Adding a category ###
 
 **The GUI-demo version** of *xAI Vision* will provide a form to add a new category. The simple form will have a text-box, in which the user would enter a category id, and a second text-box in which the user would enter the category's preview name. Beneath that will be a button to add the category. The software will check that there the same category id does not exist yet, and if so - an error message will be shown. Otherwise, the system will add the category to the storage and redirect the user to the main form.
 
@@ -13,7 +13,7 @@
 
 *not accessible for developers to use. The public API would not provide a way to add a category for safety.
 
-#### Adding an image to a category ####
+### Adding an image to a category ###
 
 **The GUI demo-version** would provide a form to insert single/multiple images and classify them for a specific category. // Todo: finish this section
 
