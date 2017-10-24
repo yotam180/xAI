@@ -1,0 +1,7 @@
+exclude:
+- /gitlab/.*
+component_depth: 1
+languages:
+- cpp
+- javascript
+- python
