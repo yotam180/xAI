@@ -33,4 +33,8 @@ the user will be able to select a common category to apply those images to. Afte
 
 ## Non-functional requirements ##
 
-[ Enter here ]
+***For using interfaces:***
+*1. .NET Framework*
+*2. Python 2.7/3*
+*3. Web Browser*
+*4. Internet Connection*
