@@ -1,7 +1,7 @@
-# Section 2 (reinforcement learning) Game playing bot #
+# Section 3 (reinforcement learning) Game playing bot #
 
 ### Goal ###
-The goal of section 2 is to make a bot that can successfully play a 2-player turn-based game. More specifically, Othello.
+The goal of section 3 is to make a bot that can successfully play a 2-player turn-based game. More specifically, Othello.
 That, without being explicitly programmed with algorithms, but only trained with examples.
 
 ### Process ###
