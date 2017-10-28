@@ -30,7 +30,7 @@ the user will be able to select a common category to apply those images to. Afte
 ## User interface visualization ##
 
 **WF version:**
-![Uploading a picture](Uploading Picture.PNG)
+![Uploading a picture](K:\xAI\docs\xAI VisionUploading Picture.PNG)
 
 ## Non-functional requirements ##
 
