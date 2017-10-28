@@ -30,7 +30,13 @@ the user will be able to select a common category to apply those images to. Afte
 ## User interface visualization ##
 
 **WF version:**
+
+*Uploading a picture to server:*
+
 ![Uploading a picture](https://github.com/yotam180/xAI/blob/master/docs/xAI%20Vision/Uploading%20Picture.PNG?raw=true)
+
+
+*Downloading a picture from the Internet:*
 
 ## Non-functional requirements ##
 

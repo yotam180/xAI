@@ -30,8 +30,6 @@ def removeDirs(dirPath):
     for i in l:
         if isDir(i):
             shutil.rmtree(dirPath+"/"+i)
-l = ["one","two","three"]
-for i in l:
-    iterateDownload([str(i)],[""])
+Pdownload.download(["dog"],["high-resolution"])
                 
     

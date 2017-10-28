@@ -179,6 +179,5 @@ def download(search_keyword,keywords):
 
 #----End of the main program ----#
 
-download(search_keyword1,keywords1)
 # In[ ]:
 
