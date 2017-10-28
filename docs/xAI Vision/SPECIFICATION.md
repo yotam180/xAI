@@ -48,28 +48,44 @@ _More to be detailed about that later_
 
 **WF version:**
 
-*Uploading a picture to server:*
+### Adding an image to a category ###
 
 ![Uploading a picture](https://github.com/yotam180/xAI/blob/master/docs/xAI%20Vision/images/Uploading%20Picture.PNG?raw=true)
 
 
-*Downloading a picture from the Internet:*
+### Verifying images from the internet ###
 
 ![Downloading a picture](https://github.com/yotam180/xAI/blob/master/docs/xAI%20Vision/images/Download1.PNG?raw=true)
 
 ![Downloading a picture](https://github.com/yotam180/xAI/blob/master/docs/xAI%20Vision/images/Download2.PNG?raw=true)
 
-*Setting a new catagory:*
+### Adding a category ###
 
 ![Setting a Catagory](https://github.com/yotam180/xAI/blob/master/docs/xAI%20Vision/images/AddCatagory.PNG?raw=true)
 
-*Testing:*
+### Clasifying an image ###
 
 ![Testing](https://github.com/yotam180/xAI/blob/master/docs/xAI%20Vision/images/Test.PNG?raw=true)
 ## Non-functional requirements ##
 
-***For using interfaces:***
-*1. .NET Framework*
-*2. Python 2.7/3*
-*3. Web Browser*
-*4. Internet Connection*
+### For using the GUI interface: ###
+
+1. .NET Framework
+2. Internet Connection
+
+### For using the API: ###
+
+1. Python 2.7/3 **OR** C++ **OR** .Net Framework
+2. Internet Connection (for REST API calls)
+3. Windows OS (for C++ and .NET versions of the API)
+
+### For the web interface: ###
+
+1. Browser
+2. Internet Connection
+
+### For the application ###
+
+1. Android 4 or better* (TBD)
+2. Some free space on the disc
+3. Internet connection
