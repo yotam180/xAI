@@ -33,15 +33,22 @@ the user will be able to select a common category to apply those images to. Afte
 
 *Uploading a picture to server:*
 
-![Uploading a picture](https://github.com/yotam180/xAI/blob/master/docs/xAI%20Vision/Uploading%20Picture.PNG?raw=true)
+![Uploading a picture](https://github.com/yotam180/xAI/blob/master/docs/xAI%20Vision/images/Uploading%20Picture.PNG?raw=true)
 
 
 *Downloading a picture from the Internet:*
 
-![Downloading a picture](https://github.com/yotam180/xAI/blob/master/docs/xAI%20Vision/Download1.PNG?raw=true)
+![Downloading a picture](https://github.com/yotam180/xAI/blob/master/docs/xAI%20Vision/images/Download1.PNG?raw=true)
 
-![](https://github.com/yotam180/xAI/blob/master/docs/xAI%20Vision/Download2.PNG?raw=true)
+![Downloading a picture](https://github.com/yotam180/xAI/blob/master/docs/xAI%20Vision/images/Download2.PNG?raw=true)
 
+*Setting a new catagory:*
+
+![Setting a Catagory](https://github.com/yotam180/xAI/blob/master/docs/xAI%20Vision/images/AddCatagory.PNG?raw=true)
+
+*Testing:*
+
+![Testing](https://github.com/yotam180/xAI/blob/master/docs/xAI%20Vision/images/Test.PNG?raw=true)
 ## Non-functional requirements ##
 
 ***For using interfaces:***
