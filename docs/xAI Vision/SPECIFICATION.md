@@ -46,26 +46,45 @@ _More to be detailed about that later_
 
 ## User interface visualization ##
 
-**WF version:**
+### WF version ###
 
-### Adding an image to a category ###
+**Adding an image to a category**
 
 ![Uploading a picture](https://github.com/yotam180/xAI/blob/master/docs/xAI%20Vision/images/Uploading%20Picture.PNG?raw=true)
 
 
-### Verifying images from the internet ###
+**Verifying images from the internet**
 
 ![Downloading a picture](https://github.com/yotam180/xAI/blob/master/docs/xAI%20Vision/images/Download1.PNG?raw=true)
 
 ![Downloading a picture](https://github.com/yotam180/xAI/blob/master/docs/xAI%20Vision/images/Download2.PNG?raw=true)
 
-### Adding a category ###
+**Adding a category**
 
 ![Setting a Catagory](https://github.com/yotam180/xAI/blob/master/docs/xAI%20Vision/images/AddCatagory.PNG?raw=true)
 
-### Clasifying an image ###
+**Clasifying an image**
 
 ![Testing](https://github.com/yotam180/xAI/blob/master/docs/xAI%20Vision/images/Test.PNG?raw=true)
+
+### Application ###
+
+**Login screen**
+
+![Login screen](https://raw.githubusercontent.com/yotam180/xAI/master/docs/xAI%20Vision/images/first_form.png)
+
+**Sign up process**
+
+![Sign up](https://raw.githubusercontent.com/yotam180/xAI/master/docs/xAI%20Vision/images/signup.png)
+
+**Main screen**
+
+![Main screen](https://raw.githubusercontent.com/yotam180/xAI/master/docs/xAI%20Vision/images/main_form.png)
+
+**Play screen**
+
+![Play screen](https://raw.githubusercontent.com/yotam180/xAI/master/docs/xAI%20Vision/images/play.png)
+
 ## Non-functional requirements ##
 
 ### For using the GUI interface: ###
