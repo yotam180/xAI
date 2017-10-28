@@ -87,18 +87,18 @@ _More to be detailed about that later_
 
 ## Non-functional requirements ##
 
-### For using the GUI interface: ###
+### For using the GUI interface ###
 
 1. .NET Framework
 2. Internet Connection
 
-### For using the API: ###
+### For using the API ###
 
 1. Python 2.7/3 **OR** C++ **OR** .Net Framework
 2. Internet Connection (for REST API calls)
 3. Windows OS (for C++ and .NET versions of the API)
 
-### For the web interface: ###
+### For the web interface ###
 
 1. Browser
 2. Internet Connection
