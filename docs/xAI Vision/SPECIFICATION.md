@@ -29,7 +29,8 @@ the user will be able to select a common category to apply those images to. Afte
 
 ## User interface visualization ##
 
-[ Enter GUI images and docs here ]
+**WF version:**
+![Uploading a picture](Uploading a Picture.PNG)
 
 ## Non-functional requirements ##
 
