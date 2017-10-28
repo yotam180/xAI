@@ -38,6 +38,10 @@ the user will be able to select a common category to apply those images to. Afte
 
 *Downloading a picture from the Internet:*
 
+![Downloading a picture](https://github.com/yotam180/xAI/blob/master/docs/xAI%20Vision/Download1.PNG?raw=true)
+
+![](https://github.com/yotam180/xAI/blob/master/docs/xAI%20Vision/Download2.PNG?raw=true)
+
 ## Non-functional requirements ##
 
 ***For using interfaces:***
