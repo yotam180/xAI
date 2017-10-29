@@ -133,6 +133,7 @@ More to be detailed about that later. Can be seen in the UI visualisation sectio
 
 1. Browser (with HTML 5 and JavaScript support)
 2. Internet Connection
+3. SSL for internet communication security
 
 ### For the application ###
 
