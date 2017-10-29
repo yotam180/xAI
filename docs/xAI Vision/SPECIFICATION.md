@@ -21,7 +21,7 @@ the user will be able to select a common category to apply those images to. Afte
 
 **The API version** will sign a function `classifier.sign_category(image : image, category : string) : void` and an overload `classifier.sign_category(image : image, categories: string[]) : void` that will take an image and category/ies and will train the network using the image.
 
-**In the web version** there will be a form similar to the form of the local network to upload a single image or multiple images. Additionally, there will be a form with an option to receive a random image and apply tags to it. 
+**In the web Interface** there will be a form similar to the form of the local network to upload a single image or multiple images. Additionally, there will be a form with an option to receive a random image and apply tags to it. 
 
 ### Clasifying an image ###
 
