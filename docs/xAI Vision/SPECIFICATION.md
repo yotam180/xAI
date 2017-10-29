@@ -65,11 +65,18 @@ Information requirements:
 + The email must be a valid email address
 + The Country combobox must hold an existing country
 
+### Main Screen ###
 
-_More to be detailed about that later_
+The main screen will have 3 buttons: `Play`, `Store` and `Profile`. Play will redirect to the game screen, Store will show the store panel, and Profile will allow the user to edit their profile settings, chaning their profile picture, etc. (in the profile screen).
+
+Below there will be the image of the player, and below it a red button titled 'Log out', that will sign the user out of the application and take the user back to the login screen.
+
+### Play Screen ###
+
+_More to be detailed about that later. Can be seen in the UI visualisation section_
 
 
-## User interface visualization ##
+## User interface visualisation ##
 
 ### WF version ###
 
