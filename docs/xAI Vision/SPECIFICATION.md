@@ -41,6 +41,31 @@ Features it will have:
 + Random game
 + Cosmetic shop
 
+### Login screen ###
+
+A screen featuring a login form with a Facebook authentication logo. On the top, the logo of the application will appear. Below it, 2 text-boxes, `Username` and `Password` that will require the user's information. Below, a `Login` button. On correct login credentials, will be transferred to the main app form. On incorrect credentials, a notification will pop, announcing that an error occured. 
+
+The login form will also feature a Facebook login button, that will automatically sign the user in using their Facebook credentials or account.
+
+Below everything, there will be a Label titled _Don't have an account? Sign up!_ that on click will transfer the user to the sign up page.
+
+### Registration screen ###
+
+Will list textboxes as `Username`, `Password`, `Password confirmation`, `Email`, and a `Country` combobox. Below there will be a registration button. On incorrect information submission, will alert an error message. Otherwise, will add the user to the storage and redirect the user to the email verification process.
+
+Information requirements: 
++ Username must be at least 8 characters
++ Username can be at max 30 characters
++ Password must be at least 8 characters
++ Password can be at max 50 characters
++ Password must contain a number
++ Password must contain an uppercase letter
++ Password must contain a lowercase letter
++ Password confirmation must be the same as the password
++ The email must be a valid email address
++ The Country combobox must hold an existing country
+
+
 _More to be detailed about that later_
 
 
