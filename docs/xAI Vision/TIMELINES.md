@@ -1,3 +1,4 @@
 # Timelines for _xAI Vision_
 
-+ **30/11/2017** - Confidence about 
++ **15/11/2017** - Minimal tech knowledge confidence
++ 
