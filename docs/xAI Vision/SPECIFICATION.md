@@ -73,7 +73,7 @@ Below there will be the image of the player, and below it a red button titled 'L
 
 ### Play Screen ###
 
-_More to be detailed about that later. Can be seen in the UI visualisation section_
+More to be detailed about that later. Can be seen in the UI visualisation section_
 
 
 ## User interface visualisation ##
@@ -121,18 +121,17 @@ _More to be detailed about that later. Can be seen in the UI visualisation secti
 
 ### For using the GUI interface ###
 
-1. .NET Framework
+1. .NET Framework (possible with .NET Core)
 2. Internet Connection
 
 ### For using the API ###
 
 1. Python 2.7/3 **OR** C++ **OR** .Net Framework
 2. Internet Connection (for REST API calls)
-3. Windows OS (for C++ and .NET versions of the API)
 
 ### For the web interface ###
 
-1. Browser
+1. Browser (with HTML 5 and JavaScript support)
 2. Internet Connection
 
 ### For the application ###
