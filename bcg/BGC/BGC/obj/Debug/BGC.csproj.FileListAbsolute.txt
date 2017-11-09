@@ -1,9 +1,0 @@
-C:\Users\yotam\Documents\xAI\Section 0\BGC\BGC\bin\Debug\BGC.exe.config
-C:\Users\yotam\Documents\xAI\Section 0\BGC\BGC\bin\Debug\BGC.exe
-C:\Users\yotam\Documents\xAI\Section 0\BGC\BGC\bin\Debug\BGC.pdb
-C:\Users\yotam\Documents\xAI\Section 0\BGC\BGC\obj\Debug\BGC.csprojResolveAssemblyReference.cache
-C:\Users\yotam\Documents\xAI\Section 0\BGC\BGC\obj\Debug\BGC.Form1.resources
-C:\Users\yotam\Documents\xAI\Section 0\BGC\BGC\obj\Debug\BGC.Properties.Resources.resources
-C:\Users\yotam\Documents\xAI\Section 0\BGC\BGC\obj\Debug\BGC.csproj.GenerateResource.Cache
-C:\Users\yotam\Documents\xAI\Section 0\BGC\BGC\obj\Debug\BGC.exe
-C:\Users\yotam\Documents\xAI\Section 0\BGC\BGC\obj\Debug\BGC.pdb
