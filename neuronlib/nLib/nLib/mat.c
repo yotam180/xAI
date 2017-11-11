@@ -14,6 +14,9 @@ mat * zero_mat(int h, int w)
 	if (m == NULL)
 		return NULL;
 
+	m->h = h;
+	m->w = w;
+
 	// Allocating data buffer
 	m->data = (double*)calloc(h * w, sizeof(double));
 
@@ -82,10 +85,44 @@ mat * clone_mat(mat * ref)
 
 void visualize_mat(mat * ref)
 {
+	printf("[");
+	for (int i = 0; i < ref->h; i++)
+	{
+		if (i != 0)
+			printf(", \n ");
+		printf("[");
+
+		for (int j = 0; j < ref->w; j++)
+		{
+			if (j != 0)
+				printf(", ");
+
+			printf("%.5f", *el(ref, i, j));
+		}
+		printf("]");
+	}
+	printf("]\n");
 }
 
 void visualize_int_mat(mat * ref)
 {
+	printf("[");
+	for (int i = 0; i < ref->h; i++)
+	{
+		if (i != 0)
+			printf(", \n ");
+		printf("[");
+
+		for (int j = 0; j < ref->w; j++)
+		{
+			if (j != 0)
+				printf(", ");
+
+			printf("%.0f", *el(ref, i, j));
+		}
+		printf("]");
+	}
+	printf("]\n");
 }
 
 /*
