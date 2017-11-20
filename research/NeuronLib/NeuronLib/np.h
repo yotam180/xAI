@@ -29,4 +29,12 @@ namespace np
 	{
 		return 1 / (1 + _exp(z)); // I would not lie. I really love myself for this line of code.
 	}
+
+	/*
+	To compute the prime sigmoid value of matrix z
+	*/
+	Mat sigmoid_prime(const Mat& z)
+	{
+		return np::sigmoid(z).hadamard(1 - np::sigmoid(z));
+	}
 }

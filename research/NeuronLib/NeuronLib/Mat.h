@@ -97,6 +97,16 @@ public:
 	*/
 	static Mat inv(const Mat& mat);
 
+	/*
+	Calculates the Hadamard Product for 2 matrices
+	*/
+	Mat hadamard(Mat& ref) const;
+
+	/*
+	Transpose of the matrix
+	*/
+	Mat transpose() const;
+
 
 	/*
 	Mask functions for operations that are not well-defined above

@@ -163,9 +163,7 @@ Vec Network::feed_forward(Vec & x)
 	Mat a(x); // Matrix operations return a matrix and not a vector, so we have to work with matrices here
 	for (int i = 0; i < layers - 1; i++)
 	{
-		cout << "A after layer " << (i + 1) << endl;
 		a = np::sigmoid((weights[i] * a) + biases[i]);
-		a.visualize();
 	}
 	return Vec(a); // Now we can safely convert back to a vector
 }
@@ -301,7 +299,58 @@ double Network::evaluate(vector<Vec*> x, const function<bool(int, Vec&)>& pred)
 	return (double)success / (double)x.size();
 }
 
-tuple<Mat*, Mat*> Network::backprop(Vec & x, Vec & y)
+tuple<Vec*, Mat*> Network::backprop(Vec & x, Vec & y)
 {
-	return tuple<Mat*, Mat*>(0, 0);
+	// Constructing zero mats for the weights and biases
+	Mat *n_weights = new Mat[layers - 1];
+	Vec *n_biases = new Vec[layers - 1];
+	for (int i = 0; i < layers - 1; i++)
+	{
+		n_weights[i] = Mat(getLayerWeights(i).height(), getLayerWeights(i).width());
+		n_biases[i] = Vec(getLayerBiases(i).height());
+	}
+
+	// Records for the Z values and the activations
+	vector<Vec> activations = vector<Vec>();
+	vector<Vec> zs = vector<Vec>();
+	activations.push_back(x);
+	Vec activation = x;
+
+	Vec z, sp;
+
+	// Feedforward through the network
+	for (int i = 0; i < layers - 1; i++)
+	{
+		// Feed forward through a layer and appending the Z and the new activation to the record
+		z = (this->weights[i] * activation) + this->biases[i];
+		zs.push_back(z);
+		activation = np::sigmoid(z);
+		activations.push_back(activation);
+	}
+
+	int L = layers;
+
+	// Backprop
+	Vec delta = cost_derivative(activations[L - 1], y).hadamard(zs[L - 2]);
+	n_biases[L - 2] = delta;
+	n_weights[L - 2] = delta * activations[L - 2].transpose();
+
+	for (int l = L - 1; l >= 2; l--)
+	{
+		z = zs[l - 2];
+		sp = np::sigmoid_prime(z);
+		delta = (this->weights[l - 1].transpose() * delta).hadamard(sp);
+		n_biases[l - 2] = delta;
+		n_weights[l - 2] = delta * activations[l - 2].transpose();
+	}
+
+	return tuple<Vec*, Mat*>(n_biases, n_weights);
+
+	return tuple<Vec*, Mat*>(0, 0);
+}
+
+Vec Network::cost_derivative(Vec activations, Vec y)
+{
+	// Returns the d/dy(C(x)) for the quadratic cost functions
+	return activations - y;
 }

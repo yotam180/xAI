@@ -246,6 +246,30 @@ Mat Mat::inv(const Mat & mat)
 	});
 }
 
+Mat Mat::hadamard(Mat & ref) const
+{
+	if (ref.h != this->h || ref.w != this->w) 
+	{
+		throw "No."; // TODO: more descriptive error messages
+	}
+	return Mat::mask(ref, [this](double v, int row, int col) -> double {
+		return (*this)(row, col) * v;
+	});
+}
+
+Mat Mat::transpose() const
+{
+	Mat res = Mat(width(), height());
+	for (int i = 0; i < h; i++)
+	{
+		for (int j = 0; j < w; j++) 
+		{
+			res(j, i) = (*this)(i, j);
+		}
+	}
+	return res;
+}
+
 Mat Mat::mask(const Mat & matrix, const std::function<double(double, int, int)>& pred)
 {
 	Mat result(matrix.h, matrix.w);
