@@ -1,9 +1,0 @@
-﻿  test.c
-  mat.c
-c:\users\yotam\documents\xai\neuronlib\nlib\nlib\mat.c(11): warning C4013: 'malloc' undefined; assuming extern returning int
-c:\users\yotam\documents\xai\neuronlib\nlib\nlib\mat.c(21): warning C4013: 'calloc' undefined; assuming extern returning int
-c:\users\yotam\documents\xai\neuronlib\nlib\nlib\mat.c(26): warning C4013: 'free' undefined; assuming extern returning int
-c:\users\yotam\documents\xai\neuronlib\nlib\nlib\mat.c(73): warning C4013: 'memcpy' undefined; assuming extern returning int
-  Generating Code...
-  nLib.vcxproj -> C:\Users\yotam\Documents\xAI\neuronlib\nLib\Debug\nLib.exe
-  nLib.vcxproj -> C:\Users\yotam\Documents\xAI\neuronlib\nLib\Debug\nLib.pdb (Partial PDB)
