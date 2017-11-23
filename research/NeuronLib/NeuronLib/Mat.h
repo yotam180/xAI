@@ -34,7 +34,7 @@ public:
 	/*
 	Visualizes the matrix into std::cout
 	*/
-	void visualize();
+	void visualize() const;
 
 
 	/*

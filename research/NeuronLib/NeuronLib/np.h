@@ -27,7 +27,15 @@ namespace np
 	*/
 	Mat sigmoid(const Mat& z)
 	{
-		return 1 / (1 + _exp(z)); // I would not lie. I really love myself for this line of code.
+		/*cout << "Sigmoid " << endl;
+		z.visualize();
+		cout << "exp " << endl;
+		_exp(z).visualize();
+		cout << "1+ " << endl;
+		(1.0 + _exp(z)).visualize();
+		cout << "1/" << endl;
+		(1.0 / (1.0 + _exp(z))).visualize();*/
+		return 1.0 / (1.0 + _exp(Mat::neg(z))); // I would not lie. I really love myself for this line of code.
 	}
 
 	/*

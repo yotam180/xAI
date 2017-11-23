@@ -304,7 +304,7 @@ void Mat::validate_same_size(const Mat & ref) const
 	}
 }
 
-void Mat::visualize()
+void Mat::visualize() const
 {
 	cout << "[";
 	for (int i = 0; i < h; i++)

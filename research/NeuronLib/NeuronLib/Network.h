@@ -31,6 +31,7 @@ public:
 
 	// Temporarily here - put back!
 	tuple<Vec*, Mat*> backprop(Vec& x, Vec& y);
+	void update_mini_batch(vector<Vec*> x, vector<Vec*> y, double learning_rate);
 
 
 private:
@@ -40,7 +41,6 @@ private:
 	Vec *biases;
 	Mat *weights;
 
-	void update_mini_batch(vector<Vec*> x, vector<Vec*> y, double learning_rate);
 	double evaluate(vector<Vec*> x, const function<bool(int, Vec&)>& pred);
 	Vec cost_derivative(Vec activations, Vec y);
 };
