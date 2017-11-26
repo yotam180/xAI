@@ -34,7 +34,7 @@ public:
 	/*
 	Visualizes the matrix into std::cout
 	*/
-	void visualize();
+	void visualize() const;
 
 
 	/*
@@ -96,6 +96,16 @@ public:
 	Inverts the matrix (1/mat)
 	*/
 	static Mat inv(const Mat& mat);
+
+	/*
+	Calculates the Hadamard Product for 2 matrices
+	*/
+	Mat hadamard(Mat& ref) const;
+
+	/*
+	Transpose of the matrix
+	*/
+	Mat transpose() const;
 
 
 	/*

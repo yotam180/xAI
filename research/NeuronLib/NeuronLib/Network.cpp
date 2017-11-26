@@ -34,7 +34,7 @@ Network::Network(int layers, int *sizes)
 		biases[i] = Vec(sizes[i + 1]);
 		for (int j = 0; j < sizes[i + 1]; j++)
 		{
-			biases[i](j) = (double)rand() / RAND_MAX;
+			biases[i](j) = 0.5;// (double)rand() / RAND_MAX;
 		}
 	}
 
@@ -49,7 +49,7 @@ Network::Network(int layers, int *sizes)
 		{
 			for (int k = 0; k < l2; k++)
 			{
-				weights[i](k, j) = (double)rand() / RAND_MAX;
+				weights[i](k, j) = 0.5;//(double)rand() / RAND_MAX;
 			}
 		}
 	}
@@ -163,9 +163,7 @@ Vec Network::feed_forward(Vec & x)
 	Mat a(x); // Matrix operations return a matrix and not a vector, so we have to work with matrices here
 	for (int i = 0; i < layers - 1; i++)
 	{
-		cout << "A after layer " << (i + 1) << endl;
 		a = np::sigmoid((weights[i] * a) + biases[i]);
-		a.visualize();
 	}
 	return Vec(a); // Now we can safely convert back to a vector
 }
@@ -187,7 +185,7 @@ void Network::train(const vector<Vec*>& x, const vector<Vec*>& y, int epochs, in
 		for (int i = 0; i < n; i++) indexes.push_back(i);
 		std::random_shuffle(indexes.begin(), indexes.end());
 		
-		for (int b = 0; b < n; n += mini_batch_size)
+		for (int b = 0; b < n; b += mini_batch_size)
 		{
 			// Creating a mini-batch
 			vector<Vec*> _x, _y;
@@ -201,15 +199,14 @@ void Network::train(const vector<Vec*>& x, const vector<Vec*>& y, int epochs, in
 
 			// "Learning" the mini-batch
 			update_mini_batch(_x, _y, learning_rate);
-
-			if (test)
-			{
-				cout << "Epoch " << epoch << ": " << evaluate(tx, pred) * 100 << "%" << endl;
-			}
-			else
-			{
-				cout << "Epoch " << epoch << endl;
-			}
+		}
+		if (test)
+		{
+			cout << "Epoch " << epoch << ": " << evaluate(tx, pred) * 100 << "%" << endl;
+		}
+		else
+		{
+			cout << "Epoch " << epoch << endl;
 		}
 	}
 }
@@ -271,6 +268,7 @@ void Network::update_mini_batch(vector<Vec*> x, vector<Vec*> y, double learning_
 	for (int i = 0; i < n; i++)
 	{
 		tuple<Mat*, Mat*> deltas = backprop(*x[i], *y[i]);
+		//std::get<0>(deltas)[0].visualize();
 		Mat *delta_nb = std::get<0>(deltas);
 		Mat *delta_nw = std::get<1>(deltas);
 		for (int j = 0; j < layers - 1; j++)
@@ -278,6 +276,8 @@ void Network::update_mini_batch(vector<Vec*> x, vector<Vec*> y, double learning_
 			nb[j] = nb[j] + delta_nb[j];
 			nw[j] = nw[j] + delta_nw[j];
 		}
+		delete[] std::get<0>(deltas);
+		delete[] std::get<1>(deltas);
 	}
 
 	for (int i = 0; i < layers - 1; i++)
@@ -301,7 +301,56 @@ double Network::evaluate(vector<Vec*> x, const function<bool(int, Vec&)>& pred)
 	return (double)success / (double)x.size();
 }
 
-tuple<Mat*, Mat*> Network::backprop(Vec & x, Vec & y)
+tuple<Vec*, Mat*> Network::backprop(Vec & x, Vec & y)
 {
-	return tuple<Mat*, Mat*>(0, 0);
+	// Constructing zero mats for the weights and biases
+	Mat *n_weights = new Mat[layers - 1];
+	Vec *n_biases = new Vec[layers - 1];
+	for (int i = 0; i < layers - 1; i++)
+	{
+		n_weights[i] = Mat(getLayerWeights(i).height(), getLayerWeights(i).width());
+		n_biases[i] = Vec(getLayerBiases(i).height());
+	}
+
+	// Records for the Z values and the activations
+	vector<Vec> activations = vector<Vec>();
+	vector<Vec> zs = vector<Vec>();
+	activations.push_back(x);
+	Vec activation = x;
+
+	Vec z, sp;
+
+	// Feedforward through the network
+	for (int i = 0; i < layers - 1; i++)
+	{
+		// Feed forward through a layer and appending the Z and the new activation to the record
+		z = (this->weights[i] * activation) + this->biases[i];
+		zs.push_back(z);
+		activation = np::sigmoid(z);
+		activations.push_back(activation);
+	}
+
+	int L = layers;
+
+	// Back-propagating the values
+	Vec delta = cost_derivative(activations[L - 1], y).hadamard(np::sigmoid_prime(zs[L - 2]));
+	n_biases[L - 2] = delta;
+	n_weights[L - 2] = delta * activations[L - 2].transpose();
+
+	for (int l = L - 1; l >= 2; l--)
+	{
+		z = zs[l - 2];
+		sp = np::sigmoid_prime(z);
+		delta = (this->weights[l - 1].transpose() * delta).hadamard(sp);
+		n_biases[l - 2] = delta;
+		n_weights[l - 2] = delta * activations[l - 2].transpose();
+	}
+
+	return tuple<Vec*, Mat*>(n_biases, n_weights);
+}
+
+Vec Network::cost_derivative(Vec activations, Vec y)
+{
+	// Returns the d/dy(C(x)) for the quadratic cost function
+	return activations - y;
 }

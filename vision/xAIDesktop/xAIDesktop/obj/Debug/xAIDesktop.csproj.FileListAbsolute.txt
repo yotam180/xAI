@@ -1,0 +1,9 @@
+c:\users\user\documents\visual studio 2015\Projects\xAIDesktop\xAIDesktop\bin\Debug\xAIDesktop.exe.config
+c:\users\user\documents\visual studio 2015\Projects\xAIDesktop\xAIDesktop\bin\Debug\xAIDesktop.exe
+c:\users\user\documents\visual studio 2015\Projects\xAIDesktop\xAIDesktop\bin\Debug\xAIDesktop.pdb
+c:\users\user\documents\visual studio 2015\Projects\xAIDesktop\xAIDesktop\obj\Debug\xAIDesktop.csprojResolveAssemblyReference.cache
+c:\users\user\documents\visual studio 2015\Projects\xAIDesktop\xAIDesktop\obj\Debug\xAIDesktop.Form1.resources
+c:\users\user\documents\visual studio 2015\Projects\xAIDesktop\xAIDesktop\obj\Debug\xAIDesktop.Properties.Resources.resources
+c:\users\user\documents\visual studio 2015\Projects\xAIDesktop\xAIDesktop\obj\Debug\xAIDesktop.csproj.GenerateResource.Cache
+c:\users\user\documents\visual studio 2015\Projects\xAIDesktop\xAIDesktop\obj\Debug\xAIDesktop.exe
+c:\users\user\documents\visual studio 2015\Projects\xAIDesktop\xAIDesktop\obj\Debug\xAIDesktop.pdb
