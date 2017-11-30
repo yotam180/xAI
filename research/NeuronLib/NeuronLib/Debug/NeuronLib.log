@@ -1,4 +1,0 @@
-﻿  Source.cpp
-c:\users\yotam\documents\xai\research\neuronlib\neuronlib\source.cpp(12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-  NeuronLib.vcxproj -> C:\Users\yotam\Documents\xAI\research\NeuronLib\Debug\NeuronLib.exe
-  NeuronLib.vcxproj -> C:\Users\yotam\Documents\xAI\research\NeuronLib\Debug\NeuronLib.pdb (Partial PDB)

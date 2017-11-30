@@ -1,2 +1,4 @@
 Section 0/MNIST training data/
 Section 0/data/
+*.gz
+*.pkl.gz
