@@ -160,7 +160,7 @@ class CNN(Network):
         """
 
         # Constructing empty (zero'd) matrices for storing the aggregation of error
-        n_biases = [np.zeros(b.shape) for b in self.bises]
+        n_biases = [np.zeros(b.shape) for b in self.biases]
         n_weights = [np.zeros(w.shape) for w in self.weights]
 
         # First activation
@@ -194,11 +194,11 @@ class CNN(Network):
             sd = Math.sigmoid_derivative(z)
 
             # Back propagating one layer back
-            d = np.dot(self.weights(l - 1).transpose(), d) * sp
+            d = np.dot(self.weights[l - 1].transpose(), d) * sd
 
             # Updating the biases and weights for that layer
-            n_biases[l - 2] = delta
-            n_weights[l - 2] = np.dot(delta, activations[l - 2].transpose())
+            n_biases[l - 2] = d
+            n_weights[l - 2] = np.dot(d, activations[l - 2].transpose())
 
         return n_biases, n_weights
 
@@ -220,7 +220,7 @@ class CNN(Network):
         """
 
         # Constructing empty (zero'd) matrices for storing the aggregation of error
-        n_biases = [np.zeros(b.shape) for b in self.bises]
+        n_biases = [np.zeros(b.shape) for b in self.biases]
         n_weights = [np.zeros(w.shape) for w in self.weights]
 
         for x, y in batch:
@@ -235,7 +235,7 @@ class CNN(Network):
         self.weights = [w - self.learning_rate * (delta_w / len(batch)) for w, delta_w in zip(self.weights, d_weights)]
         self.biases = [b - self.learning_rate * (delta_b / len(batch)) for b, delta_b in zip(self.biases, d_biases)]
     
-    def train(self, training_data, epochs, mini_batch_size, test_data = None):
+    def train(self, training_data, epochs, mini_batch_size, test_data = None, pred = None):
         """
         Performs deep learning over the network.
         Parameters:
@@ -262,6 +262,6 @@ class CNN(Network):
                 self.mini_batch(b)
 
             if test_data:
-                print "Epoch %d/%d - %f success" % (j + 1, epochs, self.evaluate(test_data))
+                print "Epoch %d/%d - %f success" % (j + 1, epochs, self.evaluate(test_data, pred))
             else:
                 print "Epoch %d/%d" % (j + 1, epochs)
