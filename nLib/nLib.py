@@ -2,6 +2,7 @@
 
 # For performing fast calculations
 import numpy as np
+from json import dumps, loads
 
 # --- Constants ---
 
@@ -60,14 +61,42 @@ class CNN(Network):
     It can predict outputs and learn from errors.
     """
 
-    def __init__(self, sizes, learning_rate):
+    def save(self, file):
+        """
+        Saves the network model, with the biases and weights data, to a file.abs
+        Parameters:
+            file - the path/name of the file to update/create
+        """
+        with open(file, "w") as f:
+            f.write(dumps({"learning_rate": self.learning_rate, "weights": [x.tolist() for x in self.weights], "biases": [x.tolist() for x in self.biases], "layers": self.sizes}))
+
+    def load(self, file):
+        """
+        Loads a pre-saved neural network model from a file.
+        Parameters:
+            file - the path/name of the file to read from.
+
+        The file must exist and be compatible with the JSON format. Otherwise an error will be raised.
+        """
+        with open(file, "r") as f:
+            n = loads(f.read())
+            self.learning_rate = n["learning_rate"]
+            self.sizes = n["layers"]
+            self.layers = len(self.sizes)
+            self.weights = [np.array(x) for x in n["weights"]]
+            self.biases = [np.array(x) for x in n["biases"]]
+
+    def __init__(self, sizes, learning_rate = 1.0):
         """
         Initializing a new neural network with biases and weights as given in the parameters
         Parameters:
             layers - the array representing the layers sizes
             learning_rate - the learning rate of the network
         """
-
+        
+        if type(sizes) == type(""):
+            self.load(sizes)
+            return
 
         """
         The count of layers in the network (layers = input + hidden + output)

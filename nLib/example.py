@@ -11,7 +11,8 @@ Creating our new CNN (Convolutional Neural Network)
     Output layer of size 1
 Learning rate is 4.0
 """
-net = nl.CNN([8, 15, 10, 1], 4.0)
+#net = nl.CNN([8, 15, 10, 1], 4.0)
+net = nl.CNN("network1.cnn")
 
 # For randomizing arrays
 rndarr = lambda: np.array([[randint(0, 1)] for x in range(8)])
@@ -34,4 +35,5 @@ for i in range(1000):
     test_data.append((x, pred(x)))
 
 # training our network
-net.train(training_data, 100, 20, test_data, eval)
+net.train(training_data, 5, 20, test_data, eval)
+net.save("network1.cnn")
