@@ -58,5 +58,13 @@ namespace xAIDesktop
         {
             LoadCatagories();
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Test t = new Test();
+            this.Hide();
+            t.ShowDialog();
+            this.Close();
+        }
     }
 }
