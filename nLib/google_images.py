@@ -29,6 +29,10 @@ class GoogleSearch(object):
         nh = ch
         while nh == ch:
             nh = self.driver.execute_script("return document.body.scrollHeight;")
+            try:
+                self.driver.find_element_by_css_selector(".ksb._kvc").click()
+            except:
+                pass
         return nh
 
     def get_image_objects(self):
