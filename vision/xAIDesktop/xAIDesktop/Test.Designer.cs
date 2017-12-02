@@ -48,12 +48,13 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(26, 37);
+            this.button2.Location = new System.Drawing.Point(26, 66);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 1;
             this.button2.Text = "test";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // listBox1
             // 
@@ -74,7 +75,7 @@
             // Start
             // 
             this.Start.AutoSize = true;
-            this.Start.Location = new System.Drawing.Point(203, 136);
+            this.Start.Location = new System.Drawing.Point(201, 110);
             this.Start.Name = "Start";
             this.Start.Size = new System.Drawing.Size(0, 13);
             this.Start.TabIndex = 4;

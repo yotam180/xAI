@@ -27,7 +27,7 @@ namespace xAIDesktop
             string fileCont="";
             string[] arr = File.ReadAllText(CATPATH).Split("\r\n".ToCharArray());
             List<string> items = new List<string>();
-            for(int i=1;i<arr.Length;i++)
+            for(int i=0;i<arr.Length;i++)
             {
                 items.Add(arr[i]);
             }
@@ -62,6 +62,14 @@ namespace xAIDesktop
         private void button2_Click(object sender, EventArgs e)
         {
             Test t = new Test();
+            this.Hide();
+            t.ShowDialog();
+            this.Close();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Train t = new Train();
             this.Hide();
             t.ShowDialog();
             this.Close();
