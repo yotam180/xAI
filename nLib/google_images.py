@@ -1,4 +1,7 @@
 from selenium import webdriver
+from json import loads, dumps
+import re
+
 
 class GoogleSearch(object):
     """
@@ -28,12 +31,26 @@ class GoogleSearch(object):
             nh = self.driver.execute_script("return document.body.scrollHeight;")
         return nh
 
-    def get_html(self):
+    def get_image_objects(self):
         """
-        Returns the current page HTML
+        Returns a list of the image objects in the google page
         """
-        return self.driver.page_source
+        r = re.findall("(\{\"clt?\"\:(.+?)\})", self.driver.page_source)
+        g = []
+        for i in r:
+            try:
+                j = loads(i[0])
+                if "tu" in j.keys() and j["tu"].startswith("http"):
+                    g.append(j)
+            except:
+                pass
+        return g
 
-e = GoogleSearch()
-e.query("dog")
-print e.get_html() 
+    def search(self, query, min_results = 0):
+        """
+        Performs a google image search
+        """
+        self.query(query)
+        while len(self.get_image_objects()) < min_results:
+            self.extend_page()
+        return self.get_image_objects()
