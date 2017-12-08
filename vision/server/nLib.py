@@ -12,3 +12,13 @@ T.reset_default_graph()
 Constants
 """
 IMG_SIZE = 100
+
+"""
+Methods
+"""
+
+
+
+"""
+Action
+"""

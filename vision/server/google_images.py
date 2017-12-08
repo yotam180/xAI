@@ -36,7 +36,6 @@ class GoogleSearch(object):
                 self.driver.find_element_by_css_selector(".ksb._kvc").click()
             except:
                 pass
-            logger.log(t)
             time.sleep(0.05)
         return t < 100
 

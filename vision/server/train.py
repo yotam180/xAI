@@ -20,7 +20,7 @@ from google_images import GoogleSearch
 
 # Connectivity modules
 from socket import socket
-import urllib
+import urllib.request
 
 # Logging modules
 import logger
@@ -40,9 +40,16 @@ def load_categories():
     """
     Loads predefined categoies
     """
-    logger.log(os.path.join(DATA_DIR, "dataset.json"))
     with open(os.path.join(DATA_DIR, "dataset.json"), "r") as f:
         return json.loads(f.read())
+
+
+def save_categories(c):
+    """
+    Saves predefined categories
+    """
+    with open(os.path.join(DATA_DIR, "dataset.json"), "w") as f:
+        f.write(json.dumps(c))
 
 
 def name_to_id(category_name):
@@ -56,17 +63,24 @@ def import_image(url):
     """
     Downloads an image from a URL
     """
-    req = urllib.urlopen(url)
-    nparr = np.array(bytearray(req.read()))
-    img = cv2.imdecode(nparr, cv2.IMREAD_GRAYSCALE)
-    img = cv2.resize(img, (nLib.IMG_SIZE, nLib.IMG_SIZE))
-    return img
+    try:
+        # Downloading the image from the remote
+        req = urllib.request.urlopen(url)
+        nparr = np.array(bytearray(req.read()))
+        
+        # Formatting the image as we wish it to be
+        img = cv2.imdecode(nparr, cv2.IMREAD_GRAYSCALE)
+        img = cv2.resize(img, (nLib.IMG_SIZE, nLib.IMG_SIZE))
+        return True, img # Success
+    except:
+        return False, None # Failure
 
 
-def create_dataset(category_name):
+def create_dataset(category_name, negatives):
     """
     Creates and saves a dataset to a folder
     """
+    global categories
     
     category_id = name_to_id(category_name)
 
@@ -75,17 +89,48 @@ def create_dataset(category_name):
         return False
 
     # Searching query on Google
-    src = google.search(category_name, 1)
+    src = google.search(category_name, 10)
+
+    # Creating the folders for storing the training data
+    if not os.path.exists(os.path.join(IMAGE_DIR, category_id)):
+        os.makedirs(os.path.join(IMAGE_DIR, category_id))
+    if not os.path.exists(os.path.join(IMAGE_DIR, category_id, "negative")):
+        os.makedirs(os.path.join(IMAGE_DIR, category_id, "negative"))
 
     # And iterating through results
-    for pic in src:
-        img = import_image(pic["tu"])
+    for i, pic in enumerate(src):
+        success, img = import_image(pic["tu"])
+        if not success:
+            continue # If the download has failed
+            
+        # Saving the image to the category folder
+        cv2.imwrite(os.path.join(IMAGE_DIR, category_id, str(i) + ".png"), img)
+
+    for cat in negatives:
+        src = google.search(cat, 10)
+        for i, pic in enumerate(src[:10]):
+            success, img = import_image(pic["tu"])
+            if not success:
+                continue
+            cv2.imwrite(os.path.join(IMAGE_DIR, category_id, "negative", str(randint(1, 100000)) + ".png"), img)
+
+
+    # Refreshing the categories list
+    categories = load_categories()
+    categories[category_id] = {
+        "name": category_name, 
+        "dir": os.path.join(IMAGE_DIR, category_id), 
+        "negative": os.path.join(IMAGE_DIR, category_id, "negative")
+    }
+    save_categories(categories)
+
+    # Returning true upon success
+    return True
+        
 
 """
 Initializations
 """
-
-logger.log("Hello World")
 
 # We'll open a new GoogleSearch instance
 google = GoogleSearch()
@@ -97,4 +142,4 @@ categories = load_categories()
 Action
 """
 
-create_dataset("Car")
+create_dataset("Man", ["Cat", "Truck", "House", "Airplane", "Kuala", "Forest"])
