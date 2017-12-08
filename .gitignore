@@ -1,3 +1,8 @@
 *.gz
 *.pkl.gz
 *.pyc
+kaggle/dogs_cats/train
+kaggle/dogs_cats/test
+kaggle/dogs_cats/train_data.npy
+kaggle/dogs_cats/test_data.npy
+vision/server/images
