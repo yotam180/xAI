@@ -89,7 +89,7 @@ def create_dataset(category_name, negatives):
         return False
 
     # Searching query on Google
-    src = google.search(category_name, 10)
+    src = google.search(category_name, 500)
 
     # Creating the folders for storing the training data
     if not os.path.exists(os.path.join(IMAGE_DIR, category_id)):
@@ -107,8 +107,8 @@ def create_dataset(category_name, negatives):
         cv2.imwrite(os.path.join(IMAGE_DIR, category_id, str(i) + ".png"), img)
 
     for cat in negatives:
-        src = google.search(cat, 10)
-        for i, pic in enumerate(src[:10]):
+        src2 = google.search(cat, len(src) // len(negatives))
+        for i, pic in enumerate(src2[:len(src) // len(negatives)]):
             success, img = import_image(pic["tu"])
             if not success:
                 continue
@@ -133,7 +133,7 @@ Initializations
 """
 
 # We'll open a new GoogleSearch instance
-google = GoogleSearch()
+# google = GoogleSearch()
 
 # And initialize all the categories
 categories = load_categories()
@@ -142,4 +142,6 @@ categories = load_categories()
 Action
 """
 
-# create_dataset("Man", ["Cat", "Truck", "House", "Airplane", "Kuala", "Forest"])
+# create_dataset("Cat", ["Dog", "Truck", "House", "Airplane", "City", "Forest", "Person"])
+net = nLib.create_model("cat", categories["cat"])
+net.save(os.path.join(MODELS_DIR, "cat"))
