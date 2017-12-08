@@ -31,11 +31,16 @@ Constants
 IMG_SIZE = 40
 LEARNING_RATE = 1E-3
 
+DATA_DIR = "data/"
+IMAGE_DIR = "images/"
+MODELS_DIR = "models/"
+CHECKPOINTS_DIR = "checkpoints/"
+
 """
 Methods
 """
 
-def define_network_model():
+def define_network_model(category_id):
     """
     Defines a network structure
     """
@@ -90,7 +95,9 @@ def define_network_model():
         loss='categorical_crossentropy', name='targets')
     
     # Creating a model
-    model = tflearn.DNN(net, tensorboard_dir="tensorboard")
+    model = tflearn.DNN(net, tensorboard_dir="tensorboard", \
+        best_checkpoint_path=os.path.join(CHECKPOINTS_DIR, category_id), \
+        best_val_accuracy=0.9)
 
     return model
 
@@ -123,7 +130,7 @@ def create_model(category_id, category):
     training_data = dataset[len(dataset) // 10 :]
     
     # Creating the network structure
-    net = define_network_model()
+    net = define_network_model(category_id)
 
     # Creating the dataset to be fed into the network
     X = np.array([i[0] for i in training_data]).reshape(-1, IMG_SIZE, IMG_SIZE, 1)
@@ -132,7 +139,7 @@ def create_model(category_id, category):
     test_X = np.array([i[0] for i in test_data]).reshape(-1, IMG_SIZE, IMG_SIZE, 1)
     test_Y = [i[1] for i in test_data]
 
-    net.fit({"input": X}, {"targets": Y}, n_epoch=100, validation_set=({"input": test_X}, {"targets": test_Y}), show_metric=True, \
+    net.fit({"input": X}, {"targets": Y}, n_epoch=500, validation_set=({"input": test_X}, {"targets": test_Y}), show_metric=True, \
         snapshot_step=500, run_id=category_id + "_model")
 
     return net

@@ -25,12 +25,13 @@ import urllib.request
 # Logging modules
 import logger
 
+# Constant imports
+from nLib import DATA_DIR, IMAGE_DIR, MODELS_DIR
+
 """
 Constants
 """
-DATA_DIR = "data/"
-IMAGE_DIR = "images/"
-MODELS_DIR = "models/"
+
 
 """
 Methods
@@ -133,7 +134,7 @@ Initializations
 """
 
 # We'll open a new GoogleSearch instance
-# google = GoogleSearch()
+google = GoogleSearch()
 
 # And initialize all the categories
 categories = load_categories()
@@ -142,6 +143,6 @@ categories = load_categories()
 Action
 """
 
-# create_dataset("Cat", ["Dog", "Truck", "House", "Airplane", "City", "Forest", "Person"])
-net = nLib.create_model("cat", categories["cat"])
-net.save(os.path.join(MODELS_DIR, "cat"))
+# create_dataset("Snake", ["Cat", "Dot", "Truck", "House", "Airplane", "City", "Forest", "Person"])
+net = nLib.create_model("dog", categories["dog"])
+net.save(os.path.join(MODELS_DIR, "dog"))
