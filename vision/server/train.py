@@ -142,4 +142,4 @@ categories = load_categories()
 Action
 """
 
-create_dataset("Man", ["Cat", "Truck", "House", "Airplane", "Kuala", "Forest"])
+# create_dataset("Man", ["Cat", "Truck", "House", "Airplane", "Kuala", "Forest"])
