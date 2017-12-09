@@ -1,5 +1,6 @@
 # Utils
 import os
+import shutil
 import random
 
 # Tensorflow
@@ -25,16 +26,15 @@ import cv2
 # Math
 import numpy as np
 
+# Constants
+from storage import DATA_DIR, MODELS_DIR, CHECKPOINTS_DIR, IMAGE_DIR
+
 """
 Constants
 """
 IMG_SIZE = 40
 LEARNING_RATE = 1E-3
 
-DATA_DIR = "data/"
-IMAGE_DIR = "images/"
-MODELS_DIR = "models/"
-CHECKPOINTS_DIR = "checkpoints/"
 
 """
 Methods
@@ -72,7 +72,7 @@ def define_network_model(category_id):
     net = max_pool_2d(net, 3)
 
     # 2D Convolution layer
-    net = conv_2d(net, 128, 5, activation='relu')
+    net = conv_2d(net, 32, 5, activation='relu')
     net = max_pool_2d(net, 5)
 
     # 2D Convolution layer
@@ -84,8 +84,8 @@ def define_network_model(category_id):
     net = max_pool_2d(net, 5)
 
     # Hidden network layer
-    net = fully_connected(net, 1024, activation='relu')
-    net = dropout(net, 0.6)
+    net = fully_connected(net, 512, activation='relu')
+    net = dropout(net, 0.8)
 
     # Output layer
     net = fully_connected(net, 2, activation='softmax')
@@ -97,7 +97,7 @@ def define_network_model(category_id):
     # Creating a model
     model = tflearn.DNN(net, tensorboard_dir="tensorboard", \
         best_checkpoint_path=os.path.join(CHECKPOINTS_DIR, category_id), \
-        best_val_accuracy=0.9)
+        best_val_accuracy=0.7)
 
     return model
 
@@ -122,7 +122,11 @@ def create_model(category_id, category):
     """
     Creates a CNN model for a specific category based on its file dataset
     """
-    
+
+    # Creating the checkpoints directory, if doesn't exist
+    if not os.path.exists(CHECKPOINTS_DIR):
+        os.makedirs(CHECKPOINTS_DIR)
+
     # Loading the dataset
     dataset = load_dataset(category)
 
@@ -139,10 +143,16 @@ def create_model(category_id, category):
     test_X = np.array([i[0] for i in test_data]).reshape(-1, IMG_SIZE, IMG_SIZE, 1)
     test_Y = [i[1] for i in test_data]
 
-    net.fit({"input": X}, {"targets": Y}, n_epoch=500, validation_set=({"input": test_X}, {"targets": test_Y}), show_metric=True, \
+    net.fit({"input": X}, {"targets": Y}, n_epoch=300, validation_set=({"input": test_X}, {"targets": test_Y}), show_metric=True, \
         snapshot_step=500, run_id=category_id + "_model")
 
+    best_checkpoint = max([-1] + [int(x) for x in [(re.findall(category_id + "([0-9]+)\.meta", i) + [None])[0] for i in os.listdir("models")] if x])
+
+    if best_checkpoint != -1:
+        net.load(os.path.join(CHECKPOINTS_DIR, category_id + str(best_checkpoint)))
+
+    net.save(os.path.join(MODELS_DIR, category_id))
+
+    shutil.rmtree(os.path.join(CHECKPOINTS_DIR, "*"))
+
     return net
-"""
-Action
-"""
