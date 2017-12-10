@@ -11,10 +11,14 @@ categories = load_categories()
 
 models = {}
 
+
 for id, cat in categories.items():
+    print("Loading " + id)
     m = nLib.define_network_model(id)
+    print("Created basic model")
     m.load(os.path.join(nLib.MODELS_DIR, id))
     models[id] = m
+    print("Loaded " + id)
 
 def classify(img):
     """
@@ -29,7 +33,12 @@ def classify(img):
     if img.shape[2] > 1:
         img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
+    m = min(img.shape[0], img.shape[1])
+    img = img[img.shape[0] // 2 - m // 2 : img.shape[0] // 2 + m // 2, img.shape[1] // 2 - m // 2 : img.shape[1] // 2 + m // 2]
+
     img = cv2.resize(img, (nLib.IMG_SIZE, nLib.IMG_SIZE))
+
+    # return img
 
     res = []
     for id, net in models.items():
@@ -46,4 +55,6 @@ def reload_model(cat_id):
     m.load(os.path.join(nLib.MODELS_DIR, cat_id))
     models[cat_id] = m
 
-# print(classify(cv2.imread("images/libi.png")))
+while True:
+    url = input("Enter image path: ")
+    print(classify(cv2.imread(url)))

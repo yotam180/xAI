@@ -1,1 +1,1 @@
-{"dog": {"negative": "images/dog\\negative", "dir": "images/dog", "name": "Dog"}}
+{"snake": {"negative": "images/snake\\negative", "dir": "images/snake", "name": "Snake"}, "table": {"negative": "images/table\\negative", "dir": "images/table", "name": "Table"}, "dog": {"negative": "images/dog\\negative", "dir": "images/dog", "name": "Dog"}, "car": {"negative": "images/car\\negative", "dir": "images/car", "name": "Car"}, "cat": {"negative": "images/cat\\negative", "dir": "images/cat", "name": "Cat"}}

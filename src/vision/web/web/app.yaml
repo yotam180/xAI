@@ -9,11 +9,11 @@ handlers:
   application_readable: true
 
 # Serve php scripts.
-- url: /(.+\.php)$
+- url: /back/(.+\.php)$
   script: \1
 
-- url: /
-  script: index.php
+- url: /(.+?)\.php
+  script: main.php
 
-- url: /*
-  script: _404.php
+- url: /
+  script: main.php

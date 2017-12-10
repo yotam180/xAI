@@ -123,6 +123,19 @@ categories = load_categories()
 Action
 """
 
-# create_dataset("Snake", ["Cat", "Dot", "Truck", "House", "Airplane", "City", "Forest", "Person"])
-net = nLib.create_model("dog", categories["dog"])
-net.save(os.path.join(MODELS_DIR, "dog"))
+def train_for(yes, nos):
+    cid = name_to_id(yes)
+    if cid in categories.keys():
+        logger.log("Category " + cid + " already exists!")
+        return False
+    
+    logger.log("Creating dataset for " + yes)
+    create_dataset(yes, nos)
+
+    logger.log("Creating model for " + yes)
+    net = nLib.create_model(cid, categories[cid])
+    net.save(os.path.join(MODELS_DIR, cid))
+
+# train_for("Car", ["Dog", "Snake", "Tree", "Cat", "Train", "City"])
+train_for("Snake", ["Dog", "Cat", "Tree", "Car", "Train", "City"])
+train_for("Table", ["Dog", "Snake", "Tree", "Car", "Train", "City", "Cat", "Lizard"])

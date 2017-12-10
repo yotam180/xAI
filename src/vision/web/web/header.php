@@ -12,10 +12,10 @@ foreach ($menu as $val) {
 ?>
 
 <nav>
-    <div class="nav-wrapper">
-        <a href="/" class="brand-logo">&nbsp;xAI</a>
+    <div class="nav-wrapper blue darken-3">
+        <a href="#" onclick="Navigator.LoadPage();" class="brand-logo">&nbsp;xAI</a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <?php echo $html; ?>
+        <li><a href="#" onclick="Navigator.LoadPage('login.php');">Sign in</a></li>
         </ul>
     </div>
 </nav>

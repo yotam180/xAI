@@ -2,6 +2,7 @@
 import os
 import shutil
 import random
+import re
 
 # Tensorflow
 import tensorflow as T
@@ -40,15 +41,12 @@ LEARNING_RATE = 1E-3
 Methods
 """
 
+sess = T.Session()
+
 def define_network_model(category_id):
     """
     Defines a network structure
     """
-
-    # Defining our image preprocessing
-    proc = ImagePreprocessing()
-    proc.add_featurewise_zero_center()
-    proc.add_featurewise_stdnorm()
 
     # Defining image augmentation
     # We want to create a stilted wider dataset
@@ -62,7 +60,7 @@ def define_network_model(category_id):
     # Input layer
     net = input_data(shape=[None, IMG_SIZE, IMG_SIZE, 1], name="input", \
         data_augmentation=aug)
-
+    
     # 2D Convolution layer
     net = conv_2d(net, 32, 5, activation='relu')
     net = max_pool_2d(net, 3)
@@ -97,7 +95,7 @@ def define_network_model(category_id):
     # Creating a model
     model = tflearn.DNN(net, tensorboard_dir="tensorboard", \
         best_checkpoint_path=os.path.join(CHECKPOINTS_DIR, category_id), \
-        best_val_accuracy=0.7)
+        best_val_accuracy=0.7, session=sess)
 
     return model
 
@@ -146,13 +144,13 @@ def create_model(category_id, category):
     net.fit({"input": X}, {"targets": Y}, n_epoch=300, validation_set=({"input": test_X}, {"targets": test_Y}), show_metric=True, \
         snapshot_step=500, run_id=category_id + "_model")
 
-    best_checkpoint = max([-1] + [int(x) for x in [(re.findall(category_id + "([0-9]+)\.meta", i) + [None])[0] for i in os.listdir("models")] if x])
+    best_checkpoint = max([-1] + [int(x) for x in [(re.findall(category_id + "([0-9]+)\.meta", i) + [None])[0] for i in os.listdir(CHECKPOINTS_DIR)] if x])
 
     if best_checkpoint != -1:
         net.load(os.path.join(CHECKPOINTS_DIR, category_id + str(best_checkpoint)))
 
     net.save(os.path.join(MODELS_DIR, category_id))
 
-    shutil.rmtree(os.path.join(CHECKPOINTS_DIR, "*"))
+    shutil.rmtree(CHECKPOINTS_DIR)
 
     return net

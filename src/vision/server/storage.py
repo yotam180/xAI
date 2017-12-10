@@ -1,5 +1,6 @@
 import os
 import json
+import re
 
 DATA_DIR = "data/"
 IMAGE_DIR = "images/"
