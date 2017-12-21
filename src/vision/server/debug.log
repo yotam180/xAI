@@ -1,0 +1,3 @@
+[1208/225759.681:ERROR:process_reader_win.cc(123)] NtOpenThread: {Access Denied} A process has requested access to an object, but has not been granted those access rights.  (0xc0000022)
+[1208/225759.682:ERROR:exception_snapshot_win.cc(87)] thread ID 13948 not found in process
+[1208/225759.682:WARNING:crash_report_exception_handler.cc(62)] ProcessSnapshotWin::Initialize failed
