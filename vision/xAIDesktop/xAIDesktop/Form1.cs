@@ -24,6 +24,8 @@ namespace xAIDesktop
         /// <param name="e"></param>
         private void button1_Click(object sender, EventArgs e)
         {
+            if (exist(textBox1.Text))
+                return;
             string fileCont="";
             string[] arr = File.ReadAllText(CATPATH).Split("\r\n".ToCharArray());
             List<string> items = new List<string>();
@@ -34,7 +36,7 @@ namespace xAIDesktop
             items.Add(textBox1.Text);
             File.WriteAllText(CATPATH, string.Empty);
             fileCont = items[0];
-            MessageBox.Show(items[0]);
+            //MessageBox.Show(items[0]);
             for(int i=1;i<items.Count;i++)
             {
                 fileCont += "\n";
@@ -42,6 +44,15 @@ namespace xAIDesktop
             }
             File.WriteAllText(CATPATH, fileCont);
             LoadCatagories();
+        }
+        public bool exist(string st)
+        {
+            foreach(string i in listBox1.Items)
+            {
+                if (i.Equals(st))
+                    return true;
+            }
+            return false;
         }
         private void LoadCatagories()
         {

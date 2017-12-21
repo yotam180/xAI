@@ -31,16 +31,20 @@ namespace xAIDesktop
 
         private void button1_Click(object sender, EventArgs e)
         {
-            string FilePath = textBox1.Text;
-            Point p = new Point(Start.Location.X, Start.Location.Y);
-            PictureBox pb = new PictureBox();
-            pb.Name = textBox1.Text;
-            pb.Location = p;
-            pb.Image = Image.FromFile(FilePath);
-            pb.Size = new Size(200, 285);
-            pb.SizeMode = PictureBoxSizeMode.StretchImage;
-            Controls.Add(pb);
-            picture = pb;
+            try
+            {
+                string FilePath = textBox1.Text;
+                Point p = new Point(Start.Location.X, Start.Location.Y);
+                PictureBox pb = new PictureBox();
+                pb.Name = textBox1.Text;
+                pb.Location = p;
+                pb.Image = Image.FromFile(FilePath);
+                pb.Size = new Size(200, 285);
+                pb.SizeMode = PictureBoxSizeMode.StretchImage;
+                Controls.Add(pb);
+                picture = pb;
+            }
+            catch {; }
         }
 
         private void button2_Click(object sender, EventArgs e)
