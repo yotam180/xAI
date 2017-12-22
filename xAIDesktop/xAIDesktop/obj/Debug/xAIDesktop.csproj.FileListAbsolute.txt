@@ -1,0 +1,33 @@
+c:\users\user\documents\visual studio 2015\Projects\xAIDesktop\xAIDesktop\bin\Debug\xAIDesktop.exe.config
+c:\users\user\documents\visual studio 2015\Projects\xAIDesktop\xAIDesktop\bin\Debug\xAIDesktop.exe
+c:\users\user\documents\visual studio 2015\Projects\xAIDesktop\xAIDesktop\bin\Debug\xAIDesktop.pdb
+c:\users\user\documents\visual studio 2015\Projects\xAIDesktop\xAIDesktop\obj\Debug\xAIDesktop.csprojResolveAssemblyReference.cache
+c:\users\user\documents\visual studio 2015\Projects\xAIDesktop\xAIDesktop\obj\Debug\xAIDesktop.Form1.resources
+c:\users\user\documents\visual studio 2015\Projects\xAIDesktop\xAIDesktop\obj\Debug\xAIDesktop.Properties.Resources.resources
+c:\users\user\documents\visual studio 2015\Projects\xAIDesktop\xAIDesktop\obj\Debug\xAIDesktop.csproj.GenerateResource.Cache
+c:\users\user\documents\visual studio 2015\Projects\xAIDesktop\xAIDesktop\obj\Debug\xAIDesktop.exe
+c:\users\user\documents\visual studio 2015\Projects\xAIDesktop\xAIDesktop\obj\Debug\xAIDesktop.pdb
+C:\Users\User\Documents\Visual Studio 2015\Projects\xAIDesktop\xAIDesktop\obj\Debug\xAIDesktop.Test.resources
+K:\xAI\vision\xAIDesktop\xAIDesktop\obj\Debug\xAIDesktop.csprojResolveAssemblyReference.cache
+K:\xAI\vision\xAIDesktop\xAIDesktop\obj\Debug\xAIDesktop.Form1.resources
+K:\xAI\vision\xAIDesktop\xAIDesktop\obj\Debug\xAIDesktop.Properties.Resources.resources
+K:\xAI\vision\xAIDesktop\xAIDesktop\obj\Debug\xAIDesktop.Test.resources
+K:\xAI\vision\xAIDesktop\xAIDesktop\obj\Debug\xAIDesktop.Train.resources
+K:\xAI\vision\xAIDesktop\xAIDesktop\obj\Debug\xAIDesktop.csproj.GenerateResource.Cache
+K:\xAI\vision\xAIDesktop\xAIDesktop\obj\Debug\xAIDesktop.csproj.CoreCompileInputs.cache
+K:\xAI\vision\xAIDesktop\xAIDesktop\obj\Debug\xAIDesktop.exe
+K:\xAI\vision\xAIDesktop\xAIDesktop\obj\Debug\xAIDesktop.pdb
+K:\xAI\vision\xAIDesktop\xAIDesktop\bin\Debug\xAIDesktop.exe.config
+K:\xAI\vision\xAIDesktop\xAIDesktop\bin\Debug\xAIDesktop.exe
+K:\xAI\vision\xAIDesktop\xAIDesktop\bin\Debug\xAIDesktop.pdb
+C:\Users\User\Documents\Visual Studio 2015\Projects\xAIDesktop\xAI-0e0e17bf645133292d2ea59c94f611da3c46d0b7\vision\xAIDesktop\xAIDesktop\bin\Debug\xAIDesktop.exe.config
+C:\Users\User\Documents\Visual Studio 2015\Projects\xAIDesktop\xAI-0e0e17bf645133292d2ea59c94f611da3c46d0b7\vision\xAIDesktop\xAIDesktop\bin\Debug\xAIDesktop.exe
+C:\Users\User\Documents\Visual Studio 2015\Projects\xAIDesktop\xAI-0e0e17bf645133292d2ea59c94f611da3c46d0b7\vision\xAIDesktop\xAIDesktop\bin\Debug\xAIDesktop.pdb
+C:\Users\User\Documents\Visual Studio 2015\Projects\xAIDesktop\xAI-0e0e17bf645133292d2ea59c94f611da3c46d0b7\vision\xAIDesktop\xAIDesktop\obj\Debug\xAIDesktop.Form1.resources
+C:\Users\User\Documents\Visual Studio 2015\Projects\xAIDesktop\xAI-0e0e17bf645133292d2ea59c94f611da3c46d0b7\vision\xAIDesktop\xAIDesktop\obj\Debug\xAIDesktop.Properties.Resources.resources
+C:\Users\User\Documents\Visual Studio 2015\Projects\xAIDesktop\xAI-0e0e17bf645133292d2ea59c94f611da3c46d0b7\vision\xAIDesktop\xAIDesktop\obj\Debug\xAIDesktop.Test.resources
+C:\Users\User\Documents\Visual Studio 2015\Projects\xAIDesktop\xAI-0e0e17bf645133292d2ea59c94f611da3c46d0b7\vision\xAIDesktop\xAIDesktop\obj\Debug\xAIDesktop.Train.resources
+C:\Users\User\Documents\Visual Studio 2015\Projects\xAIDesktop\xAI-0e0e17bf645133292d2ea59c94f611da3c46d0b7\vision\xAIDesktop\xAIDesktop\obj\Debug\xAIDesktop.csproj.GenerateResource.Cache
+C:\Users\User\Documents\Visual Studio 2015\Projects\xAIDesktop\xAI-0e0e17bf645133292d2ea59c94f611da3c46d0b7\vision\xAIDesktop\xAIDesktop\obj\Debug\xAIDesktop.csproj.CoreCompileInputs.cache
+C:\Users\User\Documents\Visual Studio 2015\Projects\xAIDesktop\xAI-0e0e17bf645133292d2ea59c94f611da3c46d0b7\vision\xAIDesktop\xAIDesktop\obj\Debug\xAIDesktop.exe
+C:\Users\User\Documents\Visual Studio 2015\Projects\xAIDesktop\xAI-0e0e17bf645133292d2ea59c94f611da3c46d0b7\vision\xAIDesktop\xAIDesktop\obj\Debug\xAIDesktop.pdb
