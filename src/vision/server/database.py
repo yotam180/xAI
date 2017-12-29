@@ -1,15 +1,33 @@
+#
+#   Database module
+#   Author: Yotam Salmon
+#   Last Edited: 29/12/17
+#
+
 import json
 import os
 from random import randint
 
 class db(object):
+    """
+    Represents a database object.
+    """
     def __init__(self, basepath):
+        """
+        Initialises a new database object. Receives the database's base path.
+        """
         self.basepath = basepath
     
     def table(self, name, template):
+        """
+        Loads a table from the database
+        """
         return db_table(self, name, template)
 
 class db_table(object):
+    """
+    Represents a database table
+    """
     def __init__(self, db, name, template):
         self.db = db
         self.name = name
@@ -49,6 +67,9 @@ class db_table(object):
                 yield item
 
 class db_item(object):
+    """
+    Represents a database item.
+    """
     def __init__(self, table, id, data):
         self.table = table
         self.data = data or {}
