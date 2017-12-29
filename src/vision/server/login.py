@@ -9,6 +9,7 @@ import db_entities
 
 import json
 import hashlib
+import time
 
 from email.utils import parseaddr
 
@@ -80,6 +81,19 @@ def register(params):
     users.update(user)
     return None
 
+def login(username, password):
+    hash = md5(password)
+    users = db.table("users", db_entities.USER)
+    results = [x for x in users.query(lambda c: c.get("username") == username and c.get("password_hash") == hash)]
+    if len(results) == 0:
+        return False
+    else:
+        sessions = db.table("sessions", db_entities.SESSION)
+        ses = sessions.new()
+        ses.set("username", username) \
+            .set("expiery", 31536000 + time.time())
+        sessions.update(ses)
+        return results[0]
 
 def md5(str):
     return hashlib.md5(str.encode("utf-8")).hexdigest()
