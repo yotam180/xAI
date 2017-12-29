@@ -10,8 +10,10 @@ import threading
 class RequestHandler(BaseHTTPRequestHandler):
     def do_GET(self):
 
-        if self.path.split("/")[1] in handlers.keys():
-            response, headers, content = handlers[self.path.split("/")[1]](self)
+        handler = self.path.split("/")[1].split("#")[0].split("?")[0]
+
+        if handler in handlers.keys():
+            response, headers, content = handlers[handler](self)
             
             self.send_response(response)
             for h, v in headers.items():
