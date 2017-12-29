@@ -1,21 +1,21 @@
-import server
+from server import handler, run
 import sys
 
 shutdown = False
 
 # Examples for using the server module
 
-@server.handler("hello")
+@handler("hello")
 def hello_handler(req):
     return 200, {}, "Hello World"
 
-@server.handler("exit")
+@handler("exit")
 def exit_handler(req):
     global shutdown
     shutdown = True
     return 200, {}, "Shutting down"
     
-serv = server.run()
+serv = run()
 
 while not shutdown:
     pass
