@@ -4,6 +4,8 @@
 #   Last Edited: 29/12/17
 #
 
+import database
+
 USER = [
     "username",
     "password_hash",
@@ -36,3 +38,19 @@ CLASSIFIER = [
     "date_trained",
     "custom_settings"
 ]
+
+REVIEW = [
+    "classifier",
+    "author",
+    "rate",
+    "comment",
+    "date"
+]
+
+VOTE = [
+    "classifier",
+    "user",
+    "sign"
+]
+
+db_instance = database.db("database")

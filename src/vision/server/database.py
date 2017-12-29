@@ -49,6 +49,10 @@ class db_table(object):
     def update(self, item):
         with open(os.path.join(self.path(), item.item_id + ".json"), "w") as f:
             f.write(json.dumps(item.data))
+
+    def delete(self, item):
+        if os.path.exists(os.path.join(self.path(), item.item_id + ".json")):
+            os.unlink(os.path.join(self.path(), item.item_id + ".json"))
     
     def load_item(self, item_id):
         if not os.path.exists(os.path.join(self.path(), item_id)):
