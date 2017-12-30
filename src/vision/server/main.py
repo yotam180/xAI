@@ -5,7 +5,7 @@ shutdown = False
 
 # Examples for using the server module
 
-@handler("hello")
+@handler("hello", "POST")
 def hello_handler(req):
     return 200, {}, "Hello World"
 
