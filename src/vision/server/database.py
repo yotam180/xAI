@@ -60,6 +60,7 @@ class db_table(object):
         with open(os.path.join(self.path(), item_id), "r") as f:
             data = json.loads(f.read())
         item = self.new()
+        item.item_id = item_id.replace(".json", "")
         item.data = data
         return item
 
