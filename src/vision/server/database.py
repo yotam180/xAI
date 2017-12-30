@@ -57,17 +57,17 @@ class db_table(object):
     def load_item(self, item_id):
         if not os.path.exists(os.path.join(self.path(), item_id)):
             return None
-        with open(os.path.join(self.path(), item_id), "r") as f:
+        with open(os.path.join(self.path(), item_id + ".json"), "r") as f:
             data = json.loads(f.read())
         item = self.new()
-        item.item_id = item_id.replace(".json", "")
+        item.item_id = item_id
         item.data = data
         return item
 
     def query(self, filter = None):
         ids = [x for x in os.listdir(self.path()) if x.endswith(".json")]
         for i in ids:
-            item = self.load_item(i)
+            item = self.load_item(i[:-5])
             if not filter or filter(item):
                 yield item
 
