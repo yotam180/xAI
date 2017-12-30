@@ -11,9 +11,15 @@ from http.cookies import SimpleCookie
 import login
 
 def msg(txt):
+    """
+    Encodes a simple string message in a json response format
+    """
     return json.dumps({"message": txt})
 
 def post(req):
+    """
+    Extract the POST body from a request.
+    """
     if not "Content-Length" in req.headers.keys():
         return None
     try:
@@ -23,6 +29,9 @@ def post(req):
     return req.rfile.read(content_length)
 
 def json_post(req):
+    """
+    Extracts and parses a json POST data.
+    """
     content = post(req)
     if content is None:
         return None
@@ -32,6 +41,9 @@ def json_post(req):
         return None
 
 def get_session(req):
+    """
+    Gets a session id from a request and validates it against the database.
+    """
     if "Cookie" in req.headers.keys():
         cookies = SimpleCookie()
         cookies.load(req.headers["Cookie"])
