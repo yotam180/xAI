@@ -49,8 +49,8 @@ def get_session(req):
         cookies.load(req.headers["Cookie"])
         if "_SESSION" in cookies:
             ses = cookies["_SESSION"].value
-            is_ok = login.verify_session(ses)
-            return ses if is_ok else False
+            session = login.verify_session(ses)
+            return session or False
         else:
             return False
     else:

@@ -111,11 +111,11 @@ def verify_session(session_id):
     sessions = db.table("sessions", db_entities.SESSION)
     ses = sessions.load_item(session_id)
     if ses is None:
-        return False
+        return None
     if ses.get("expiery") <= time.time():
         sessions.delete(ses)
-        return False
-    return True
+        return None
+    return ses
 
 def create_api_key(username, password):
     user, _ = login(username, password, False)
@@ -128,6 +128,28 @@ def create_api_key(username, password):
             .set("creation_date", time.time())
         keys.update(key)
         return key
+
+def remove_api_key(token, password):
+    users = db.table("users", db_entities.USER)
+    keys = db.table("keys", db_entities.API_KEY)
+
+    key = keys.load_item(token)
+    if key is None:
+        print("Error finding key")
+        return False
+
+    matching_users = list(users.query(lambda c: c.get("username") == key.get("username")))
+    if len(matching_users) < 1:
+        print("Error finding user " + key.get("username"))
+        return False
+    user = matching_users[0]
+
+    if user.get("password_hash") != md5(password):
+        print("Error comparing password")
+        return False
+
+    keys.delete(key)
+    return True
 
 def md5(str):
     return hashlib.md5(str.encode("utf-8")).hexdigest()

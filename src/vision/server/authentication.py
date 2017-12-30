@@ -87,7 +87,7 @@ def logout(req):
         return 401, {"WWW-Authentication": "Authenticate POST /login"}, msg("Not authenticated")
     
     # Logging out the user from the database
-    res = login.logout(session)
+    res = login.logout(session.item_id)
 
     # If the logout worked, deleting the session cookie at the client side. Otherwise, informing that
     # something wrong happened in the database.
