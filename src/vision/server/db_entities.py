@@ -21,6 +21,11 @@ SESSION = [
     "expiery"
 ]
 
+API_KEY = [
+    "username",
+    "creation_date"
+]
+
 DATASET = [
     "identifier",
     "username",

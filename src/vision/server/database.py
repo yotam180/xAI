@@ -55,7 +55,7 @@ class db_table(object):
             os.unlink(os.path.join(self.path(), item.item_id + ".json"))
     
     def load_item(self, item_id):
-        if not os.path.exists(os.path.join(self.path(), item_id)):
+        if not os.path.exists(os.path.join(self.path(), item_id + ".json")):
             return None
         with open(os.path.join(self.path(), item_id + ".json"), "r") as f:
             data = json.loads(f.read())

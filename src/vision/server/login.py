@@ -1,7 +1,7 @@
 #
 #   Login system
 #   Author: Yotam Salmon
-#   Last Edited: 29/12/17
+#   Last Edited: 30/12/17
 #
 
 import database
@@ -81,19 +81,46 @@ def register(params):
     users.update(user)
     return None
 
-def login(username, password):
+def login(username, password, create_session=True):
     hash = md5(password)
     users = db.table("users", db_entities.USER)
     results = [x for x in users.query(lambda c: c.get("username") == username and c.get("password_hash") == hash)]
     if len(results) == 0:
-        return False
+        return None, None
     else:
-        sessions = db.table("sessions", db_entities.SESSION)
-        ses = sessions.new()
-        ses.set("username", username) \
-            .set("expiery", 31536000 + time.time())
-        sessions.update(ses)
-        return results[0]
+        if create_session:
+            sessions = db.table("sessions", db_entities.SESSION)
+            ses = sessions.new()
+            ses.set("username", username) \
+                .set("expiery", 31536000 + time.time())
+            sessions.update(ses)
+            return results[0], ses
+        else:
+            return results[0], None
+
+def verify_session(session_id):
+    sessions = db.table("sessions", db_entities.SESSION)
+    ses = sessions.load_item(session_id)
+    if ses is None:
+        return False
+    if ses.get("expiery") <= time.time():
+        sessions.delete(ses)
+        return False
+    return True
+
+def create_api_key(username, password):
+    user, _ = login(username, password, False)
+    if user is None:
+        return None
+    else:
+        keys = db.table("keys", db_entities.API_KEY)
+        key = keys.new() \
+            .set("username", username) \
+            .set("creation_date", time.time())
+        keys.update(key)
+        return key
 
 def md5(str):
     return hashlib.md5(str.encode("utf-8")).hexdigest()
+
+print(create_api_key("yotam180", "Yotam123").item_id)
