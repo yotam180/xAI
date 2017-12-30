@@ -98,6 +98,15 @@ def login(username, password, create_session=True):
         else:
             return results[0], None
 
+def logout(session_id):
+    sessions = db.table("sessions", db_entities.SESSION)
+    ses = sessions.load_item(session_id)
+    if ses:
+        sessions.delete(ses)
+        return True
+    else:
+        return False
+
 def verify_session(session_id):
     sessions = db.table("sessions", db_entities.SESSION)
     ses = sessions.load_item(session_id)
@@ -122,5 +131,3 @@ def create_api_key(username, password):
 
 def md5(str):
     return hashlib.md5(str.encode("utf-8")).hexdigest()
-
-print(create_api_key("yotam180", "Yotam123").item_id)

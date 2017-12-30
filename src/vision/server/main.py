@@ -1,22 +1,12 @@
 from server import handler, run
-import sys
+import login
 
-shutdown = False
+# Importing our request handlers
+import authentication
 
-# Examples for using the server module
-
-@handler("hello", "POST")
-def hello_handler(req):
-    return 200, {}, "Hello World"
-
-@handler("exit")
-def exit_handler(req):
-    global shutdown
-    shutdown = True
-    return 200, {}, "Shutting down"
-    
+# Running our server
 serv = run()
 
-while not shutdown:
-    pass
+# Waiting for a request to shut the server down
+input()
 serv.shutdown()
