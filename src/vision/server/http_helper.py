@@ -55,3 +55,15 @@ def get_session(req):
             return False
     else:
         return False
+
+def logged_in(req):
+    """
+    Gets the currently logged in user.
+    """
+    ses = get_session(req)
+    if not ses:
+        return None
+    user = login.get_logged_user(ses)
+    if not user:
+        return None
+    return user

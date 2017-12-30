@@ -11,7 +11,7 @@ from server import handler
 import json
 
 # Importing some basic http helpers to help us with processing requests
-from http_helper import msg, json_post, get_session
+from http_helper import msg, json_post, get_session, logged_in
 
 # Importing the login module to interface indirectly with the users database
 import login
@@ -66,3 +66,14 @@ def delete_key_post(req):
         return 200, {}, msg("API key deleted")
     else:
         return 200, {}, msg("Error deleting API key")
+
+@handler("tokens", "GET")
+def tokens_list_get(req):
+    user = logged_in(req)
+
+    if not user:
+        return 401, {}, ""
+    
+    tokens = [{"id": x.item_id, "creation_date": x.get("creation_date")} for x in login.get_tokens(user)]
+
+    return 200, {}, json.dumps(tokens)

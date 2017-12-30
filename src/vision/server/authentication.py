@@ -16,7 +16,7 @@ import sys
 import json
 
 # Importing some helper functions from http_helper to parse requests
-from http_helper import msg, get_session, post, json_post
+from http_helper import msg, get_session, post, json_post, logged_in
 
 # Using the login module to interface with the user database
 import login
@@ -95,3 +95,11 @@ def logout(req):
         return 200, {"Set-Cookie": "_SESSION=deleted; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT"}, msg("Logged out")
     else:
         return 400, {}, msg("Session could not be found")
+
+
+@handler("profile", "GET")
+def profile_get(req):
+    user = logged_in(req)
+    if not user:
+        return 403, {}, ""
+    return 200, {}, json.dumps(user.data)

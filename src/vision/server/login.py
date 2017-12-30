@@ -117,6 +117,14 @@ def verify_session(session_id):
         return None
     return ses
 
+def get_logged_user(session):
+    users = db.table("users", db_entities.USER)
+    a = list(users.query(lambda c: session.get("username") == c.get("username")))
+    if len(a) < 1:
+        return None
+    else:
+        return a[0]
+
 def create_api_key(username, password):
     user, _ = login(username, password, False)
     if user is None:
@@ -153,3 +161,8 @@ def remove_api_key(token, password):
 
 def md5(str):
     return hashlib.md5(str.encode("utf-8")).hexdigest()
+
+def get_tokens(user):
+    token_tbl = db.table("keys", db_entities.API_KEY)
+    tokens = token_tbl.query(lambda c: c.get("username") == user.get("username"))
+    return list(tokens)
