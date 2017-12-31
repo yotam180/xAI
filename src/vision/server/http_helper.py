@@ -11,7 +11,7 @@ from http.cookies import SimpleCookie
 
 import login
 
-def msg(txt):
+def msg(txt : str) -> str:
     """
     Encodes a simple string message in a json response format
     """
@@ -21,6 +21,7 @@ def post(req):
     """
     Extract the POST body from a request.
     """
+    print(type(req))
     if not "Content-Length" in req.headers.keys():
         return None
     try:
