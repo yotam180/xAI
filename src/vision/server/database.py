@@ -12,7 +12,7 @@ class db(object):
     """
     Represents a database object.
     """
-    def __init__(self, basepath):
+    def __init__(self, basepath: str):
         """
         Initialises a new database object. Receives the database's base path.
         """
@@ -28,7 +28,7 @@ class db_table(object):
     """
     Represents a database table
     """
-    def __init__(self, db, name, template):
+    def __init__(self, db: db, name: str, template: list):
         """
         Initialises a new instance of a db_table. Should not be called directly, use db.table() insted.
         """
@@ -42,13 +42,13 @@ class db_table(object):
         if not os.path.exists(self.path()):
             os.makedirs(self.path())
     
-    def path(self):
+    def path(self) -> str:
         """
         Returns the path of the directory on disk of the table.
         """
         return os.path.join(self.db.basepath, self.name)
 
-    def new(self):
+    def new(self) -> db_item:
         """
         Creates a new record in the table. Does not store it yet on the disk. Best to write it
         immediately after initialisation to avoid duplicated IDs. 
@@ -66,7 +66,7 @@ class db_table(object):
         i = db_item(self, _id, {})
         return i
 
-    def update(self, item):
+    def update(self, item: db_item) -> None:
         """
         Updating an item on disk from an in-memory item.
         If the item does not exist on disk, creating it.
@@ -74,7 +74,7 @@ class db_table(object):
         with open(os.path.join(self.path(), item.item_id + ".json"), "w") as f:
             f.write(json.dumps(item.data))
 
-    def delete(self, item):
+    def delete(self, item: db_item) -> None:
         """
         Deleting an item in memory from the disk. Note: does not remove the item object
         from the memory.
@@ -82,7 +82,7 @@ class db_table(object):
         if os.path.exists(os.path.join(self.path(), item.item_id + ".json")):
             os.unlink(os.path.join(self.path(), item.item_id + ".json"))
     
-    def load_item(self, item_id):
+    def load_item(self, item_id: str) -> db_item:
         """
         Loading an item from memory by its id.
         """
@@ -134,7 +134,7 @@ class db_item(object):
         self.data = data or {}
         self.item_id = id
     
-    def get(self, col):
+    def get(self, col: str):
         """
         Gets a column from the record row.
         """
@@ -146,7 +146,7 @@ class db_item(object):
         else:
             raise KeyError()
     
-    def set(self, col, val):
+    def set(self, col: str, val):
         """
         Sets a column of the record row.
         """

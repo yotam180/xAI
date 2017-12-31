@@ -53,7 +53,7 @@ class RequestHandler(BaseHTTPRequestHandler):
             self.wfile.write(bytes("404 - Not Found", "utf8"))
         return
 
-def run():
+def run() -> None:
     print('Running server...')
     server_address = ('', 9090)
     httpd = HTTPServer(server_address, RequestHandler)
@@ -62,7 +62,7 @@ def run():
     return httpd
 
 
-def handler(url, method="GET"):
+def handler(url: str, method: str = "GET"):
     global _get_handlers, _post_handlers
     def handler_decorator(func):
         global handlers

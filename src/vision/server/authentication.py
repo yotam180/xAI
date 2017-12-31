@@ -9,7 +9,7 @@ It uses the @handler decorator from the server module to handle requests
 """
 
 # Using the handler decorator to handle HTTP requests
-from server import handler
+from server import handler, RequestHandler
 
 # Trivial utility imports 
 import sys
@@ -22,7 +22,7 @@ from http_helper import msg, get_session, post, json_post, logged_in
 import login
 
 @handler("login", "GET")
-def login_get(req):
+def login_get(req: RequestHandler) -> tuple:
     """
     Handles a GET request to /login
     Returns a 405 response specifying that a POST should be made to the endpoint to login.
@@ -30,7 +30,7 @@ def login_get(req):
     return 405, {}, msg("Please use POST for authenticating")
 
 @handler("login", "POST")
-def login_post(req):
+def login_post(req: RequestHandler) -> tuple:
     """
     Logs a user into the web server. 
     """
@@ -70,7 +70,7 @@ def login_post(req):
 
 @handler("logout", "GET")
 @handler("logout", "POST")
-def logout(req):
+def logout(req: RequestHandler) -> tuple:
     """
     This logs the user out of the web server.
     """
@@ -98,7 +98,7 @@ def logout(req):
 
 
 @handler("profile", "GET")
-def profile_get(req):
+def profile_get(req: RequestHandler) -> tuple:
     user = logged_in(req)
     if not user:
         return 403, {}, ""

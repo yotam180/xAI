@@ -15,7 +15,7 @@ from email.utils import parseaddr
 
 db = db_entities.db_instance
 
-def register(params):
+def register(params: dict):
     username = params["username"]
     password = params["password"]
     confirmation = params["confirmation"]
@@ -81,7 +81,7 @@ def register(params):
     users.update(user)
     return None
 
-def login(username, password, create_session=True):
+def login(username: str, password: str, create_session: bool = True):
     hash = md5(password)
     users = db.table("users", db_entities.USER)
     results = [x for x in users.query(lambda c: c.get("username") == username and c.get("password_hash") == hash)]
@@ -98,7 +98,7 @@ def login(username, password, create_session=True):
         else:
             return results[0], None
 
-def logout(session_id):
+def logout(session_id: str) -> bool:
     sessions = db.table("sessions", db_entities.SESSION)
     ses = sessions.load_item(session_id)
     if ses:
@@ -107,7 +107,7 @@ def logout(session_id):
     else:
         return False
 
-def verify_session(session_id):
+def verify_session(session_id: str) -> bool:
     sessions = db.table("sessions", db_entities.SESSION)
     ses = sessions.load_item(session_id)
     if ses is None:
@@ -117,7 +117,7 @@ def verify_session(session_id):
         return None
     return ses
 
-def get_logged_user(session):
+def get_logged_user(session: database.db_item) -> database.db_item:
     users = db.table("users", db_entities.USER)
     a = list(users.query(lambda c: session.get("username") == c.get("username")))
     if len(a) < 1:
@@ -125,7 +125,7 @@ def get_logged_user(session):
     else:
         return a[0]
 
-def create_api_key(username, password):
+def create_api_key(username: str, password: str) -> database.db_item:
     user, _ = login(username, password, False)
     if user is None:
         return None
@@ -137,7 +137,7 @@ def create_api_key(username, password):
         keys.update(key)
         return key
 
-def remove_api_key(token, password):
+def remove_api_key(token: str, password: str) -> bool:
     users = db.table("users", db_entities.USER)
     keys = db.table("keys", db_entities.API_KEY)
 
@@ -159,10 +159,10 @@ def remove_api_key(token, password):
     keys.delete(key)
     return True
 
-def md5(str):
-    return hashlib.md5(str.encode("utf-8")).hexdigest()
+def md5(string: str) -> str:
+    return hashlib.md5(string.encode("utf-8")).hexdigest()
 
-def get_tokens(user):
+def get_tokens(user: database.db_item) -> list:
     token_tbl = db.table("keys", db_entities.API_KEY)
     tokens = token_tbl.query(lambda c: c.get("username") == user.get("username"))
     return list(tokens)

@@ -9,6 +9,8 @@ import json
 import base64
 from http.cookies import SimpleCookie
 
+from server import RequestHandler
+
 import login
 
 def msg(txt : str) -> str:
@@ -17,7 +19,7 @@ def msg(txt : str) -> str:
     """
     return json.dumps({"message": txt})
 
-def post(req):
+def post(req: RequestHandler):
     """
     Extract the POST body from a request.
     """
@@ -30,7 +32,7 @@ def post(req):
         return None
     return req.rfile.read(content_length)
 
-def json_post(req):
+def json_post(req: RequestHandler):
     """
     Extracts and parses a json POST data.
     """
@@ -42,7 +44,7 @@ def json_post(req):
     except:
         return None
 
-def get_session_id_from_cookie(req):
+def get_session_id_from_cookie(req: RequestHandler) -> str:
     """
     Gets a session id from a request and validates it against the database.
     """
@@ -57,7 +59,7 @@ def get_session_id_from_cookie(req):
     else:
         return False
 
-def get_session_id_from_header(req):
+def get_session_id_from_header(req: RequestHandler) -> str:
     if "Authorization" in req.headers:
         auth = req.headers["Authorization"].split(" ")
         if len(auth) < 2:
@@ -70,7 +72,7 @@ def get_session_id_from_header(req):
         return False
     return False
 
-def get_session(req):
+def get_session(req: RequestHandler):
     """
     Gets the session object from a connection.
     """
@@ -79,7 +81,7 @@ def get_session(req):
         return False
     return login.verify_session(session) or False
 
-def logged_in(req):
+def logged_in(req: RequestHandler):
     """
     Gets the currently logged in user.
     """
