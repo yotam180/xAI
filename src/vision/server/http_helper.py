@@ -63,10 +63,11 @@ def get_session_id_from_header(req):
             return False
         if auth[0] == "Session":
             try:
-                return base64.b64decode(auth[1])
+                return base64.b64decode(auth[1]).decode("utf-8")
             except:
                 return False
         return False
+    return False
 
 def get_session(req):
     """
