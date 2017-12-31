@@ -6,6 +6,7 @@
 
 import sys
 import json
+import base64
 from http.cookies import SimpleCookie
 
 import login
@@ -40,7 +41,7 @@ def json_post(req):
     except:
         return None
 
-def get_session(req):
+def get_session_id_from_cookie(req):
     """
     Gets a session id from a request and validates it against the database.
     """
@@ -49,12 +50,32 @@ def get_session(req):
         cookies.load(req.headers["Cookie"])
         if "_SESSION" in cookies:
             ses = cookies["_SESSION"].value
-            session = login.verify_session(ses)
-            return session or False
+            return ses or False
         else:
             return False
     else:
         return False
+
+def get_session_id_from_header(req):
+    if "Authorization" in req.headers:
+        auth = req.headers["Authorization"].split(" ")
+        if len(auth) < 2:
+            return False
+        if auth[0] == "Session":
+            try:
+                return base64.b64decode(auth[1])
+            except:
+                return False
+        return False
+
+def get_session(req):
+    """
+    Gets the session object from a connection.
+    """
+    session = get_session_id_from_header(req) or get_session_id_from_cookie(req)
+    if not session:
+        return False
+    return login.verify_session(session) or False
 
 def logged_in(req):
     """
