@@ -24,6 +24,40 @@ class db(object):
         """
         return db_table(self, name, template)
 
+class db_item(object):
+    """
+    Represents a database item.
+    """
+    def __init__(self, table, id, data):
+        """
+        Initialising a new item object.
+        """
+        self.table = table
+        self.data = data or {}
+        self.item_id = id
+    
+    def get(self, col: str):
+        """
+        Gets a column from the record row.
+        """
+        if col in self.table.template:
+            if col in self.data.keys():
+                return self.data[col]
+            else:
+                return None
+        else:
+            raise KeyError()
+    
+    def set(self, col: str, val):
+        """
+        Sets a column of the record row.
+        """
+        if col in self.table.template:
+            self.data[col] = val
+        else:
+            raise KeyError()
+        return self
+
 class db_table(object):
     """
     Represents a database table
@@ -86,7 +120,7 @@ class db_table(object):
         """
         Loading an item from memory by its id.
         """
-
+        
         # Checking if the item exists on disk, and if not - returning None.
         if not os.path.exists(os.path.join(self.path(), item_id + ".json")):
             return None
@@ -121,37 +155,3 @@ class db_table(object):
             if not filter or filter(item):
                 # Yielding the next result
                 yield item
-
-class db_item(object):
-    """
-    Represents a database item.
-    """
-    def __init__(self, table, id, data):
-        """
-        Initialising a new item object.
-        """
-        self.table = table
-        self.data = data or {}
-        self.item_id = id
-    
-    def get(self, col: str):
-        """
-        Gets a column from the record row.
-        """
-        if col in self.table.template:
-            if col in self.data.keys():
-                return self.data[col]
-            else:
-                return None
-        else:
-            raise KeyError()
-    
-    def set(self, col: str, val):
-        """
-        Sets a column of the record row.
-        """
-        if col in self.table.template:
-            self.data[col] = val
-        else:
-            raise KeyError()
-        return self

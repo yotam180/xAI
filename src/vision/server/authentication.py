@@ -103,3 +103,4 @@ def profile_get(req: RequestHandler) -> tuple:
     if not user:
         return 403, {}, ""
     return 200, {}, json.dumps(user.data)
+
