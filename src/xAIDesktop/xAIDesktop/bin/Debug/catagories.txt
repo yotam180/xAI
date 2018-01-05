@@ -1,7 +1,13 @@
 cat
+
 dog
+
 hello
+
 yellow
+
 yello
+
+
 
 stop

@@ -43,3 +43,14 @@ K:\xAI\xAIDesktop\xAIDesktop\obj\Debug\xAIDesktop.csproj.GenerateResource.Cache
 K:\xAI\xAIDesktop\xAIDesktop\obj\Debug\xAIDesktop.csproj.CoreCompileInputs.cache
 K:\xAI\xAIDesktop\xAIDesktop\obj\Debug\xAIDesktop.exe
 K:\xAI\xAIDesktop\xAIDesktop\obj\Debug\xAIDesktop.pdb
+C:\Users\yotam\Documents\xAI\src\xAIDesktop\xAIDesktop\bin\Debug\xAIDesktop.exe.config
+C:\Users\yotam\Documents\xAI\src\xAIDesktop\xAIDesktop\bin\Debug\xAIDesktop.exe
+C:\Users\yotam\Documents\xAI\src\xAIDesktop\xAIDesktop\bin\Debug\xAIDesktop.pdb
+C:\Users\yotam\Documents\xAI\src\xAIDesktop\xAIDesktop\obj\Debug\xAIDesktop.Form1.resources
+C:\Users\yotam\Documents\xAI\src\xAIDesktop\xAIDesktop\obj\Debug\xAIDesktop.Properties.Resources.resources
+C:\Users\yotam\Documents\xAI\src\xAIDesktop\xAIDesktop\obj\Debug\xAIDesktop.Test.resources
+C:\Users\yotam\Documents\xAI\src\xAIDesktop\xAIDesktop\obj\Debug\xAIDesktop.Train.resources
+C:\Users\yotam\Documents\xAI\src\xAIDesktop\xAIDesktop\obj\Debug\xAIDesktop.csproj.GenerateResource.Cache
+C:\Users\yotam\Documents\xAI\src\xAIDesktop\xAIDesktop\obj\Debug\xAIDesktop.csproj.CoreCompileInputs.cache
+C:\Users\yotam\Documents\xAI\src\xAIDesktop\xAIDesktop\obj\Debug\xAIDesktop.exe
+C:\Users\yotam\Documents\xAI\src\xAIDesktop\xAIDesktop\obj\Debug\xAIDesktop.pdb
