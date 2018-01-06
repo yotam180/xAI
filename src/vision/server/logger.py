@@ -1,3 +1,9 @@
+#
+#   Logging Module
+#   Author: Shai Kimhi
+#   Last Edited: 06/01/18
+#
+ 
 import socket
 import json
 from time import time
