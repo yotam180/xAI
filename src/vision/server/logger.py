@@ -9,12 +9,16 @@ def log(clientAddr):
     This function checks whether a client address reqeust was recieved in the last 3 seconds (parameterized).
     If a request was recieved, returns true. Otherwise, returns false.
     """
-    valid =False
-    file = open("server/logs/log.txt","r+")
-    logs = json.loads(file.read())
-    if(logs[clientAddr]-time()<MINIMAL_TIME):
-        valid = True
+    valid = False
+
+    with open("server/logs/log.txt","r") as file:
+        logs = json.loads(file.read())
+        if(logs[clientAddr] - time() < MINIMAL_TIME):
+            valid = True
+    
     logs[clientAddr] = time()
-    file.write(json.dumps(logs))
-    file.close()
+
+    with open("server/logs/log.txt","w") as file:
+        file.write(json.dumps(logs))
+
     return valid
