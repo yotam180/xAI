@@ -3,15 +3,61 @@
     src: url("../font/font.woff");
 }
 
+@keyframes minimize_header {
+    0% {
+        height: 70px;
+    }
+    100% {
+        height: 30px;
+    }
+}
+
+@keyframes maximize_header {
+    100% {
+        height: 70px;
+    }
+    0% {
+        height: 30px;
+    }
+}
+
+@keyframes minimize_logo {
+    0% {
+        top: 15px;
+        left: 5vw;
+        height: 40px;
+    }
+    100% {
+        top: 5px;
+        left: 5px;
+        height: 20px;
+    }
+}
+
+@keyframes maximize_logo {
+    100% {
+        top: 15px;
+        left: 5vw;
+        height: 40px;
+    }
+    0% {
+        top: 5px;
+        left: 5px;
+        height: 20px;
+    }
+}
+
 body {
-    background-color: darkblue;
+    background-color: black;
     color: white;
     margin: 0;
 
     overflow-x: hidden;
+
+    font-family: Normal;
 }
 
-#header {
+.header {
     width: 100%;
     height: 70px;
     font-family: Normal;
@@ -23,9 +69,30 @@ body {
     text-align: center;
 
     z-index: 100;    
+
+    animation-name: maximize_header;
+    animation-duration: .5s;
 }
 
-#header #header_text {
+.header_folded {
+    width: 100%;
+    height: 30px;
+    font-family: Normal;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    text-align: center;
+
+    z-index: 100;
+
+    animation-name: minimize_header;
+    animation-duration: .5s;
+}
+
+.header_folded #header_text,
+.header #header_text {
     height: 100%;
     width: 50%;
     min-width: 500px;
@@ -34,8 +101,8 @@ body {
 
     table-layout: fixed;
 }
-
-#header #header_text tr td {
+.header_folded #header_text tr td,    
+.header #header_text tr td {
     vertical-align: middle;
     text-align: center;
 
@@ -61,15 +128,55 @@ body {
 
 #vid_frame {
     width: 100%;
-    height: 100vh;
-    opacity: .9;
+    height: 100%;
+    opacity: 1;
     z-index: -99;
     
     pointer-events: none;
+}
+
+#main_title {
+    position: absolute;
+
+    top: 60vh;
+    left: 0;
+    width: 100%;
+    height: 30vh;
+
+    background-color: rgba(0, 0, 139, 0.5);
+
+    padding: 2vh;
 }
 
 .section {
     width: 100%;
     height: 100vh;
     display: block;
+
+    position: relative;
+}
+
+#main_logo {
+    height: 15vh;
+    display: inline-block;
+}
+
+.top_logo {
+    position: fixed;
+    top: 15px;
+    left: 5vw;
+    height: 40px;
+
+    animation-name: maximize_logo;
+    animation-duration: .5s;
+}
+
+.top_logo_folded {
+    position: fixed;
+    top: 5px;
+    left: 5px;
+    height: 20px;
+
+    animation-name: minimize_logo;
+    animation-duration: .5s;
 }

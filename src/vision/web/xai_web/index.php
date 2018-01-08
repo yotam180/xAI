@@ -7,9 +7,13 @@
 
 <?php require("header.php"); ?>
 
-<iframe id="vid_frame" src="https://www.youtube.com/embed/h8hXvxQl5n4?controls=0&showinfo=0&rel=0&autoplay=1&loop=1&playlist=h8hXvxQl5n4&modestbranding=1" allowfullscreen>
-
-</iframe>
+<div class="section">
+    <iframe id="vid_frame" src="https://www.youtube.com/embed/dAIQeTeMJ-I?autoplay=1&controls=0&showinfo=0&autohide=1&modestbranding=1&loop=1&playlist=dAIQeTeMJ-I" allowfullscreen>
+    </iframe>
+    <div id="main_title">
+        <span style="vertical-align: middle"><img id="main_logo" src="img/logo_light.png" /> - A research project in the field of machine learning and artificial intelligence</span>
+    </div>
+</div>
 
 <div class="section">
 

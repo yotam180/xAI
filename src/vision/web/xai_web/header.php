@@ -1,5 +1,7 @@
 <script type="text/javascript">
     $(document).ready(function() {
+        let folded = false;
+
         $(".menu_btn").mouseenter(function() {
             $(".menu_btn")
                 .stop(true, true)
@@ -9,31 +11,46 @@
                 .stop(true, true)
                 .animate({backgroundColor: $(this).attr("oc")}, "fast");
 
-            $("#header")
+            $(".header,.header_folded")
                 .stop(true, true)
                 .animate({backgroundColor: $(this).attr("ec")}, "slow");
             
-            // $("#freezer")
-            //     .stop(true, true)
-            //     .fadeIn()
-            //     .css({backgroundColor: $(this).attr("ec")});
+                setTimeout(function() {
+                    $(".top_logo,.top_logo_folded").attr("src", "img/logo.png");
+                }, 500);
         });
-        $("#header").mouseleave(function() {
+
+        $(".header,.header_folded").mouseleave(function() {
             $(".menu_btn")
                 .stop(true, true)
                 .animate({backgroundColor: "transparent"}, "fast");
 
-            $("#header")
+            $(".header,.header_folded")
                 .stop(true, true)
                 .animate({backgroundColor: "transparent"}, "slow");
+                
+            setTimeout(function() {
+                $(".top_logo,.top_logo_folded").attr("src", "img/logo_light.png");
+            }, 500);
+        });
 
-            // $("#freezer")
-            //     .stop(true, true)
-            //     .fadeOut();
+        $(window).scroll(function() {
+            console.log(folded, window.scrollY);
+            if (folded && window.scrollY == 0) {
+                $("#header").removeClass("header_folded").addClass("header");
+                $("#top_logo").removeClass("top_logo_folded").addClass("top_logo");
+                folded = false;
+            }
+            if (!folded && window.scrollY > 0) {
+                $("#header").removeClass("header").addClass("header_folded");
+                $("#top_logo").removeClass("top_logo").addClass("top_logo_folded");
+                folded = true;
+            }
         });
     });
 </script>
-<div id="header">
+<div class="header" id="header">
+    <img class="top_logo" id="top_logo" src="img/logo_light.png" />
     <table id="header_text" border="0">
         <tr>
             <td class="menu_btn" oc="#2884b7" ec="#52a9d9">About</td>
