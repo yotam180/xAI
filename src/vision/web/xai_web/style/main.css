@@ -3,28 +3,12 @@
     src: url("../font/font.woff");
 }
 
-@-webkit-keyframes blue_header {
-    0% {
-        background-color: rgba(255, 255, 255, 0);
-    }
-    100% {
-        background-color: rgba(0, 0, 255, .3);
-    }
-}
-
-@-webkit-keyframes blue_cell {
-    0% {
-        background-color: rgba(255, 255, 255, 0);
-    }
-    100% {
-        background-color: rgb(0, 60, 255, 0.8);
-    }
-}
-
 body {
-    background-color: navy;
+    background-color: darkblue;
     color: white;
     margin: 0;
+
+    overflow-x: hidden;
 }
 
 #header {
@@ -37,6 +21,8 @@ body {
     left: 0;
 
     text-align: center;
+
+    z-index: 100;    
 }
 
 #header #header_text {
@@ -52,16 +38,38 @@ body {
 #header #header_text tr td {
     vertical-align: middle;
     text-align: center;
+
+    cursor: pointer;
+
+    border-radius: 2px;
 }
 
-#header #header_text tr td:hover {
-    background-color: rgba(0, 60, 255, 0.8);
-    animation-name: blue_cell;
-    animation-duration: 1s;
+#freezer {
+    top: 70px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    background-color: black;
+
+    position: fixed;
+
+    opacity: 0.3;
+
+    display: none;
 }
 
-#header:hover {
-    background-color: rgba(0, 0, 255, .3);
-    animation-name: blue_header;
-    animation-duration: .5s;
+#vid_frame {
+    width: 100%;
+    height: 100vh;
+    opacity: .9;
+    z-index: -99;
+    
+    pointer-events: none;
+}
+
+.section {
+    width: 100%;
+    height: 100vh;
+    display: block;
 }
