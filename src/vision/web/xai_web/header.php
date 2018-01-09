@@ -1,4 +1,9 @@
 <script type="text/javascript">
+
+    let scroll = function(anchorid) {
+        $("html,body").animate({scrollTop: $(anchorid).offset().top}, "slow");
+    }
+
     $(document).ready(function() {
         let folded = false;
 
@@ -46,16 +51,28 @@
                 folded = true;
             }
         });
+
+        $("#about_btn").click(function() {
+            scroll("#section2");
+        });
+
+        $("#products_btn").click(function() {
+            scroll("#section3");
+        });
+
+        $("#top_logo").click(function() {
+            scroll("#section1");
+        })
     });
 </script>
 <div class="header" id="header">
     <img class="top_logo" id="top_logo" src="img/logo_light.png" />
     <table id="header_text" border="0">
         <tr>
-            <td class="menu_btn" oc="#2884b7" ec="#52a9d9">About</td>
-            <td class="menu_btn" oc="#5c28b7" ec="#8352d9">Products</td>
-            <td class="menu_btn" oc="#2dcc8f" ec="#68dece">Demo</td>
-            <td class="menu_btn" oc="#f20729" ec="#fa647a">Account</td>
+            <td id="about_btn" class="menu_btn" oc="#2884b7" ec="#52a9d9">About</td>
+            <td id="products_btn" class="menu_btn" oc="#5c28b7" ec="#8352d9">Products</td>
+            <td id="demo_btn" class="menu_btn" oc="#2dcc8f" ec="#68dece">Demo</td>
+            <td id="account_btn" class="menu_btn" oc="#f20729" ec="#fa647a">Account</td>
         </tr>
     </table>
 </div>

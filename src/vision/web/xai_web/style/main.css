@@ -118,6 +118,7 @@ body {
 .section {
     width: 100vw;
     height: 100vh;
+    position: relative;
 }
 
 .top_logo {
@@ -128,6 +129,8 @@ body {
 
     animation-name: maximize_logo;
     animation-duration: .5s;
+
+    cursor: pointer;
 }
 
 .top_logo_folded {
@@ -138,4 +141,18 @@ body {
 
     animation-name: minimize_logo;
     animation-duration: .5s;
+
+    cursor: pointer;
+}
+
+a:visited {
+    color: royalblue;
+}
+
+a {
+    color: skyblue;
+}
+
+a:hover {
+    color: royalblue;
 }
