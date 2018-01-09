@@ -1,0 +1,40 @@
+#main_logo {
+    height: 15vh;
+    display: inline-block;
+}
+
+#vid_frame {
+    width: 100%;
+    height: 100%;
+    opacity: 1;
+    z-index: -99;
+    
+    pointer-events: none;
+
+    display: none;
+}
+
+.newsbar {
+    position: absolute;
+
+    top: 60vh;
+    left: 0;
+    width: 100%;
+    height: 30vh;
+
+    background-color: rgba(0, 0, 139, 0.5);
+
+    padding: 2vh;
+}
+
+#alt_back_brain {
+    height: 100vh;
+    width: 100vw;
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    background-image: url("../img/glass_brain.jpg");
+    background-repeat: no-repeat;
+    background-size: contain;
+}

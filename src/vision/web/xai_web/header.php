@@ -35,7 +35,6 @@
         });
 
         $(window).scroll(function() {
-            console.log(folded, window.scrollY);
             if (folded && window.scrollY == 0) {
                 $("#header").removeClass("header_folded").addClass("header");
                 $("#top_logo").removeClass("top_logo_folded").addClass("top_logo");
@@ -59,8 +58,4 @@
             <td class="menu_btn" oc="#f20729" ec="#fa647a">Account</td>
         </tr>
     </table>
-</div>
-
-<div id="freezer">
-&nbsp;
 </div>
