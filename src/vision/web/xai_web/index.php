@@ -80,6 +80,23 @@
                     })
                 }, 1500);
             });
+
+            $("#sec3title").onscroll("#section3", function() {
+                $(this).fadeIn(2000);
+            });
+            $("#sec3explanation").onscroll("#section3", function() {
+                $(this).show("slide", {direction: "right"}, 2000);
+            });
+            $("#sec3img").onscroll("#section3", function() {
+                $(this).show("slide", {direction: "left"}, 1500);
+            });
+
+            $("#sec4explanation").onscroll("#section3", function() {
+                $(this).show("slide", {direction: "left"}, 2000);
+            });
+            $("#sec4img").onscroll("#section3", function() {
+                $(this).show("slide", {direction: "right"}, 1500);
+            });
         });
     </script>
 </head>
@@ -102,7 +119,7 @@
 </div>
 
 <div id="section2" class="section white_gradient">
-    <h1 id="sec2title" style="position: relative; left: 10vw; width: 75vw; top: 10vh; color: white; z-index: 10; background-color: #000080; padding: 20px;">What's <img src="img/logo_light.png" style="display: inline; height: 1em;" />?</h1>
+    <div id="sec2title" style="position: relative; left: 10vw; width: 75vw; top: 10vh; color: white; z-index: 10; background-color: #2884b7; padding: 20px; font-size: 4.5vh;"><strong>What's <img src="img/logo_light.png" style="display: inline; height: 1em;" />?</strong></div>
     <div id="sec2explanation" style="text-align: justify; text-justify: inter-word; padding: 5vh; float: left; position: relative; left: 10vw; width: 20vw; top: 5vh; height: 70vh; background-color: transparent;">
         xAI&trade; is a research project to demonstrate the usage of Neural Networks in the field of Machine Learning, and expresses Deep Learning technologies in the form of image recognition. 
         <br/><br/>
@@ -113,8 +130,27 @@
     <div id="sec2img" style="float: right; position: relative; left: -5vw; width: 60vw; top: 5vh; height: 70vh; background-color: transparent; background-image: url('img/img2.jpg'); background-size: 100% auto; background-repeat: repeat-x; filter: blur(2px);">&nbsp;</div>
 </div>
 
-<div class="section">
-    Hello
+<div id="section3" style="height: 200vh !important;" class="section white_gradient_m">
+    <div id="sec3title" style="position: relative; left: 15vw; width: 75vw; top: 10vh; color: white; z-index: 10; background-color: #5c28b7; padding: 20px; font-size: 4.5vh;"><strong>Our Products</strong></div>
+    <div id="sec3explanation" style="text-align: justify; text-justify: inter-word; padding: 5vh; float: right; position: relative; right: 10vw; width: 20vw; top: 5vh; height: 70vh; background-color: transparent;">
+        <h2 style="color: turquoise; padding: 2vh;">Style Transfer</h2>
+        <strong>TRANSFORM IMAGES INTO ART USING ARTIFICIAL INTELLIGENCE.</strong>
+        <br/><br/>
+        Re-style your images with ease! Select an image to process, and easily change its style using our simple-to-use REST API.
+        <br/><br/>
+        <a href="style.php">Read more...</a>
+    </div>
+    <div id="sec3img" style="float: left; position: relative; right: -5vw; width: 60vw; top: 5vh; height: 70vh; background-color: transparent; background-image: url('img/styles.jpg'); background-size: 100% auto; background-repeat: repeat-x;">&nbsp;</div>
+
+    <div id="sec4explanation" style="text-align: justify; text-justify: inter-word; padding: 5vh; float: left; position: relative; left: 10vw; width: 20vw; top: 5vh; height: 70vh; background-color: transparent;">
+        <h2 style="color: #cd5c5c; padding: 2vh;">Image Classification</h2>
+        <strong>CREATE YOUR OWN TOOLS FOR TRANSFORMING IMAGES TO DATA.</strong>
+        <br/><br/>
+        Easily create datasets and train classifiers to identify images in objects using our easy to understand, easy to implement method we offer and our APIs.
+        <br/><br/>
+        <a href="classify.php">Read more...</a>
+    </div>
+    <div id="sec4img" style="float: right; position: relative; left: -5vw; width: 60vw; top: 5vh; height: 70vh; background-color: transparent; background-image: url('img/digits.png'); background-size: 100% auto; background-repeat: repeat-x;">&nbsp;</div>
 </div>
 
 </body>
