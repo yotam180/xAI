@@ -60,6 +60,10 @@
             scroll("#section3");
         });
 
+        $("#demo_btn").click(function() {
+            scroll("#section5");
+        });
+
         $("#top_logo").click(function() {
             scroll("#section1");
         })

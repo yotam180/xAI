@@ -97,6 +97,20 @@
             $("#sec4img").onscroll("#section3", function() {
                 $(this).show("slide", {direction: "right"}, 1500);
             });
+
+            $("#sec5title").onscroll("#section5", function() {
+                $(this).fadeIn(2000);
+            });
+            $("#sec5panel").onscroll("#section5", function() {
+                $(this).show("slide", {direction: "up"}, 1500);
+            });
+
+            $("#sec6title").onscroll("#section6", function() {
+                $(this).fadeIn(2000);
+            });
+            $("#sec6panel").onscroll("#section6", function() {
+                $(this).show("slide", {direction: "up"}, 1500);
+            });
         });
     </script>
 </head>
@@ -151,6 +165,16 @@
         <a href="classify.php">Read more...</a>
     </div>
     <div id="sec4img" style="float: right; position: relative; left: -5vw; width: 60vw; top: 5vh; height: 70vh; background-color: transparent; background-image: url('img/digits.png'); background-size: 100% auto; background-repeat: repeat-x;">&nbsp;</div>
+</div>
+
+<div id="section5" class="section white_gradient">
+    <div id="sec5title" style="position: relative; left: 10vw; width: 75vw; top: 10vh; color: white; z-index: 10; background-color: #2dcc8f; padding: 20px; font-size: 4.5vh;"><strong>Live Demo</strong></div>
+    <div id="sec5panel" style="position: relative; left: 15vw; top: 10vh; height: 55vh; width: 65vw; background-image: url('img/styles.jpg');"><br/><br/><br/><h1 style="text-align: center; background-color: rgba(0, 0, 128, 0.5); color: white;">Not yet "live"</h1></div>
+</div>
+
+<div id="section6" class="section red_gradient_m">
+    <div id="sec6title" style="position: relative; left: 10vw; width: 75vw; top: 10vh; color: white; z-index: 10; background-color: #f20729; padding: 20px; font-size: 4.5vh;"><strong>Log in / Sign Up</strong></div>
+    <div id="sec6panel" style="position: relative; left: 15vw; top: 10vh; height: 55vh; width: 65vw; background-image: url('img/styles.jpg');"><br/><br/><br/><h1 style="text-align: center; background-color: rgba(0, 0, 128, 0.5); color: white;">To be implemented</h1></div>
 </div>
 
 </body>
