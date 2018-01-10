@@ -6,7 +6,7 @@ from time import time
 MINIMAL_TIME = 3
 def log(clientAddr):
     valid =False
-    file = open("server/database/logs/logs.txt","r+")
+    file = open("server/database/logs/logs.json","r+")
     logs = json.loads(file.read())
     if(logs[clientAddr]-time()<MINIMAL_TIME):
         valid = True
