@@ -173,8 +173,11 @@
 </div>
 
 <div id="section6" class="section red_gradient_m">
-    <div id="sec6title" style="position: relative; left: 10vw; width: 75vw; top: 10vh; color: white; z-index: 10; background-color: #f20729; padding: 20px; font-size: 4.5vh;"><strong>Log in / Sign Up</strong></div>
-    <div id="sec6panel" style="position: relative; left: 15vw; top: 10vh; height: 55vh; width: 65vw; background-image: url('img/styles.jpg');"><br/><br/><br/><h1 style="text-align: center; background-color: rgba(0, 0, 128, 0.5); color: white;">To be implemented</h1></div>
+    <table>
+    <form id="login_form">
+        
+    </form>
+    </table>
 </div>
 
 </body>

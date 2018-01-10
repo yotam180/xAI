@@ -64,6 +64,10 @@
             scroll("#section5");
         });
 
+        $("#account_btn").click(function() {
+            scroll("#section6");
+        });
+
         $("#top_logo").click(function() {
             scroll("#section1");
         })
