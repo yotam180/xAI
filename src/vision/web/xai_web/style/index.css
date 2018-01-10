@@ -1,0 +1,65 @@
+#main_logo {
+    height: 15vh;
+    display: inline-block;
+}
+
+#vid_frame {
+    width: 100%;
+    height: 100%;
+    opacity: 1;
+    z-index: -99;
+    
+    pointer-events: none;
+
+    display: none;
+}
+
+.newsbar {
+    position: absolute;
+
+    top: 60vh;
+    left: 0;
+    width: 100%;
+    height: 30vh;
+
+    background-color: rgba(0, 0, 139, 0.5);
+
+    padding: 2vh;
+}
+
+#alt_back_brain {
+    height: 100vh;
+    width: 100vw;
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    background-image: url("../img/glass_brain.jpg");
+    background-color: black;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+
+.white_gradient {
+    background: linear-gradient(108deg, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 36%, rgba(255,255,255,1) 50%, rgba(0,0,0,1) 66%, rgba(0,0,0,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#000000',GradientType=1 );
+}
+
+.white_gradient_m {
+    background: linear-gradient(81deg, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 36%, rgba(255,255,255,1) 50%, rgba(0,0,0,1) 66%, rgba(0,0,0,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#000000',GradientType=1 );
+}
+
+.red_gradient_m {
+    background: linear-gradient(72deg, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 36%, rgba(255,255,255,1) 50%, rgba(0,0,0,1) 66%, rgba(0,0,0,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#000000',GradientType=1 );
+}
+
+.scroll_show {
+    display: none;
+}
+
+#login_form {
+    
+}

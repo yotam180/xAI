@@ -1,0 +1,159 @@
+@font-face {
+    font-family: Normal;
+    src: url("../font/font.woff");
+}
+
+@keyframes minimize_header {
+    0% {
+        height: 70px;
+    }
+    100% {
+        height: 30px;
+    }
+}
+
+@keyframes maximize_header {
+    100% {
+        height: 70px;
+    }
+    0% {
+        height: 30px;
+    }
+}
+
+@keyframes minimize_logo {
+    0% {
+        top: 15px;
+        left: 5vw;
+        height: 40px;
+    }
+    100% {
+        top: 5px;
+        left: 5px;
+        height: 20px;
+    }
+}
+
+@keyframes maximize_logo {
+    100% {
+        top: 15px;
+        left: 5vw;
+        height: 40px;
+    }
+    0% {
+        top: 5px;
+        left: 5px;
+        height: 20px;
+    }
+}
+
+body {
+    background-color: black;
+    color: white;
+    margin: 0;
+
+    overflow-x: hidden;
+
+    font-family: Normal;
+
+    -webkit-user-select: none;    
+    user-select: none;
+}
+
+.header {
+    width: 100%;
+    height: 70px;
+    font-family: Normal;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    text-align: center;
+
+    z-index: 100;    
+
+    animation-name: maximize_header;
+    animation-duration: .5s;
+}
+
+.header_folded {
+    width: 100%;
+    height: 30px;
+    font-family: Normal;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    text-align: center;
+
+    z-index: 100;
+
+    animation-name: minimize_header;
+    animation-duration: .5s;
+}
+
+.header_folded #header_text,
+.header #header_text {
+    height: 100%;
+    width: 50%;
+    min-width: 500px;
+
+    margin: auto;
+
+    table-layout: fixed;
+}
+
+.header_folded #header_text tr td,    
+.header #header_text tr td {
+    vertical-align: middle;
+    text-align: center;
+
+    cursor: pointer;
+
+    border-radius: 2px;
+}
+
+.section {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    margin: 0;
+}
+
+.top_logo {
+    position: fixed;
+    top: 15px;
+    left: 5vw;
+    height: 40px;
+
+    animation-name: maximize_logo;
+    animation-duration: .5s;
+
+    cursor: pointer;
+}
+
+.top_logo_folded {
+    position: fixed;
+    top: 5px;
+    left: 5px;
+    height: 20px;
+
+    animation-name: minimize_logo;
+    animation-duration: .5s;
+
+    cursor: pointer;
+}
+
+a:visited {
+    color: royalblue;
+}
+
+a {
+    color: skyblue;
+}
+
+a:hover {
+    color: royalblue;
+}
