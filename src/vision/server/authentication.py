@@ -20,6 +20,8 @@ from http_helper import msg, get_session, post, json_post, logged_in
 
 # Using the login module to interface with the user database
 import login
+#Using the email module to send requests
+import mail
 
 @handler("login", "GET")
 def login_get(req: RequestHandler) -> tuple:
@@ -104,3 +106,24 @@ def profile_get(req: RequestHandler) -> tuple:
         return 403, {}, ""
     return 200, {}, json.dumps(user.data)
 
+@handler("recover_mail","POST")
+def recover_mail(req:RequestHandler)->tuple:
+	user = logged_in(req)
+	if(user not is None):
+		return 401,{"WWW-Authentication": "Authenticate POST /login"},msg("User is connected")
+	data = json_post(req)
+	users = login.getUsersValues("username",data["username"])
+	client = mail.login()
+	details = {}
+	#########TODO : generate recovery code
+	details["message"] = "hey" #TODO : create recover password link from there
+	details["to"] = users["email"]
+	details["client"] = mail.login()
+	mail.send(details)
+@hanlder("recover_password","GET")
+def recover_password(req:RequestHandler)->tuple:
+	data = "" #TODO : get 'GET' values
+	
+		
+	
+	

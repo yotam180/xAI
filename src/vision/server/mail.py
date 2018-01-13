@@ -52,7 +52,7 @@ def send(details):
     outer["From"] = "xAI No-Reply"
     outer.preamble = "You will not see this in a MIME-aware mail reader.\n"
     msg = outer.as_string()
-
+	_client = details["client"]
     _client.sendmail(SENDER, details["to"], msg)
 
 def parameterize(msg, src):

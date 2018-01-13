@@ -166,3 +166,7 @@ def get_tokens(user: database.db_item) -> list:
     token_tbl = db.table("keys", db_entities.API_KEY)
     tokens = token_tbl.query(lambda c: c.get("username") == user.get("username"))
     return list(tokens)
+def getUsersValues(filed,filter):
+	users = db.table("user",db_entities.USER)
+	af = [x for x in users.query(lambda c:c.get(field)==filter)]
+	return af
