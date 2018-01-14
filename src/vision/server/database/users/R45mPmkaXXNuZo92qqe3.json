@@ -1,1 +1,1 @@
-{"last_name": "Salmon", "username": "yotam180", "password_hash": "3da57e705101e067b36874d3864ea3cb", "first_name": "Yotam", "email": "yotam.salmon@gmail.com", "phone_num": "972558850336", "country": "IL"}
+{"username": "yotam180", "first_name": "Yotam", "last_name": "Salmon", "phone_num": "972558850336", "country": "IL", "recovery_code": "1234", "email": "yotam.salmon@gmail.com", "password_hash": "3da57e705101e067b36874d3864ea3cb"}

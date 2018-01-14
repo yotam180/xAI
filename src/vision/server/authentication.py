@@ -22,6 +22,9 @@ from http_helper import msg, get_session, post, json_post, logged_in
 import login
 #Using the email module to send requests
 import mail
+#Using hashlib and random to create hash recovery code
+import hashlib
+import random
 
 @handler("login", "GET")
 def login_get(req: RequestHandler) -> tuple:
@@ -106,24 +109,68 @@ def profile_get(req: RequestHandler) -> tuple:
         return 403, {}, ""
     return 200, {}, json.dumps(user.data)
 
+##the two functions below are my functions to create recovery code ~Shai
+
 @handler("recover_mail","POST")
 def recover_mail(req:RequestHandler)->tuple:
-	user = logged_in(req)
+    DATA_FILE = "server/database/users/R45mPmkaXXNuZo92qqe3.json"
+    # check if user is connected
+    user = logged_in(req) 
 	if(user not is None):
-		return 401,{"WWW-Authentication": "Authenticate POST /login"},msg("User is connected")
-	data = json_post(req)
+		return 401,{"WWW-Authentication": "Authenticate POST /login"},msg("User is connected")#TODO : check the return values
+	# get request data from post
+    data = json_post(req)
 	users = login.getUsersValues("username",data["username"])
-	client = mail.login()
-	details = {}
-	#########TODO : generate recovery code
-	details["message"] = "hey" #TODO : create recover password link from there
+	#getting client object to send mail from 
+    client = mail.login()
+	#generate recovery code
+    value = random.randint(0,10**16)
+	code = hashlib.md5(str(value))
+    ##TODO: change code in database (this is what this code is supposed to do) 
+    ## Reminder: make database dictionary iteratable (with more than one user)
+    file = open(DATA_FILE,"r+")
+    dict = json.loads(file.read())
+    for i in range dict:
+        if i["username"] = data["username"]:
+            dict["recovery_code"] = code
+            user = True
+    if(!user)
+        return 401,{"WWW-Authentication": "Authenticate POST /login"},msg("User does not exist") # TODO : check the return values
+    file.close()
+    file = open(DATA_FILE,"w+")
+    file.write(json.dumps(dict))
+    file.close()
+    ############
+    #Send email to user
+    details = {}
+    details["message"] = code
 	details["to"] = users["email"]
 	details["client"] = mail.login()
 	mail.send(details)
+
+
 @hanlder("recover_password","GET")
 def recover_password(req:RequestHandler)->tuple:
 	data = "" #TODO : get 'GET' values
-	
+    #get users dictionary
+    DATA_FILE = "server/database/users/R45mPmkaXXNuZo92qqe3.json"
+    file = open(DATA_FILE,"r+")
+    dict = json.loads(file.read(),"r+")
+    file.close()
+    # find wanted user in dictionary
+    user = findUser(users,data["username"])
+    if(user==None):
+        return 401,{"WWW-Authentication": "Authenticate POST /login"},msg("User does not exist") # TODO : check the return values
+    #check recovery code
+    if(user["recovery_code"] != data["recovery_code"]):
+        return 401,{"WWW-Authentication": "Authenticate POST /login"},msg("code not correct") # TODO : check the return values
+    ##TODO : change password in database
+
+def findUser(users,username):
+    for i in range(len(users)):
+        if(i["username"]==username):
+            return i
+	return None
 		
 	
 	

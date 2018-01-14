@@ -133,7 +133,7 @@ class db_table(object):
         item = self.new()
         item.item_id = item_id
         item.data = data
-
+        
         # Returning the constructed item
         return item
 
