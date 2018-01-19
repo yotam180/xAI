@@ -148,7 +148,7 @@ def recover_mail(req:RequestHandler)->tuple:
 	details["client"] = mail.login()
 	mail.send(details)
 
-
+#this handler resets password after getting recovery code 
 @hanlder("recover_password","GET")
 def recover_password(req:RequestHandler)->tuple:
 	data = "" #TODO : get 'GET' values

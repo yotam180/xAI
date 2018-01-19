@@ -52,6 +52,17 @@ class RequestHandler(BaseHTTPRequestHandler):
             self.end_headers()
             self.wfile.write(bytes("404 - Not Found", "utf8"))
         return
+    
+    def parseGet(self):
+        path = self.path
+        path = path.split("?")
+        args = path[1]
+        args = args.split("&")
+        GetDict = {}
+        for i in args:
+            part = i.split("=")
+            GetDict[part[0]] = part[1]
+        return GetDict
 
 def run() -> None:
     print('Running server...')

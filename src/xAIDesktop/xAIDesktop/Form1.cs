@@ -47,7 +47,14 @@ namespace xAIDesktop
         }
         public bool exist(string st)
         {
-            foreach(string i in listBox1.Items)
+            foreach(char i in st)
+            {
+                if(i<'a'||i>'z')
+                {
+                    return true;
+                }
+            }
+            foreach (string i in listBox1.Items)
             {
                 if (i.Equals(st))
                     return true;
@@ -58,18 +65,31 @@ namespace xAIDesktop
         {
             listBox1.Items.Clear();
             string content = File.ReadAllText(CATPATH);
-            string[] arr = content.Split("\n".ToCharArray());
+            string[] arr = content.Split("\r\n".ToCharArray());
             foreach(string a in arr)
             {
                 listBox1.Items.Add(a);
+            }
+            foreach(object item in listBox1.Items)
+            {
+                if(item=="")
+                {
+                    listBox1.Items.Remove(item);
+                }
             }
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
             LoadCatagories();
+            foreach(Control c in this.Controls)
+            {
+                if(c is Button)
+                {
+                    c.BackColor = Color.White;
+                }
+            }
         }
-
         private void button2_Click(object sender, EventArgs e)
         {
             Test t = new Test();
@@ -84,6 +104,32 @@ namespace xAIDesktop
             this.Hide();
             t.ShowDialog();
             this.Close();
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if(listBox1.SelectedItem!=null)
+            {
+                button4.Visible = true;
+            }
+            else
+            {
+                button4.Visible = false;
+            }
+        }
+        public void updateCatagories()
+        {
+            string content = "";
+            foreach(object item in listBox1.Items)
+            {
+                content += item.ToString()+"\r\n";
+            }
+            File.WriteAllText(CATPATH, content);
+        }
+        private void button4_Click(object sender, EventArgs e)
+        {
+            listBox1.Items.RemoveAt(listBox1.SelectedIndex);
+            updateCatagories();
         }
     }
 }
