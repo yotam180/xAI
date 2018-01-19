@@ -68,15 +68,18 @@ namespace xAIDesktop
             string[] arr = content.Split("\r\n".ToCharArray());
             foreach(string a in arr)
             {
-                listBox1.Items.Add(a);
-            }
-            foreach(object item in listBox1.Items)
-            {
-                if(item=="")
+                if(a.Length>0)
                 {
-                    listBox1.Items.Remove(item);
+                    listBox1.Items.Add(a);
                 }
             }
+            /*for(int i=0;i<listBox1.Items.Count;i++)
+            {
+                if(listBox1.Items[i].ToString().Length==0)
+                {
+                    listBox1.Items.RemoveAt(i);
+                }
+            }*/
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -129,6 +132,16 @@ namespace xAIDesktop
         private void button4_Click(object sender, EventArgs e)
         {
             listBox1.Items.RemoveAt(listBox1.SelectedIndex);
+            updateCatagories();
+        }
+
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //listBox1.Items.Remove(listBox1.SelectedItem);
+            //MessageBox.Show(listBox1.SelectedItem.ToString()+":"+listBox1.SelectedItem.ToString().Length);
+        }
+        ~Form1()
+        {
             updateCatagories();
         }
     }
