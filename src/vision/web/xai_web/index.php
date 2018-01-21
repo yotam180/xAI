@@ -29,7 +29,7 @@
                     setTimeout(nextnews, 7000);
                 });
             };
-            nextnews();
+            setTimeout(nextnews, 6000);
 
             $("#vid_frame").on("load", function() {
                 $(this).show();
@@ -81,6 +81,17 @@
                 }, 1500);
             });
 
+            $("#x_button").click(function() {
+                $("#section6").fadeOut();
+            });
+
+            $("#section6").click(function(e) {
+                if (e.target !== this)
+                    return;
+                
+                $("#section6").hide();
+            });
+
             $("#sec3title").onscroll("#section3", function() {
                 $(this).fadeIn(2000);
             });
@@ -111,6 +122,10 @@
             $("#sec6panel").onscroll("#section6", function() {
                 $(this).show("slide", {direction: "up"}, 1500);
             });
+
+            $(".section").toArray().forEach(function(x) {
+                $("#scroller").append($("<div></div>"))
+            });
         });
     </script>
 </head>
@@ -118,10 +133,15 @@
 
 <?php require("header.php"); ?>
 
+<div id="scroller">
+&nbsp;
+</div>
+
 <div id="section1" class="section">
     <div id="alt_back_brain">&nbsp;</div>
     <iframe id="vid_frame" src="https://www.youtube.com/embed/dAIQeTeMJ-I?autoplay=1&controls=0&showinfo=0&autohide=1&modestbranding=1&loop=1&playlist=dAIQeTeMJ-I" allowfullscreen>
     </iframe>
+    <!-- <div id="get_started">Get Started!</div> -->
     <div id="main_title" class="newsbar shown">
         <h1 style="vertical-align: middle"><img id="main_logo" src="img/logo_light.png" /><i> A research project in the field of machine learning</i></h1>
         <span style="display: inline-block; width: 15vw;">&nbsp;</span><strong>xAI&trade;</strong> is a tool for developers that provides an easy interface for working with neural networks for image classification and manipulation. Read more...
@@ -172,12 +192,11 @@
     <div id="sec5panel" style="position: relative; left: 15vw; top: 10vh; height: 55vh; width: 65vw; background-image: url('img/styles.jpg');"><br/><br/><br/><h1 style="text-align: center; background-color: rgba(0, 0, 128, 0.5); color: white;">Not yet "live"</h1></div>
 </div>
 
-<div id="section6" class="section red_gradient_m">
-    <table>
-    <form id="login_form">
-        
-    </form>
-    </table>
+<div id="section6" class="overlay">
+    <div id="x_button">X</div>
+    <div style="height: 10vh; width: 0; display: block;"></div>
+    <div style="position: relative; left: 32vw; width: 35vw; top: 0; color: white; z-index: 10; background-color: #2dcc8f; padding: 20px; font-size: 4.5vh; display: block;"><strong>Login</strong></div>
+    <?php require("login_form.html"); ?>
 </div>
 
 </body>

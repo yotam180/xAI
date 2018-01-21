@@ -1,0 +1,107 @@
+html {
+  background: black;
+}
+
+.profile {
+  margin-top: 9px;
+  margin-left: 8px;
+  width: 25px;
+  height: 25px;
+  fill: #3b4148;
+}
+
+input:focus {
+  outline: 2px solid #0099cc;
+}
+
+#form-container {
+  float: left;
+  width: 30%;
+  min-width: 400px;
+  margin-top: 25px;
+  margin-left: calc(50% - 200px);
+  margin-left: -webkit-calc(50% - 200px);
+  margin-left: -moz-calc(50% - 200px);
+  background: #2C312F;
+}
+
+#highsec {
+  background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuMCIgeTE9IjAuMCIgeDI9IjEuMCIgeTI9IjEuMCI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzFmZmZkNiIvPjxzdG9wIG9mZnNldD0iMjUlIiBzdG9wLWNvbG9yPSIjZmZmYjAwIi8+PHN0b3Agb2Zmc2V0PSI3NSUiIHN0b3AtY29sb3I9IiNmZjExNjgiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMwMGFhZmYiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyYWQpIiAvPjwvc3ZnPiA=');
+  background-size: 100%;
+  background-image: -webkit-gradient(linear, 0% 0%, 100% 100%, color-stop(0%, #1fffd6), color-stop(25%, #fffb00), color-stop(75%, #ff1168), color-stop(100%, #00aaff));
+  background-image: -moz-linear-gradient(left top, #1fffd6 0%, #fffb00 25%, #ff1168 75%, #00aaff 100%);
+  background-image: -webkit-linear-gradient(left top, #1fffd6 0%, #fffb00 25%, #ff1168 75%, #00aaff 100%);
+  background-image: linear-gradient(to right bottom, #1fffd6 0%, #fffb00 25%, #ff1168 75%, #00aaff 100%);
+  width: 100%;
+  height: 7px;
+  float: left;
+}
+
+#name, #password {
+  float: left;
+  width: 80%;
+  margin: 5% 5% 0 0;
+  padding: 13px 10px;
+  font-size: 1em;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  background-color: #3b4148;
+  border: 0;
+  color: #606468;
+}
+
+#signupdiv {
+  color: white !important;
+  float: left;
+  width: 100%;
+  text-align: center;
+}
+
+#password {
+  margin-top: 2%;
+  margin-bottom: 5%;
+  width: 68%;
+  margin-right: 0;
+}
+
+.arrow {
+  position: absolute;
+  margin-top: 90px;
+  margin-left: 14px;
+  width: 25px;
+  height: 25px;
+  fill: #3b4148;
+  pointer-events: none;
+}
+
+#submit {
+  margin-top: 2%;
+  margin-left: 0;
+  width: 12%;
+  height: 44px;
+  background-color: grey;
+  border: 0;
+}
+
+#submit:hover {
+  background-color: #0099cc;
+}
+
+.box1, .box2 {
+  background: grey;
+  margin-top: 5%;
+  margin-left: 5%;
+  height: 44px;
+  width: 10%;
+  display: block;
+  line-height: 20px;
+  float: left;
+}
+
+.box2 {
+  margin-top: 2%;
+}
+
+@media only screen and (max-width: 400px) {
+  margin-left: 35%;
+}

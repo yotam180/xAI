@@ -65,7 +65,7 @@
         });
 
         $("#account_btn").click(function() {
-            scroll("#section6");
+            $("#section6").fadeIn();
         });
 
         $("#top_logo").click(function() {
@@ -80,7 +80,7 @@
             <td id="about_btn" class="menu_btn" oc="#2884b7" ec="#52a9d9">About</td>
             <td id="products_btn" class="menu_btn" oc="#5c28b7" ec="#8352d9">Products</td>
             <td id="demo_btn" class="menu_btn" oc="#2dcc8f" ec="#68dece">Demo</td>
-            <td id="account_btn" class="menu_btn" oc="#f20729" ec="#fa647a">Account</td>
+            <td id="account_btn" class="menu_btn" oc="#f20729" ec="#fa647a">Login/Signup</td>
         </tr>
     </table>
 </div>

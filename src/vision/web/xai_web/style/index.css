@@ -60,6 +60,50 @@
     display: none;
 }
 
-#login_form {
-    
+#get_started {
+    position: absolute;
+    left: 5vw;
+    top: 20vh;
+    max-width: 300px;
+    width: 20%;
+    height: 10%;
+    max-height: 100px;
+    background-color: rgba(245, 245, 245, 0.9);
+    border-radius: 4px;
+    color: black;
+    text-shadow: 1px 1px dimgray;
+    font-size: 30px;
+    z-index: 99;
+    text-align: center;
+    vertical-align: middle;
+}
+
+#scroller {
+    position: fixed;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    min-width: 25px;
+    font-size: 23px;
+    z-index: 99;
+    text-align: left;
+}
+
+#x_button {
+    width: 30px;
+    height: 30px;
+    left: 30px;
+    top: 30px;
+    background-color: white;
+    border-radius: 3px;
+    font-size: 25px;
+    color: gray;
+    position: relative;
+    text-align: center;
+    cursor: pointer;
+}
+
+#x_button:hover {
+    background-color: indianred;
+    color: white;
 }
