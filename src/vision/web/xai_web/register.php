@@ -118,7 +118,42 @@
             })
 
             $("#btn_signup").click(function() {
-                
+                let $me = $(this);
+                $me.attr("disabled", true);
+                $.ajax({
+                    url: "register_back.php",
+                    type: "POST",
+                    data: {
+                        "username": $("#txt_username").val(),
+                        "password": $("#txt_password").val(),
+                        "confirmation": $("#txt_confirmpassword").val(),
+                        "first_name": $("#txt_firstname").val(),
+                        "last_name": $("#txt_lastname").val(),
+                        "email": $("#txt_email").val(),
+                        "country": $("#select_country").val(),
+                        "phone": $("#txt_phonenum").val()
+                    },
+                    success: function(e) {
+                        var j = JSON.parse(e);
+                        if (j.error) {
+                            Materialize.toast(j.error, 5000);
+                        }
+                        else if (j.message) {
+                            Materialize.toast(j.message, 2000);
+                            setTimeout(function() {
+                                window.location = "/";
+                            }, 2000);
+                        }
+                        else {
+                            Materialize.toast(e, 5000);
+                        }
+                        $me.attr("disabled", false);
+                    },
+                    error: function(a, b, c) {
+                        Materialize.toast("An error occured while trying to register you.", 5000);
+                        $me.attr("disabled", false);
+                    }
+                });
             });
 
 
