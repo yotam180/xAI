@@ -1,8 +1,8 @@
 <html>
 <head>
     <title>xAI</title>
-    <?php require_once("include.php"); ?>
-    
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/jquery-ui.js"></script>    
     <link rel="StyleSheet" type="text/css" href="style/main.css"></link>
     <link rel="StyleSheet" type="text/css" href="style/index.css"></link>
 
