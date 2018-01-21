@@ -11,12 +11,6 @@ import mimetypes
 
 from argparse import ArgumentParser
 
-from email import encoders
-from email.message import Message
-from email.mime.audio import MIMEAudio
-from email.mime.base import MIMEBase
-from email.mime.image import MIMEImage
-from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
 
@@ -46,10 +40,12 @@ def send(details):
         - details - dictionary with all arguments:
             * message - the message text
             * to - the recipient we are sending the mail to. 
+            * subject - the message subject
     """
     outer = MIMEText(details["message"])
     outer["To"] = details["to"]
     outer["From"] = "xAI No-Reply"
+    outer["Subject"] = details["subject"]
     outer.preamble = "You will not see this in a MIME-aware mail reader.\n"
     msg = outer.as_string()
 	_client = details["client"]
@@ -66,3 +62,5 @@ def parameterize(msg, src):
         msg = msg.replace("{{" + i + "}}", t)
     
     return msg
+
+send({"to": "yotam.salmon@gmail.com", "subject": "Eating ice cream", "message": parameterize("Hello {{name}}", {"name": "Yotam"})})
