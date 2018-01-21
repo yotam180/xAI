@@ -111,12 +111,13 @@ def profile_get(req: RequestHandler) -> tuple:
 
 ##the two functions below are my functions to create recovery code ~Shai
 
+"""
 @handler("recover_mail","POST")
 def recover_mail(req:RequestHandler)->tuple:
     DATA_FILE = "server/database/users/R45mPmkaXXNuZo92qqe3.json"
     # check if user is connected
     user = logged_in(req) 
-    if(user not is None):
+    if(user != None):
         return 401,{"WWW-Authentication": "Authenticate POST /login"},msg("User is connected")#TODO : check the return values
     # get request data from post
     data = json_post(req)
@@ -171,6 +172,6 @@ def findUser(users,username):
         if(i["username"]==username):
             return i
     return None
-        
+"""     
     
     
