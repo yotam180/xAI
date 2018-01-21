@@ -7,7 +7,7 @@
     <link rel="StyleSheet" href="style/master.css" />
     <link rel="StyleSheet" href="style/register.css" />
 
-    <script src="js/phone.js"></script>
+    <script src="https://rawgit.com/ruimarinho/google-libphonenumber/master/dist/libphonenumber.js"></script>
 
     <script>
         $(document).ready(function() {
