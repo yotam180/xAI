@@ -42,13 +42,15 @@ def send(details):
             * to - the recipient we are sending the mail to. 
             * subject - the message subject
     """
+    global _client
+	
     outer = MIMEText(details["message"])
     outer["To"] = details["to"]
     outer["From"] = "xAI No-Reply"
     outer["Subject"] = details["subject"]
     outer.preamble = "You will not see this in a MIME-aware mail reader.\n"
     msg = outer.as_string()
-	_client = details["client"]
+    _client = details["client"]
     _client.sendmail(SENDER, details["to"], msg)
 
 def parameterize(msg, src):
@@ -62,5 +64,3 @@ def parameterize(msg, src):
         msg = msg.replace("{{" + i + "}}", t)
     
     return msg
-
-send({"to": "yotam.salmon@gmail.com", "subject": "Eating ice cream", "message": parameterize("Hello {{name}}", {"name": "Yotam"})})
