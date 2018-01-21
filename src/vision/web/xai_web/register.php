@@ -108,6 +108,15 @@
                 }
             });
 
+            $("#select_country").change(function() {
+                if ($(this).val().length == 2) {
+                    ok($(".select-wrapper"));
+                }
+                else {
+                    err($(".select-wrapper"), "You must select a country");
+                }
+            })
+
             $("#btn_signup").click(function() {
                 
             });
@@ -168,8 +177,8 @@
             <div class="row">
                 <div class="col s3"></div>
                 <div class="input-field col s6">
-                    <select>
-                        <option value="" disabled selected>Select your country</option>
+                    <select id="select_country">
+                        <option value="" selected>Select your country</option>
                         <?php
                             $json = json_decode(file_get_contents("static/country_codes.json"));
                             foreach ($json as $c) {
