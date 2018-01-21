@@ -1,0 +1,19 @@
+#title {
+    position: relative;
+    left: 10vw; 
+    width: 75vw; 
+    top: 2vh; 
+    color: black; 
+    z-index: 10; 
+    padding: 20px; 
+    font-size: 4.5vh; 
+    display: block;
+    text-align: center;
+}
+
+#maindiv {
+    position: fixed; 
+    width: 100%; 
+    bottom: 0; 
+    height: 85%;
+}
