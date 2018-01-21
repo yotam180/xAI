@@ -116,16 +116,16 @@ def recover_mail(req:RequestHandler)->tuple:
     DATA_FILE = "server/database/users/R45mPmkaXXNuZo92qqe3.json"
     # check if user is connected
     user = logged_in(req) 
-	if(user not is None):
-		return 401,{"WWW-Authentication": "Authenticate POST /login"},msg("User is connected")#TODO : check the return values
-	# get request data from post
+    if(user not is None):
+        return 401,{"WWW-Authentication": "Authenticate POST /login"},msg("User is connected")#TODO : check the return values
+    # get request data from post
     data = json_post(req)
-	users = login.getUsersValues("username",data["username"])
-	#getting client object to send mail from 
+    users = login.getUsersValues("username",data["username"])
+    #getting client object to send mail from 
     client = mail.login()
-	#generate recovery code
+    #generate recovery code
     value = random.randint(0,10**16)
-	code = hashlib.md5(str(value))
+    code = hashlib.md5(str(value))
     ##TODO: change code in database (this is what this code is supposed to do) 
     ## Reminder: make database dictionary iteratable (with more than one user)
     file = open(DATA_FILE,"r+")
@@ -144,14 +144,14 @@ def recover_mail(req:RequestHandler)->tuple:
     #Send email to user
     details = {}
     details["message"] = code
-	details["to"] = users["email"]
-	details["client"] = mail.login()
-	mail.send(details)
+    details["to"] = users["email"]
+    details["client"] = mail.login()
+    mail.send(details)
 
 #this handler resets password after getting recovery code 
 @hanlder("recover_password","GET")
 def recover_password(req:RequestHandler)->tuple:
-	data = "" #TODO : get 'GET' values
+    data = "" #TODO : get 'GET' values
     #get users dictionary
     DATA_FILE = "server/database/users/R45mPmkaXXNuZo92qqe3.json"
     file = open(DATA_FILE,"r+")
@@ -170,7 +170,7 @@ def findUser(users,username):
     for i in range(len(users)):
         if(i["username"]==username):
             return i
-	return None
-		
-	
-	
+    return None
+        
+    
+    
