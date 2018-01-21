@@ -73,6 +73,25 @@ def login_post(req: RequestHandler) -> tuple:
     # return a success message with the new session id.
     return 200, {"Set-Cookie": "_SESSION=" + session.item_id + ";"}, json.dumps({"login": True, "session": session.item_id})
 
+@handler("register", "GET")
+def register_get(req: RequestHandler) -> tuple:
+    return 405, {}, msg("Please use POST for authenticating")
+
+@handler("register", "POST")
+def register_post(req: RequestHandler) -> tuple:
+    data = json_post(req)
+    session = get_session(req)
+
+    if session:
+        return 200, {}, msg("Already Authenticated")
+
+    err = login.register(data)
+
+    if not err:
+        return 200, {}, msg("Registration Successful")
+
+    return 200, {}, json.dumps({"error": err})
+
 @handler("logout", "GET")
 @handler("logout", "POST")
 def logout(req: RequestHandler) -> tuple:
