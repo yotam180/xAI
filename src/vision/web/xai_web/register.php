@@ -22,7 +22,7 @@
                     err(this, "Too short? Must be at least 6 chars long.");
                 }
                 else if ($(this).val().length > 30) {
-                    err(this, "Too short? Must be at most 30 chars long.");
+                    err(this, "Too long? Must be at most 30 chars long.");
                 }
                 else if (!$(this).val().match(/^[A-Za-z0-9\_\.]+$/i)) {
                     err(this, "Just English letters, numbers, dots and underscores please :)");
@@ -37,7 +37,7 @@
                     err(this, "Too short? Must be at least 6 chars long.");
                 }
                 else if ($(this).val().length > 30) {
-                    err(this, "Too short? Must be at most 30 chars long.");
+                    err(this, "Too long? Must be at most 30 chars long.");
                 }
                 else if ($(this).val().toUpperCase() == $(this).val()) {
                     err(this, "Must contain at least one lower-case character.");
