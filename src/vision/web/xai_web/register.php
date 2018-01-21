@@ -7,19 +7,135 @@
     <link rel="StyleSheet" href="style/master.css" />
     <link rel="StyleSheet" href="style/register.css" />
 
+    <script src="js/phone.js"></script>
+
     <script>
         $(document).ready(function() {
             $('select').material_select();
+
+            var phoneUtil = libphonenumber.PhoneNumberUtil.getInstance();
+            var PNF = libphonenumber.PhoneNumberFormat;
+            var EMAIL = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+            $("#txt_username").focusout(function() {
+                if ($(this).val().length < 6) {
+                    err(this, "Too short? Must be at least 6 chars long.");
+                }
+                else if ($(this).val().length > 30) {
+                    err(this, "Too short? Must be at most 30 chars long.");
+                }
+                else if (!$(this).val().match(/^[A-Za-z0-9\_\.]+$/i)) {
+                    err(this, "Just English letters, numbers, dots and underscores please :)");
+                }
+                else {
+                    ok(this);
+                }
+            });
+
+            $("#txt_password").focusout(function() {
+                if ($(this).val().length < 6) {
+                    err(this, "Too short? Must be at least 6 chars long.");
+                }
+                else if ($(this).val().length > 30) {
+                    err(this, "Too short? Must be at most 30 chars long.");
+                }
+                else if ($(this).val().toUpperCase() == $(this).val()) {
+                    err(this, "Must contain at least one lower-case character.");
+                }
+                else if ($(this).val().toLowerCase() == $(this).val()) {
+                    err(this, "Must contain at least one upper-case character.");
+                }
+                else {
+                    ok(this);
+                }
+            });
+
+            $("#txt_firstname").focusout(function() {
+                if ($(this).val().length < 2) {
+                    err(this, "You must fill a valid name.");
+                }
+                else {
+                    ok(this);
+                }
+            });
+            $("#txt_lastname").focusout(function() {
+                if ($(this).val().length < 2) {
+                    err(this, "You must fill a valid name.");
+                }
+                else {
+                    ok(this);
+                }
+            });
+
+            $("#txt_phonenum").focusout(function() {
+                var num = $(this).val();
+                if (!num.startsWith("+"))
+                    num = "+" + num;
+                try {
+                    var phoneNumber = phoneUtil.parseAndKeepRawInput(num);
+                    //$(this).val(phoneUtil.format(num, PNF.INTERNTIONAL));
+                    ok(this, phoneUtil.format(phoneNumber, PNF.INTERNATIONAL));
+                }
+                catch (er) {
+                    err(this, "Have you forgotten the country code?");
+                }
+            });
+
+            $("#txt_confirmpassword").focusout(function() {
+                if ($(this).val() != $("#txt_password").val()) {
+                    err(this, "Hmm... The confirmation and the password don't match");
+                }
+                else {
+                    ok(this);
+                }
+            });
+
+            $("#txt_email").focusout(function() {
+                if ($(this).val().match(EMAIL)) {
+                    ok(this);
+                }
+                else {
+                    err(this, "The email you provided is in an incorrect format!");
+                }
+            });
+
+            $("#txt_confirmemail").focusout(function() {
+                if ($(this).val() != $("#txt_email").val()) {
+                    err(this, "Hmm... The confirmation and the email don't match");
+                }
+                else {
+                    ok(this);
+                }
+            });
+
+            $("#btn_signup").click(function() {
+                
+            });
+
+
         });
+
+        function err(el, text) {
+            $("label[for=" + $(el).attr("id") + "]").attr("data-error", text);
+            $(el).removeClass("valid");
+            $(el).addClass("invalid");
+        }
+
+        function ok(el, text) {
+            $("label[for=" + $(el).attr("id") + "]").attr("data-success", text);
+            $(el).removeClass("invalid");
+            $(el).addClass("valid");
+        }
+
     </script>
 </head>
 <body>
-    <a href="index.php"><img class="top_logo" id="top_logo" src="img/logo_light.png" /><a>
+    <a href="index.php"><img class="top_logo" id="top_logo" src="img/logo_light.png" /></a>
     <div id="title"><strong>Sign Up</strong></div>
 
     <div class="section"></div>
 
-    <div class="container">
+    <div class="container" style="color: #039be5;">
         <form id="register_details" class="col s12">
             <div class="row">
                 <div class="col s3"></div>
@@ -114,7 +230,7 @@
             <div class="row">
                 <div class="col s4"></div>
                 <div class="col s6">
-                    <a class="waves-effect waves-light btn">
+                    <a class="waves-effect waves-light btn" id="btn_signup">
                         Sign up!
                         <i class="material-icons right">send</i>
                     </a>
