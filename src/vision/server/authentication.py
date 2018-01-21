@@ -109,8 +109,6 @@ def profile_get(req: RequestHandler) -> tuple:
         return 403, {}, ""
     return 200, {}, json.dumps(user.data)
 
-##the two functions below are my functions to create recovery code ~Shai
-
 """
 @handler("recover_mail","POST")
 def recover_mail(req:RequestHandler)->tuple:
