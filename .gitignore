@@ -6,3 +6,4 @@ comp/dogs_cats/test
 comp/dogs_cats/train_data.npy
 comp/dogs_cats/test_data.npy
 src/vision/server/images
+src/vision/server/dataset
