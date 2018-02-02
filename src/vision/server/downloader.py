@@ -4,14 +4,18 @@
 #   Last Edited: 02/02/2018
 #
 
+# TODO: Organize imports
 from google_images import GoogleSearch
 from threading import Thread
 import time
 import urllib.request
 import numpy as np
 import cv2
+import os
 
 import task_scheduler as ts
+from keywords import DATASET_DIR, get_id
+from constants import IMG_SIZE
 
 google = GoogleSearch()
 
@@ -33,8 +37,27 @@ def _work():
         if el == None:
             time.sleep(1)
             continue
+
+        keyword = el["keyword"]
+        kid = get_id(el["keyword"])
+
+        print("Searching for " + keyword)
         
-        urls = None
+        # Sending the query to the google search module
+        query = google.search(keyword, 300)
+        urls = [x["tu"] for x in query if "tu" in x]
+
+        # Creating the directory in dataset/
+        os.makedirs(DATASET_DIR + kid)
+
+        # And downloading all the files
+        for i, img in enumerate(urls):
+            obj = download(img)
+            obj = cv2.resize(obj, (IMG_SIZE, IMG_SIZE))
+            cv2.imwrite(DATASET_DIR + kid + "/" + str(i) + ".png", obj, [cv2.IMWRITE_PNG_COMPRESSION, 9])
+
+        # Calling the task callback to inform that we're done here
+        ts.on_keyword_downloaded(el)
 
 def download(url):
     try:

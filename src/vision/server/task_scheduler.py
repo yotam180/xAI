@@ -11,6 +11,8 @@ from threading import Lock
 _create_net = []
 _download_keyword = []
 
+_current_keyword = None
+
 # For thread-safe queues
 _cn = Lock()
 _dl = Lock()
@@ -41,4 +43,9 @@ def get_next_download():
     el = _download_keyword[0]
     with _dl:
         del _download_keyword[0]
+    
+    _current_keyword = el
     return el
+
+def get_download_status(task_id):
+    pass
