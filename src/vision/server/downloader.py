@@ -41,11 +41,18 @@ def _work():
         keyword = el["keyword"]
         kid = get_id(el["keyword"])
 
+        # Checking if the keyword already exists
+        if os.path.exists(DATASET_DIR + kid):
+            ts.finished_download(el)
+            continue
+
         print("Searching for " + keyword)
         
         # Sending the query to the google search module
         query = google.search(keyword, 300)
         urls = [x["tu"] for x in query if "tu" in x]
+        el["downloaded"] = 0
+        el["total"] = len(urls)
 
         # Creating the directory in dataset/
         os.makedirs(DATASET_DIR + kid)
@@ -55,9 +62,10 @@ def _work():
             obj = download(img)
             obj = cv2.resize(obj, (IMG_SIZE, IMG_SIZE))
             cv2.imwrite(DATASET_DIR + kid + "/" + str(i) + ".png", obj, [cv2.IMWRITE_PNG_COMPRESSION, 9])
+            el["downloaded"] = i + 1
 
         # Calling the task callback to inform that we're done here
-        ts.on_keyword_downloaded(el)
+        ts.finished_download(el)
 
 def download(url):
     try:

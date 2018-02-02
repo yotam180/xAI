@@ -37,6 +37,7 @@ def get_next_download():
     """
     Gets the next download task.
     """
+    global _current_keyword
     if len(_download_keyword) == 0:
         return None
 
@@ -47,5 +48,27 @@ def get_next_download():
     _current_keyword = el
     return el
 
+def finished_download(el):
+    """
+    Removes the current downloading task and calls the handler for finishing.
+    Should be called by the worker.
+    """
+    global _current_keyword
+    if el["task_id"] == _current_keyword["task_id"]:
+        _current_keyword = None
+        if (on_keyword_downloaded):
+            on_keyword_downloaded(el)
+
+
 def get_download_status(task_id):
-    pass
+    global _current_keyword
+    if _current_keyword and "task_id" in _current_keyword:
+        if "downloaded" in _current_keyword:
+            return "downloading", (_current_keyword["downloaded"], _current_keyword["total"])
+        else:
+            return "fetching", None
+    else:
+        try:
+            return "queued", _download_keyword.index(next(x for x in _download_keyword if x["task_id"] == task_id))
+        except:
+            return "not_present"
