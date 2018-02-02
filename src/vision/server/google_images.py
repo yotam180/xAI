@@ -2,7 +2,6 @@ from selenium import webdriver
 from json import loads, dumps
 import re
 import time
-import logger
 
 class GoogleSearch(object):
     """
@@ -63,3 +62,9 @@ class GoogleSearch(object):
             if not self.extend_page():
                 break
         return self.get_image_objects()
+
+    def kill(self):
+        """
+        Destroys the browser window
+        """
+        self.driver.close()
