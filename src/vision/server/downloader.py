@@ -26,7 +26,7 @@ def run():
     work_thread.start()
 
 def shutdown():
-    _working = false
+    _working = False
 
 def _work():
     while _working:
