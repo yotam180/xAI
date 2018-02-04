@@ -128,7 +128,6 @@ def profile_get(req: RequestHandler) -> tuple:
         return 403, {}, ""
     return 200, {}, json.dumps(user.data)
 
-"""
 @handler("recover_mail","POST")
 def recover_mail(req:RequestHandler)->tuple:
     DATA_FILE = "server/database/users/R45mPmkaXXNuZo92qqe3.json"
@@ -138,34 +137,28 @@ def recover_mail(req:RequestHandler)->tuple:
         return 401,{"WWW-Authentication": "Authenticate POST /login"},msg("User is connected")#TODO : check the return values
     # get request data from post
     data = json_post(req)
+     
     users = login.getUsersValues("username",data["username"])
-    #getting client object to send mail from 
-    client = mail.login()
+    
     #generate recovery code
     value = random.randint(0,10**16)
-    code = hashlib.md5(str(value))
+    generator = hashlib.md5()
+    generator.update(str(value))
+    code = generator.digest()
     ##TODO: change code in database (this is what this code is supposed to do) 
-    ## Reminder: make database dictionary iteratable (with more than one user)
-    file = open(DATA_FILE,"r+")
-    dict = json.loads(file.read())
-    for i in range dict:
-        if i["username"] = data["username"]:
-            dict["recovery_code"] = code
-            user = True
-    if(!user)
-        return 401,{"WWW-Authentication": "Authenticate POST /login"},msg("User does not exist") # TODO : check the return values
-    file.close()
-    file = open(DATA_FILE,"w+")
-    file.write(json.dumps(dict))
-    file.close()
+    
+    ##check if username exists for email
+    if(not user):
+        return 401,{"WWW-Authentication": "Authenticate POST /login"},msg("User does not exist") # TODO : check the return 
     ############
     #Send email to user
     details = {}
-    details["message"] = code
+    ##TODO : change message and add url
+    details["message"] = code.digest()
     details["to"] = users["email"]
     details["client"] = mail.login()
     mail.send(details)
-
+'''
 #this handler resets password after getting recovery code 
 @hanlder("recover_password","GET")
 def recover_password(req:RequestHandler)->tuple:
@@ -189,6 +182,4 @@ def findUser(users,username):
         if(i["username"]==username):
             return i
     return None
-"""     
-    
-    
+'''    

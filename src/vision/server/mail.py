@@ -31,7 +31,10 @@ def login():
     return smtp
 
 # Logging into Gmail when the module is imported
-_client = login()
+#_client = login()
+def get_client():
+    global _client
+    return _client
 
 def send(details):
     """
