@@ -13,6 +13,8 @@ from server import RequestHandler
 
 import login
 
+import database as db
+
 def msg(txt : str) -> str:
     """
     Encodes a simple string message in a json response format
@@ -81,7 +83,7 @@ def get_session(req: RequestHandler):
         return False
     return login.verify_session(session) or False
 
-def logged_in(req: RequestHandler):
+def logged_in(req: RequestHandler) -> db.db_item:
     """
     Gets the currently logged in user.
     """

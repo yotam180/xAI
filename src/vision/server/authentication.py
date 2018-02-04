@@ -128,6 +128,7 @@ def profile_get(req: RequestHandler) -> tuple:
         return 403, {}, ""
     return 200, {}, json.dumps(user.data)
 
+<<<<<<< HEAD
 @handler("recover_mail","POST")
 def recover_mail(req:RequestHandler)->tuple:
     DATA_FILE = "server/database/users/R45mPmkaXXNuZo92qqe3.json"
@@ -183,3 +184,5 @@ def findUser(users,username):
             return i
     return None
 '''    
+=======
+>>>>>>> 59e9d8ead6540a5b50e89a1fd776356a778ca3b7
