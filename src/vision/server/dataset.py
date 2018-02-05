@@ -111,7 +111,9 @@ def get_dataset_status(req):
     if "".join(qs["id"]) not in pending.keys():
         return 200, {}, msg("Not Found")
 
-    return 200, {}, json.dumps(pending["".join(qs["id"])])
+    cpy = json.loads(json.dumps(pending["".join(qs["id"])]))
+    cpy["current"] = ts._current_keyword
+    return 200, {}, json.dumps(cpy)
 
 
 # Registering the event handler
