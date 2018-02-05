@@ -118,6 +118,12 @@
             })
 
             $("#btn_signup").click(function() {
+
+                if (!$("#check_terms").is(":checked")) {
+                    Materialize.toast("You must agree to the terms of service", 5000);
+                    return;
+                }
+
                 let $me = $(this);
                 $me.attr("disabled", true);
                 $.ajax({
