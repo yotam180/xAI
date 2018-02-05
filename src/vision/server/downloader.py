@@ -64,10 +64,13 @@ def _work():
 
         # And downloading all the files
         for i, img in enumerate(urls):
-            obj = download(img)
-            obj = cv2.resize(obj, (IMG_SIZE, IMG_SIZE))
-            cv2.imwrite(DATASET_DIR + kid + "/" + str(i) + ".png", obj, [cv2.IMWRITE_PNG_COMPRESSION, 9])
-            el["downloaded"] = i + 1
+            try:
+                obj = download(img)
+                obj = cv2.resize(obj, (IMG_SIZE, IMG_SIZE))
+                cv2.imwrite(DATASET_DIR + kid + "/" + str(i) + ".png", obj, [cv2.IMWRITE_PNG_COMPRESSION, 9])
+                el["downloaded"] = i + 1
+            except:
+                print("Error downloading " + str(i) + ". Skipping")
 
         # Calling the task callback to inform that we're done here
         ts.finished_download(el)
