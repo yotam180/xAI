@@ -76,7 +76,7 @@ def done_task(task):
                 register_dataset(p)
 
 def register_dataset(p):
-    
+    pass
 
 # Registering the event handler
 ts.on_keyword_downloaded = done_task
