@@ -5,3 +5,4 @@
 #
 
 IMG_SIZE = 40
+DEBUG = True

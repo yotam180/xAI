@@ -17,6 +17,9 @@ import task_scheduler as ts
 from keywords import DATASET_DIR, get_id
 from constants import IMG_SIZE
 
+# Debug settings
+from constants import DEBUG
+
 google = GoogleSearch()
 
 _working = True
@@ -49,7 +52,7 @@ def _work():
         print("Searching for " + keyword)
         
         # Sending the query to the google search module
-        query = google.search(keyword, 300)
+        query = google.search(keyword, 1 if DEBUG else 300)
         urls = [x["tu"] for x in query if "tu" in x]
         el["downloaded"] = 0
         el["total"] = len(urls)

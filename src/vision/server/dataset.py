@@ -4,16 +4,13 @@
 #   Last Edited: 02/02/2018
 #
 
-# Using the handler decorator to handle HTTP requests.
-from server import handler, RequestHandler
-
-# Helper utilities to work with HTTP requests
-from http_helper import msg, post, json_post, logged_in
-
+import keywords as kw
 # For communicating with the downloader thread we will use the message queue
 import task_scheduler as ts
-
-import keywords as kw
+# Helper utilities to work with HTTP requests
+from http_helper import json_post, logged_in, msg, post
+# Using the handler decorator to handle HTTP requests.
+from server import RequestHandler, handler
 
 pending = {}
 
@@ -22,6 +19,7 @@ def create_dataset_handler(req):
     """
     Handler for creating a dataset on the server side.
     """
+    global pending
 
     user = logged_in(req)
     if user is None:
@@ -35,22 +33,28 @@ def create_dataset_handler(req):
         negative = data["negative"]
         identifier = data["identifier"] if "identifier" in data else user.get("username") + "_" + subject
 
-        tasks = []
+        obj = {
+            "tasks": [],
+            "done": [],
+            "ready": []
+        }
         for w in positive:
             if not kw.exists(w):
-                tasks.append(
+                obj["tasks"].append(
                     ts.download(w)
                 )
+            else:
+                obj["ready"].append(w)
 
         for w in negative:
             if not kw.exists(w):
-                tasks.append(
+                obj["tasks"].append(
                     ts.download(w)
                 )
+            else:
+                obj["ready"].append(w)
 
-        pending[identifier] = tasks
-
-        print(tasks)
+        pending[identifier] = obj
 
         return 200, {}, msg("Ok")
     except:
@@ -58,8 +62,21 @@ def create_dataset_handler(req):
 
 
 def done_task(task):
-    pass
+    """
+    Handles a downloaded keyword
+    """
+    global pending
+    print(task)
+    print("---")
+    for _id, p in pending.items():
+        if task["task_id"] in p["tasks"]:
+            p["done"].append(task["keyword"])
+            p["tasks"].remove(task["task_id"])
+            if len(p["tasks"]):
+                register_dataset(p)
 
+def register_dataset(p):
+    
 
 # Registering the event handler
 ts.on_keyword_downloaded = done_task
