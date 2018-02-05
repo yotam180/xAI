@@ -41,8 +41,26 @@ def create_dataset(dataset_name: str, positives: list, negatives: list, owner_id
         .set("description", description) \
         .set("positive_keywords", positives) \
         .set("negative_keywords", negatives) \
-        .set("last_updated", time.time())
+        .set("last_updated", time.time()) \ 
+        .set("working", False)
 
     datasets.update(dataset)
 
     return dataset.item_id
+
+def set_working(dataset_id):
+    """
+    After downloading all the keywords, we have to update the database
+    entity to make sure our dataset is marked as "working"
+    """
+
+    datasets = db.table("datasets", db_entities.DATASET)
+
+    ds = datasets.load_item(dataset_id)
+    if ds is None:
+        return False
+
+    ds.set("working", True)
+    datasets.update(ds)
+
+    return True
