@@ -11,7 +11,7 @@ import nets
 import task_scheduler as ts
 
 # Helper utilities to work with HTTP requests
-from http_helper import json_post, logged_in, msg, post
+from http_helper import json_post, logged_in, msg, post, querystring
 
 # Using the handler decorator to handle HTTP requests.
 from server import RequestHandler, handler
@@ -95,6 +95,10 @@ def done_task(task):
             if len(p["tasks"]) == 0:
                 print(nets.set_working(_id))
 
+
+@handler("dataset_status", "GET")
+def get_dataset_status(req):
+    return 200, {}, msg(querystring(req))
 
 # Registering the event handler
 ts.on_keyword_downloaded = done_task

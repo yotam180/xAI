@@ -72,8 +72,10 @@ def _work():
         # Calling the task callback to inform that we're done here
         ts.finished_download(el)
 
+    print("Downloader Thread is done!")
     # And when the thread is done, we want to kill our simulated browser
     google.kill()
+    print("Google simulator is killed")
 
 def download(url):
     try:

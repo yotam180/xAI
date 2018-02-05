@@ -8,6 +8,7 @@ import sys
 import json
 import base64
 from http.cookies import SimpleCookie
+import urllib.parse
 
 from server import RequestHandler
 
@@ -94,3 +95,14 @@ def logged_in(req: RequestHandler) -> db.db_item:
     if not user:
         return None
     return user
+
+def querystring(req : RequestHandler) -> dict:
+    """
+    Gets and parses the query string from a request to a dictionary (key: val)
+    """
+    try:
+        p = urllib.parse.urlparse(req.path)
+        qs = urllib.parse.parse_qs(p.query)
+        return qs
+    except:
+        return None
