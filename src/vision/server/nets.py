@@ -46,7 +46,7 @@ def create_dataset(dataset_name: str, positives: list, negatives: list, owner_id
 
     datasets.update(dataset)
 
-    return dataset.item_id
+    return True, dataset.item_id
 
 def set_working(dataset_id):
     """
@@ -62,3 +62,5 @@ def set_working(dataset_id):
 
     ds.set("working", True)
     datasets.update(ds)
+
+    return True
