@@ -16,5 +16,10 @@ downloader.run()
 input()
 
 # And closing everything
+print("Killing server")
 serv.shutdown()
+print("Killed server")
+
+print("Killing downloader")
 downloader.shutdown()
+print("Killed downloader")
