@@ -41,7 +41,7 @@ def create_dataset(dataset_name: str, positives: list, negatives: list, owner_id
         .set("description", description) \
         .set("positive_keywords", positives) \
         .set("negative_keywords", negatives) \
-        .set("last_updated", time.time()) \ 
+        .set("last_updated", time.time()) \
         .set("working", False)
 
     datasets.update(dataset)
@@ -62,5 +62,3 @@ def set_working(dataset_id):
 
     ds.set("working", True)
     datasets.update(ds)
-
-    return True

@@ -29,9 +29,11 @@ def run():
     work_thread.start()
 
 def shutdown():
+    global _working
     _working = False
 
 def _work():
+    global _working
     while _working:
         # Getting the next task we want to perform
         el = ts.get_next_download()

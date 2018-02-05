@@ -5,10 +5,14 @@
 #
 
 import keywords as kw
+import nets
+
 # For communicating with the downloader thread we will use the message queue
 import task_scheduler as ts
+
 # Helper utilities to work with HTTP requests
 from http_helper import json_post, logged_in, msg, post
+
 # Using the handler decorator to handle HTTP requests.
 from server import RequestHandler, handler
 
@@ -54,9 +58,21 @@ def create_dataset_handler(req):
             else:
                 obj["ready"].append(w)
 
-        pending[identifier] = obj
+        obj_name = nets.create_dataset(
+            identifier,
+            positive,
+            negative,
+            user.item_id,
+            subject,
+            description
+        )
 
-        return 200, {}, msg("Ok")
+        if len(obj["tasks"]) > 0:
+            pending[obj_name] = obj
+            return 200, {}, msg("Dataset Creating")
+        else:
+            nets.set_working(obj_name)
+            return 200, {}, msg("Dataset Created")
     except:
         return 400, {}, msg("Content is not in the correct format or a parameter is missing")
 
@@ -73,10 +89,8 @@ def done_task(task):
             p["done"].append(task["keyword"])
             p["tasks"].remove(task["task_id"])
             if len(p["tasks"]):
-                register_dataset(p)
+                nets.set_working(_id)
 
-def register_dataset(p):
-    pass
 
 # Registering the event handler
 ts.on_keyword_downloaded = done_task
