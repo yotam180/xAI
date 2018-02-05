@@ -11,7 +11,7 @@ import time
 
 db = db_entities.db_instance
 
-def create_dataset(dataset_name: str, positives: list, negatives: list, owner: database.db_item, subject: str, description: str) -> database.db_item:
+def create_dataset(dataset_name: str, positives: list, negatives: list, owner_username: str, subject: str, description: str) -> database.db_item:
     datasets = db.table("datasets", db_entities.DATASET)
     
     # Checking for duplicate IDs in existing datasets.
@@ -23,7 +23,7 @@ def create_dataset(dataset_name: str, positives: list, negatives: list, owner: d
 
     dataset = datasets.new() \
         .set("identifier", dataset_name) \
-        .set("username", owner.get("username")) \
+        .set("username", owner_username) \
         .set("subject", subject) \
         .set("description", description) \
         .set("positive_keywords", positives) \
@@ -32,4 +32,4 @@ def create_dataset(dataset_name: str, positives: list, negatives: list, owner: d
 
     datasets.update(dataset)
 
-    return True, None
+    return dataset.item_id
