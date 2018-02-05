@@ -11,7 +11,20 @@ import time
 
 db = db_entities.db_instance
 
-def create_dataset(dataset_name: str, positives: list, negatives: list, owner_username: str, subject: str, description: str) -> database.db_item:
+def create_dataset(dataset_name: str, positives: list, negatives: list, owner_id: str, subject: str, description: str) -> database.db_item:
+    """
+    Registers a new dataset into the database.
+    Parameters:
+        dataset_name - the identifier of the dataset
+        positives - the positive keywords to trigger the classifier
+        negatives - the negative keywords to restrict the classifier
+        owner_username - the username of the owner of the dataset
+        subject - the textual description of the dataset subject
+        description - a description about what the subject is
+
+    Return Value:
+        the id of the database record just created. 
+    """
     datasets = db.table("datasets", db_entities.DATASET)
     
     # Checking for duplicate IDs in existing datasets.
@@ -23,7 +36,7 @@ def create_dataset(dataset_name: str, positives: list, negatives: list, owner_us
 
     dataset = datasets.new() \
         .set("identifier", dataset_name) \
-        .set("username", owner_username) \
+        .set("owner_id", owner_id) \
         .set("subject", subject) \
         .set("description", description) \
         .set("positive_keywords", positives) \
