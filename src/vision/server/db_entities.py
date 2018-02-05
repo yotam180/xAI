@@ -33,7 +33,8 @@ DATASET = [
     "description",
     "positive_keywords",
     "negative_keywords",
-    "last_updated"
+    "last_updated",
+    "working"
 ]
 
 CLASSIFIER = [

@@ -21,7 +21,7 @@ from http_helper import msg, get_session, post, json_post, logged_in
 # Using the login module to interface with the user database
 import login
 #Using the email module to send requests
-import mail
+#import mail
 #Using hashlib and random to create hash recovery code
 import hashlib
 import random

@@ -33,7 +33,7 @@ def create_dataset_handler(req):
         description = data["description"]
         positive = data["positive"]
         negative = data["negative"]
-        identifier = user.get("username") + "_" + subject
+        identifier = data["identifier"] if "identifier" in data else user.get("username") + "_" + subject
 
         tasks = []
         for w in positive:
@@ -50,6 +50,16 @@ def create_dataset_handler(req):
 
         pending[identifier] = tasks
 
-        print tasks
+        print(tasks)
+
+        return 200, {}, msg("Ok")
     except:
         return 400, {}, msg("Content is not in the correct format or a parameter is missing")
+
+
+def done_task(task):
+    pass
+
+
+# Registering the event handler
+ts.on_keyword_downloaded = done_task
