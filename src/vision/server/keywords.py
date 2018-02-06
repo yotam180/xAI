@@ -17,4 +17,7 @@ def get_id(text):
     return "_".join(re.findall("\w+", text) or []).lower()
 
 def exists(word):
+    """
+    Determines if a word exists in the dataset storage.
+    """
     return os.path.exists(DATASET_DIR + get_id(word))

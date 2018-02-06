@@ -54,6 +54,10 @@ class RequestHandler(BaseHTTPRequestHandler):
         return
     
     def parse_get(self):
+        """
+        Returns the GET parameters of a request. Same as the querystring method in http_helper,
+        but less reliable.
+        """
         path = self.path
         path = path.split("?")
         args = path[1]

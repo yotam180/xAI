@@ -33,6 +33,9 @@ def shutdown():
     _working = False
 
 def _work():
+    """
+    The working thread.
+    """
     global _working
     while _working:
         # Getting the next task we want to perform
@@ -81,6 +84,10 @@ def _work():
     print("Google simulator is killed")
 
 def download(url):
+    """
+    Downloads an image resource from a given URL.
+    Returns a CV2 image with original scale, grayscale color.
+    """
     try:
         # Downloading the content
         req = urllib.request.urlopen(url)
