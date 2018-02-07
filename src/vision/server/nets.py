@@ -64,3 +64,15 @@ def set_working(dataset_id):
     datasets.update(ds)
 
     return True
+
+def get_datasets(user_id):
+    """
+    Gets the dataset list for a specific user.
+    Parametrs:
+        user_id - (string) the id of the user
+    Return value:
+        the list of db_item representing the datasets of the user.
+    """
+    datasets = db.table("datasets", db_entities.DATASET)
+    ds = datasets.query(lambda c: c.get("user_id") == user_id)
+    return list(ds)

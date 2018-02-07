@@ -115,6 +115,15 @@ def get_dataset_status(req):
     cpy["current"] = ts._current_keyword
     return 200, {}, json.dumps(cpy)
 
+@handler("dataset_list", "GET")
+def dataset_list_handler(req):
+    
+    user = logged_in(req)
+    if user is None:
+        return 403, {}, msg("Not Authenticated")
+    
+    
+    
 
 # Registering the event handler
 ts.on_keyword_downloaded = done_task
