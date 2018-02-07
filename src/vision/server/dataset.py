@@ -37,7 +37,7 @@ def create_dataset_handler(req):
         description = data["description"]
         positive = data["positive"]
         negative = data["negative"]
-        identifier = data["identifier"] if "identifier" in data else user.get("username") + "_" + subject
+        identifier = data["identifier"] if "identifier" in data else user.get("username") + "_" + kw.get_id(subject)
 
         obj = {
             "tasks": [],
