@@ -122,6 +122,21 @@ def dataset_list_handler(req):
     if user is None:
         return 403, {}, msg("Not Authenticated")
     
+    data = {x.item_id: x.data for x in nets.get_datasets(user.item_id)}
+    return 200, {}, json.dumps(data)
+
+@handler("delete_dataset", "GET")
+def delete_dataset(req):
+    user = logged_in(req)
+    qs = querystring(req)
+
+    if user is None:
+        return 403, {}, msg("Not Authenticated")
+
+    if "id" not in qs:
+        return 400, {}, msg("ID parameter is missing in query string")
+
+    return nets.delete_dataset("".join(qs["id"]), user.item_id)
     
     
 

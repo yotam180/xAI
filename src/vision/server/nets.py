@@ -6,6 +6,7 @@
 
 import database
 import db_entities
+from http_helper import msg
 
 import time
 
@@ -76,3 +77,25 @@ def get_datasets(user_id):
     datasets = db.table("datasets", db_entities.DATASET)
     ds = datasets.query(lambda c: c.get("owner_id") == user_id)
     return list(ds)
+
+def delete_dataset(dataset_id, user_id):
+    """
+    Deletes a dataset from the database (but not its downloaded keywords)
+    Parameters:
+        dataset_id - the id of the dataset to remove
+        user_id - the user that queried the action. Used for confirmation of deletion.
+    Return value:
+        None
+    """
+    datasets = db.table("datasets", db_entities.DATASET)
+    
+    ds = datasets.load_item(dataset_id)
+    if ds is None:
+        return 200, {}, msg("Dataset ID not found")
+
+    if ds.get("owner_id") != user_id:
+        return 403, {}, msg("Not the owner of the dataset")
+
+    datasets.delete(ds)
+    
+    return 200, {}, msg("Dataset deleted")

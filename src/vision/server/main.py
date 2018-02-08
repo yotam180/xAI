@@ -10,7 +10,7 @@ import dataset
 
 # Running our server
 serv = server.run()
-downloader.run()
+#downloader.run()
 
 # Waiting for a keyboard press to shut the server down
 input()
@@ -21,5 +21,5 @@ serv.shutdown()
 print("Killed server")
 
 print("Killing downloader")
-downloader.shutdown()
+#downloader.shutdown()
 print("Killed downloader")
