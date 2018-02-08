@@ -12,6 +12,7 @@ _create_net = []
 _download_keyword = []
 
 _current_keyword = None
+_current_training = None
 
 # For thread-safe queues
 _cn = Lock()
@@ -28,9 +29,24 @@ def download(keyword):
     Assigns a task to the google images module to search through.
     Returns the task id for checkups.
     """
+    global _dl
+    global _download_keyword
     task_id = randint(1, 1e10)
     with _dl:
         _download_keyword.append({"keyword": keyword, "task_id": task_id})
+    return task_id
+
+def train(dataset_id):
+    """
+    Adds a dataset to the training queue.
+    Assigns a task to the TensorFlow trainer module to train.
+    Returns the task id for checkups.
+    """
+    global _cn
+    global _create_net
+    task_id = randint(1, 1e10)
+    with _cn:
+        _create_net.append({"dataset_id": dataset_id, "task_id": task_id})
     return task_id
 
 def get_next_download():
@@ -38,6 +54,7 @@ def get_next_download():
     Gets the next download task.
     """
     global _current_keyword
+    global _dl
     if len(_download_keyword) == 0:
         return None
 
@@ -47,6 +64,23 @@ def get_next_download():
     
     _current_keyword = el
     return el
+
+def get_next_training_candidate():
+    """
+    Gets the next training task.
+    """
+    global _current_training
+    global _cn
+    if len(_create_net) == 0:
+        return None
+
+    el = _create_net[0]
+    with _cn:
+        del _create_net[0]
+    
+    _current_training = el
+    return el
+
 
 def finished_download(el):
     """
@@ -58,6 +92,17 @@ def finished_download(el):
         _current_keyword = None
         if (on_keyword_downloaded):
             on_keyword_downloaded(el)
+
+def finished_training(el):
+    """
+    Removes the current training task and calls the handler for finishing.
+    Should be called by the worker (trainer). 
+    """
+    global _current_training
+    if el["task_id"] == _current_training["task_id"]:
+        _current_training = None
+        if (on_net_created):
+            on_net_created(el)
 
 
 def get_download_status(task_id):
@@ -72,3 +117,10 @@ def get_download_status(task_id):
             return "queued", _download_keyword.index(next(x for x in _download_keyword if x["task_id"] == task_id))
         except:
             return "not_present"
+
+def get_training_status(task_id):
+    """
+    Return the status of the training task currently being fulfilled.
+    TODO: Implement this method.
+    """
+    raise NotImplementedError()
