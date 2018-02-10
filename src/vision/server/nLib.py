@@ -28,9 +28,12 @@ import numpy as np
 # Utilites
 import os
 import random
+import re
+import shutil
+import time
 
 # Constants and settings
-from constants import IMG_SIZE
+from constants import IMG_SIZE, DEBUG
 
 # Defining our own constants
 LEARNING_RATE = 1e-3
@@ -38,9 +41,6 @@ CHECKPOINT_DIR = "checkpoint"
 
 POSITIVE_TUP = [0, 1]
 NEGATIVE_TUP = [1, 0]
-
-# Creating a TensorFlow session
-sess = T.Session()
 
 def define_network():
     """
@@ -118,6 +118,7 @@ def define_network():
 
     # Hidden fully-connected layer
     net = fully_connected(
+        net,
         2,
         activation='softmax'
     )
@@ -148,8 +149,7 @@ def define_training_model(ckpt_id):
         define_network(),
         tensorboard_dir="/tensorboard/",
         best_checkpoint_path=os.path.join(CHECKPOINT_DIR, ckpt_id),
-        best_val_accuracy=0.5,
-        session=sess
+        best_val_accuracy=0.5
     )
 
 def define_evaluation_model():
@@ -159,8 +159,7 @@ def define_evaluation_model():
     global sess
 
     return tflearn.DNN(
-        define_network(),
-        session=sess
+        define_network()
     )
 
 def load_dataset(positives, negatives):
@@ -202,3 +201,60 @@ def load_dataset(positives, negatives):
     random.shuffle(res)
 
     return res
+
+def train_classifier(classifier_id, dataset):
+    """
+    Trains a classifier based on a given dataset.
+    Parameters:
+        classifier_id - the id of the classifier (string)
+        dataset - the result of calling load_dataset on some keywords.
+    """
+    # Checking that the checkpoints directory doesn't exist, then creating it.
+    # We really want to clean the folder CHECKPOINTS_DIR before we start training
+    # so we don't accidentaly take another model's checkpoints to our classifier.
+    if os.path.exists(CHECKPOINT_DIR):
+        shutil.rmtree(CHECKPOINT_DIR)
+    time.sleep(0.5)
+    os.makedirs(CHECKPOINT_DIR)
+
+    # Splitting to training and test data.
+    test_data = dataset[:len(dataset) // 10]
+    training_data = dataset[len(dataset) // 10:]
+
+    # Creating our model to train
+    net = define_training_model(classifier_id)
+
+    # Processing the dataset
+    X = np.array([i[0] for i in training_data]).reshape(-1, IMG_SIZE, IMG_SIZE, 1)
+    Y = [i[1] for i in training_data]
+
+    test_X = np.array([i[0] for i in test_data]).reshape(-1, IMG_SIZE, IMG_SIZE, 1)
+    test_Y = [i[1] for i in test_data]
+    print(test_Y)
+    # Doing the AI "magic" to train our model with the dataset we just created
+    net.fit(
+        {"input": X}, 
+        {"targets": Y}, 
+        n_epoch=2 if DEBUG else 300, 
+        validation_set=(
+            {"input": test_X},
+            {"targets": test_Y}
+        ),
+        show_metric=True,
+        snapshot_step=500,
+        run_id=classifier_id + "_model"
+    )
+
+    # Retrieving the best checkpoint we have hit during the training process
+    # So we are sure to take the best network out of the whole thing
+    best_checkpoint = max(
+        [-1] + [int(x) for x in [(re.findall(classifier_id + "([0-9]+)\.meta", i) + [None])[0] for i in os.listdir(CHECKPOINT_DIR)] if x]
+    )
+    if best_checkpoint != -1:
+        net.load(os.path.join(CHECKPOINT_DIR, classifier_id + str(best_checkpoint)))
+
+    # Removing the checkpoint directory
+    shutil.rmtree(CHECKPOINT_DIR)
+
+    # And returning the result
+    return net

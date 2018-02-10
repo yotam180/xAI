@@ -12,4 +12,4 @@ IMG_SIZE = 40
 """
 A debug switch - if True, debug settings will apply everywhere in the code.
 """
-DEBUG = False
+DEBUG = True
