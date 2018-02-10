@@ -27,6 +27,7 @@ import numpy as np
 
 # Utilites
 import os
+import random
 
 # Constants and settings
 from constants import IMG_SIZE
@@ -34,6 +35,9 @@ from constants import IMG_SIZE
 # Defining our own constants
 LEARNING_RATE = 1e-3
 CHECKPOINT_DIR = "checkpoint"
+
+POSITIVE_TUP = [0, 1]
+NEGATIVE_TUP = [1, 0]
 
 # Creating a TensorFlow session
 sess = T.Session()
@@ -158,3 +162,43 @@ def define_evaluation_model():
         define_network(),
         session=sess
     )
+
+def load_dataset(positives, negatives):
+    """
+    Loads the positive and negative words and returns a training set.
+    Parameters:
+        positives - list of positive keyword ids to load.
+        negatives - list of negative keyword ids to load.
+    Notes - the words should already be downloaded to the dataset folder. This method will ignore words that are not present there.abs
+    Return value:
+        The list of arrays of something... The training data, simply.
+    """
+
+    res = []
+
+    for word in positives:
+        if os.path.exists(os.path.join("dataset", word)):
+            for pic in os.listdir(os.path.join("dataset", word)):
+                path = os.path.join("dataset", word, pic)
+                
+                # Reshaping our image to 3D although it is just grayscale
+                img = cv2.imread(path, cv2.IMREAD_GRAYSCALE).reshape(IMG_SIZE, IMG_SIZE, 1)
+
+                # And appending it to our result list
+                res.append([img, POSITIVE_TUP])
+
+    for word in negatives:
+        if os.path.exists(os.path.join("dataset", word)):
+            for pic in os.listdir(os.path.join("dataset", word)):
+                path = os.path.join("dataset", word, pic)
+                
+                # Reshaping our image to 3D although it is just grayscale
+                img = cv2.imread(path, cv2.IMREAD_GRAYSCALE).reshape(IMG_SIZE, IMG_SIZE, 1)
+
+                # And appending it to our result list
+                res.append([img, NEGATIVE_TUP])
+
+    # Shuffling our dataset
+    random.shuffle(res)
+
+    return res
