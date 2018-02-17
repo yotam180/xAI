@@ -230,7 +230,7 @@ def train_classifier(classifier_id, dataset):
 
     test_X = np.array([i[0] for i in test_data]).reshape(-1, IMG_SIZE, IMG_SIZE, 1)
     test_Y = [i[1] for i in test_data]
-    print(test_Y)
+
     # Doing the AI "magic" to train our model with the dataset we just created
     net.fit(
         {"input": X}, 

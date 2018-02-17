@@ -17,10 +17,14 @@ import time
 import nLib as nl
 import nets
 
+# Threading work
+import threading
+
 _working = True
 
 def run():
-    pass
+    working_thread = threading.Thread(target=_work)
+    working_thread.start()
 
 def shutdown():
     """
@@ -42,6 +46,8 @@ def _work():
         if el == None:
             time.sleep(1)
             continue
+
+        print("Starting training task of " + el["classifier_id"])
         
         dataset_id = el["dataset_id"]
         classifier_id = el["classifier_id"]
@@ -54,15 +60,19 @@ def _work():
             # Cheking if the dataset exists, otherwise throwing an error
             # and rage quitting the process.
             el["err"] = "Dataset ID not found"
-            ts.finished_download(el)
+            ts.finished_training(el)
             continue
-
+        
+        print("Loading Dataset...")
         dataset = nl.load_dataset(
             ds.get("positive_keywords"),
             ds.get("negative_keywords")
         )
 
+        print("Training...")
         net = nl.train_classifier(classifier_id, dataset)
+        
+        print("Finished training, saving model.")
         net.save(CLASSIFIER_DIRECTORY + "/" + classifier_id)
 
-        ts.finished_download(el)
+        ts.finished_training(el)
