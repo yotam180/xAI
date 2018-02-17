@@ -1,7 +1,7 @@
 #
 #   The trainer module to create classifiers based on datasets.
 #   Author: Yotam Salmon
-#   Last Edited: 10/02/2018
+#   Last Edited: 17/02/2018
 #
 
 # Importing our task queues
@@ -12,6 +12,9 @@ from constants import DEBUG, IMG_SIZE
 
 # Utility imports 
 import time
+
+# AI module
+import nLib as nl
 
 _working = True
 
@@ -39,4 +42,7 @@ def _work():
             time.sleep(1)
             continue
 
-        # TODO: Do some job with the task.
+        # Defining our evaluation model
+        print("Loading dataset " + el["dataset_id"])
+
+        

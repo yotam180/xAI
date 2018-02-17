@@ -1,7 +1,7 @@
 #
 #   Networks database interface
 #   Author: Yotam Salmon
-#   Last Edited: 31/12/17
+#   Last Edited: 17/02/18
 #
 
 import database
@@ -77,6 +77,18 @@ def get_datasets(user_id):
     datasets = db.table("datasets", db_entities.DATASET)
     ds = datasets.query(lambda c: c.get("owner_id") == user_id)
     return list(ds)
+
+def get_dataset(dataset_id):
+    """
+    Gets a dataset by id from the database
+    Parameters:
+        dataset_id - the db id of the dataset
+    Return value:
+        the db_item of the dataset.
+    """
+    datasets = db.table("datasets", db_entities.DATASET)
+    ds = datasets.load_item(dataset_id)
+    return ds or None
 
 def delete_dataset(dataset_id, user_id):
     """
