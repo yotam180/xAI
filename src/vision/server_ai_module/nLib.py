@@ -140,6 +140,7 @@ def create_model(category_id, category):
 
     test_X = np.array([i[0] for i in test_data]).reshape(-1, IMG_SIZE, IMG_SIZE, 1)
     test_Y = [i[1] for i in test_data]
+    print(test_Y)
 
     net.fit({"input": X}, {"targets": Y}, n_epoch=300, validation_set=({"input": test_X}, {"targets": test_Y}), show_metric=True, \
         snapshot_step=500, run_id=category_id + "_model")

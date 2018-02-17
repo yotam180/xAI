@@ -125,12 +125,12 @@ Action
 
 def train_for(yes, nos):
     cid = name_to_id(yes)
-    if cid in categories.keys():
-        logger.log("Category " + cid + " already exists!")
-        return False
+    #if cid in categories.keys():
+    #    logger.log("Category " + cid + " already exists!")
+    #    return False
     
-    logger.log("Creating dataset for " + yes)
-    create_dataset(yes, nos)
+    #logger.log("Creating dataset for " + yes)
+    #create_dataset(yes, nos)
 
     logger.log("Creating model for " + yes)
     net = nLib.create_model(cid, categories[cid])
