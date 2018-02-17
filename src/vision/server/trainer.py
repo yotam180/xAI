@@ -13,8 +13,9 @@ from constants import DEBUG, IMG_SIZE
 # Utility imports 
 import time
 
-# AI module
+# Other internal modules
 import nLib as nl
+import nets
 
 _working = True
 
@@ -45,4 +46,20 @@ def _work():
         # Defining our evaluation model
         print("Loading dataset " + el["dataset_id"])
 
-        
+        ds = nets.get_dataset(dataset_id)
+        if ds == None:
+            # Cheking if the dataset exists, otherwise throwing an error
+            # and rage quitting the process.
+            el["err"] = "Dataset ID not found"
+            ts.finished_download(el)
+            continue
+
+        dataset = nl.load_dataset(
+            ds.get("positive_keywords"),
+            ds.get("negative_keywords")
+        )
+
+        net = nl.train_classifier(dataset)
+
+        # TODO: continue this method, saving and updating 
+        # the database about the trained classifier.
