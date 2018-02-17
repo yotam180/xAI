@@ -138,10 +138,17 @@ def create_classifier(classifier_name, owner_id, dataset_id):
 
     classifier = table.new() \
         .set("classifier_name", classifier_name) \
-        .set("username", username) \
+        .set("owner_id", owner_id) \
         .set("dataset_trained", dataset_id) \
         .set("date_trained", time.time())
 
     table.update(classifier)
 
     return True, classifier.item_id
+
+def get_classifier(classifier_id):
+    """
+    Gets a classifier db object by its object id.
+    """
+    table = db.table("classifiers", db_entities.CLASSIFIER)
+    return table.load_item(classifier_id) or None

@@ -39,7 +39,7 @@ DATASET = [
 
 CLASSIFIER = [
     "classifier_name",
-    "username",
+    "owner_id",
     "dataset_trained",
     "date_trained"
 ]
