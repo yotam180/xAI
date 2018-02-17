@@ -41,7 +41,8 @@ CLASSIFIER = [
     "classifier_name",
     "owner_id",
     "dataset_trained",
-    "date_trained"
+    "date_trained",
+    "trained"
 ]
 
 REVIEW = [

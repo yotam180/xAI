@@ -140,7 +140,8 @@ def create_classifier(classifier_name, owner_id, dataset_id):
         .set("classifier_name", classifier_name) \
         .set("owner_id", owner_id) \
         .set("dataset_trained", dataset_id) \
-        .set("date_trained", time.time())
+        .set("date_trained", time.time()) \
+        .set("trained", False)
 
     table.update(classifier)
 
@@ -152,3 +153,18 @@ def get_classifier(classifier_id):
     """
     table = db.table("classifiers", db_entities.CLASSIFIER)
     return table.load_item(classifier_id) or None
+
+def mark_trained(classifier_id):
+    """
+    Marks a classifier as trained after the training process has been finished.
+    """
+    table = db.table("classifiers", db_entities.CLASSIFIER)
+    classifier = table.load_item(classifier_id)
+
+    if classifier is None:
+        return False
+
+    classifier.set("trained", True)
+    table.update(classifier)
+    
+    return True
