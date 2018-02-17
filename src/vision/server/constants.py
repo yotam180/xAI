@@ -13,3 +13,8 @@ IMG_SIZE = 40
 A debug switch - if True, debug settings will apply everywhere in the code.
 """
 DEBUG = True
+
+"""
+The directory where the classifiers are stored
+"""
+CLASSIFIER_DIRECTORY = "classifier"

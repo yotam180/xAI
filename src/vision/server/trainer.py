@@ -8,7 +8,7 @@
 import task_scheduler as ts
 
 # Configuration variables
-from constants import DEBUG, IMG_SIZE
+from constants import DEBUG, IMG_SIZE, CLASSIFIER_DIRECTORY
 
 # Utility imports 
 import time
@@ -42,9 +42,12 @@ def _work():
         if el == None:
             time.sleep(1)
             continue
+        
+        dataset_id = el["dataset_id"]
+        classifier_id = el["classifier_id"]
 
         # Defining our evaluation model
-        print("Loading dataset " + el["dataset_id"])
+        print("Loading dataset " + dataset_id)
 
         ds = nets.get_dataset(dataset_id)
         if ds == None:
@@ -59,7 +62,7 @@ def _work():
             ds.get("negative_keywords")
         )
 
-        net = nl.train_classifier(dataset)
+        net = nl.train_classifier(classifier_id, dataset)
+        net.save(CLASSIFIER_DIRECTORY + "/" + classifier_id)
 
-        # TODO: continue this method, saving and updating 
-        # the database about the trained classifier.
+        ts.finished_download(el)
