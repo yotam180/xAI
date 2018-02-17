@@ -1,7 +1,7 @@
 #
 #   Task scheduling module for multithreading server
 #   Author: Yotam
-#   Last Edited: 02/02/2018
+#   Last Edited: 17/02/2018
 #
 
 from random import randint
@@ -36,7 +36,7 @@ def download(keyword):
         _download_keyword.append({"keyword": keyword, "task_id": task_id})
     return task_id
 
-def train(dataset_id):
+def train(dataset_id, classifier_id):
     """
     Adds a dataset to the training queue.
     Assigns a task to the TensorFlow trainer module to train.
@@ -46,7 +46,7 @@ def train(dataset_id):
     global _create_net
     task_id = randint(1, 1e10)
     with _cn:
-        _create_net.append({"dataset_id": dataset_id, "task_id": task_id})
+        _create_net.append({"dataset_id": dataset_id, "classifier_id": classifier_id, "task_id": task_id})
     return task_id
 
 def get_next_download():

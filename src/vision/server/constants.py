@@ -1,7 +1,7 @@
 #
 #   Some useful constants
 #   Author: Yotam Salmon
-#   Last Edited: 02/02/2018
+#   Last Edited: 17/02/2018
 #
 
 """
