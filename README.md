@@ -25,11 +25,11 @@ This repository is being Auto-Secured and Unit-Tested by [![](https://i.imgur.co
 
 ![](https://avatars1.githubusercontent.com/u/10270110?s=200)
 
-I'm a young software developer, love and live technology and computers. I am mainly experienced with C#, Python and Javascript for web development.<br/>
-I do web development with JS/HTML5/CSS3, jQuery and usually for server side - nodeJS, PHP or ASP.NET. I am also familiar with C/C++, Java based applications
-and Visual Basic, for macros, mainly. When really needed, I do x86 ASM too, but that's on very rare occasions.<br/><br/>
-I contribute to open source projects and am very active in school projects too, like the Makers project or the Rogozin In Space repositories under
-@rogozin-high-school.
+>I'm a young software developer, love and live technology and computers. I am mainly experienced with C#, Python and Javascript for web development.<br/>
+>I do web development with JS/HTML5/CSS3, jQuery and usually for server side - nodeJS, PHP or ASP.NET. I am also familiar with C/C++, Java based applications
+>and Visual Basic, for macros, mainly. When really needed, I do x86 ASM too, but that's on very rare occasions.<br/><br/>
+>I contribute to open source projects and am very active in school projects too, like the Makers project or the Rogozin In Space repositories under
+>@rogozin-high-school.
 
 ## Learning Materials ##
 
