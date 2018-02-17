@@ -112,3 +112,36 @@ def delete_dataset(dataset_id, user_id):
     
     return 200, {}, msg("Dataset deleted")
 
+def create_classifier(classifier_name, owner_id, dataset_id):
+    """
+    Creates a classifier in the database.
+    """
+    table = db.table("classifiers", db_entities.CLASSIFIER)
+
+    # Trying to check for duplicated entries
+    dups = table.query(lambda c: c.get("classifier_name") == classifier_name)
+    if len(list(dups)) > 0:
+        # Returning error message upon failure.
+        return False, "Classifier name already exists in the database."
+
+    # Checking that the owner id is an existing user.
+    usr_tbl = db.table("users", db_entities.USER)
+    usr = usr_tbl.load_item(owner_id)
+    if usr is None:
+        return False, "The requested owner of the classifier does not exist"
+
+    # Checking that the dataset exists and is working
+    ds_table = db.table("datasets", db_entities.DATASET)
+    ds = ds_table.load_item(dataset_id)
+    if ds is None or ds.get("working") == False:
+        return False, "The dataset must exist and be ready to use"
+
+    classifier = table.new() \
+        .set("classifier_name", classifier_name) \
+        .set("username", username) \
+        .set("dataset_trained", dataset_id) \
+        .set("date_trained", time.time())
+
+    table.update(classifier)
+
+    return True, classifier.item_id
