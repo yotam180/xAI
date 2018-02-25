@@ -128,3 +128,16 @@ def profile_get(req: RequestHandler) -> tuple:
         return 403, {}, ""
     return 200, {}, json.dumps(user.data)
 
+@handler("recover","GET")
+def recvoer(req:RequestHandler)->tuple:
+    val  = random.randint(0,16**16)
+    m = hashlib.md5()
+    m.update(str(val))
+    code = m.hexdigest()
+    details = {}
+    details["message"] = code
+    #TODO: change mail to mail in GET request
+    details["to"] = "shaikimhi221199@gmail.com"
+    details["subject"] = "recovery_mail"
+    mail.send(details)
+    return 200,msg("Recovery mail sent")

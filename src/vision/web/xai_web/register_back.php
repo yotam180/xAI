@@ -26,5 +26,4 @@ if ($res == null) {
     die("{\"error\": \"The API server is down.\"}");
 }
 echo $res;
-
 ?>

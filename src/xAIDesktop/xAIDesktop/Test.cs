@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using System.Net.Http;
+
 namespace xAIDesktop
 {
     public partial class Test : Form
@@ -45,6 +47,8 @@ namespace xAIDesktop
                 pb.SizeMode = PictureBoxSizeMode.StretchImage;
                 Controls.Add(pb);
                 picture = pb;
+
+                string res = Upload("localhost:9090/Upload", pb.Name, File.ReadAllBytes(FilePath));
             }
             catch {; }
         }
@@ -52,6 +56,24 @@ namespace xAIDesktop
         private void button2_Click(object sender, EventArgs e)
         {
             //TODO: implement test part
+        }
+        private string Upload(string Url, string paramString, byte[] fileBytes)
+        {
+            HttpContent stringContent = new StringContent(paramString);
+            //HttpContent fileStreamContent = new StreamContent(new MemoryStream(fileBytes));
+            HttpContent bytesContent = new ByteArrayContent(fileBytes);
+            using (var client = new HttpClient())
+            using (var formData = new MultipartFormDataContent())
+            {
+                formData.Add(stringContent, "fileName", "fileName");
+                formData.Add(bytesContent, "fileStream");
+                var response = client.PostAsync(Url, formData).Result;
+                if (!response.IsSuccessStatusCode)
+                {
+                    return null;
+                }
+                return response.Content.ReadAsStringAsync().Result;
+            }
         }
     }
 }
