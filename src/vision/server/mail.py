@@ -31,7 +31,7 @@ def login():
     return smtp
 
 # Logging into Gmail when the module is imported
-#_client = login()
+_client = login()
 def get_client():
     global _client
     return _client
@@ -53,7 +53,7 @@ def send(details):
     outer["Subject"] = details["subject"]
     outer.preamble = "You will not see this in a MIME-aware mail reader.\n"
     msg = outer.as_string()
-    _client = details["client"]
+    #_client = details["client"]
     _client.sendmail(SENDER, details["to"], msg)
 
 def parameterize(msg, src):

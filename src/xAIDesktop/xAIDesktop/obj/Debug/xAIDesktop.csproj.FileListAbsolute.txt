@@ -66,3 +66,4 @@ K:\xAI\src\xAIDesktop\xAIDesktop\obj\Debug\xAIDesktop.csproj.GenerateResource.Ca
 K:\xAI\src\xAIDesktop\xAIDesktop\obj\Debug\xAIDesktop.csproj.CoreCompileInputs.cache
 K:\xAI\src\xAIDesktop\xAIDesktop\obj\Debug\xAIDesktop.exe
 K:\xAI\src\xAIDesktop\xAIDesktop\obj\Debug\xAIDesktop.pdb
+K:\xAI\src\xAIDesktop\xAIDesktop\obj\Debug\xAIDesktop.login.resources
