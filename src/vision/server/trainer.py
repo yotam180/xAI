@@ -14,7 +14,7 @@ from constants import DEBUG, IMG_SIZE, CLASSIFIER_DIRECTORY
 import time
 
 # Other internal modules
-# import nLib as nl
+import nLib as nl
 import nets
 
 # Threading work
@@ -63,17 +63,16 @@ def _work():
             ts.finished_training(el)
             continue
         
-        """print("Loading Dataset...")
+        print("Loading Dataset...")
         dataset = nl.load_dataset(
             ds.get("positive_keywords"),
             ds.get("negative_keywords")
         )
 
         print("Training...")
-        net = nl.train_classifier(classifier_id, dataset)"""
-        print ("Simulated training")
+        net = nl.train_classifier(classifier_id, dataset)
         
         print("Finished training, saving model.")
-        # net.save(CLASSIFIER_DIRECTORY + "/" + classifier_id)
+        net.save(CLASSIFIER_DIRECTORY + "/" + classifier_id)
 
         ts.finished_training(el)
