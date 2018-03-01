@@ -48,91 +48,50 @@ def define_network():
     Constructs the basic structure of a network
     """
 
-    # Augmentation for images
+    # Defining image augmentation
+    # We want to create a stilted wider dataset
     aug = ImageAugmentation()
     aug.add_random_flip_leftright()
     aug.add_random_blur(sigma_max=3.)
-    aug.add_random_rotation(max_angle=40.)
-
+    aug.add_random_rotation(max_angle=20.)
+    
     T.reset_default_graph()
 
-    # First input layer
-    net = input_data(
-        shape=[None, IMG_SIZE, IMG_SIZE, 1],
-        name="input",
-        data_augmentation=aug
-    )
-
-    # 2D convolution layer
-    net = conv_2d(
-        net,
-        32,
-        5,
-        activation='relu'
-    )
-
-    # 2D convolution layer
-    net = conv_2d(
-        net,
-        64,
-        5,
-        activation='relu'
-    )
-
-    # 2D convolution layer
-    net = conv_2d(
-        net,
-        32,
-        5,
-        activation='relu'
-    )
-
-    # 2D convolution layer
-    net = conv_2d(
-        net,
-        64,
-        5,
-        activation='relu'
-    )
-
-    # 2D convolution layer
-    net = conv_2d(
-        net,
-        32,
-        5,
-        activation='relu'
-    )
-
-    # Hidden fully-connected layer
-    net = fully_connected(
-        net,
-        512,
-        activation='relu'
-    )
+    # Input layer
+    net = input_data(shape=[None, IMG_SIZE, IMG_SIZE, 1], name="input", \
+        data_augmentation=aug)
     
-    # Dropping out some nodes to prevent overfitting
-    net = dropout(
-        net,
-        0.8
-    )
+    # 2D Convolution layer
+    net = conv_2d(net, 32, 5, activation='relu')
+    net = max_pool_2d(net, 3)
 
-    # Hidden fully-connected layer
-    net = fully_connected(
-        net,
-        2,
-        activation='softmax'
-    )
+    # 2D Convolution layer
+    net = conv_2d(net, 64, 5, activation='relu')
+    net = max_pool_2d(net, 3)
 
-    # Regression
-    net = regression(
-        net,
-        optimizer='adam',
-        learning_rate=LEARNING_RATE,
-        loss='categorical_crossentropy',
-        name='targets'
-    )
+    # 2D Convolution layer
+    net = conv_2d(net, 32, 5, activation='relu')
+    net = max_pool_2d(net, 5)
 
-    # The network was successfully created
+    # 2D Convolution layer
+    net = conv_2d(net, 64, 5, activation='relu')
+    net = max_pool_2d(net, 5)
+
+    # 2D Convolution layer
+    net = conv_2d(net, 32, 5, activation='relu')
+    net = max_pool_2d(net, 5)
+
+    # Hidden network layer
+    net = fully_connected(net, 512, activation='relu')
+    net = dropout(net, 0.8)
+
+    # Output layer
+    net = fully_connected(net, 2, activation='softmax')
+
+    # Regression layer
+    net = regression(net, optimizer='adam', learning_rate=LEARNING_RATE, \
+        loss='categorical_crossentropy', name='targets')
+    
     return net
 
 def define_training_model(ckpt_id):
@@ -218,8 +177,8 @@ def train_classifier(classifier_id, dataset):
     os.makedirs(CHECKPOINT_DIR)
 
     # Splitting to training and test data.
-    test_data = dataset[:len(dataset) // 10]
-    training_data = dataset[len(dataset) // 10:]
+    test_data = dataset[:len(dataset) * 3 // 10]
+    training_data = dataset[len(dataset) * 3 // 10:]
 
     # Creating our model to train
     net = define_training_model(classifier_id)
