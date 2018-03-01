@@ -9,6 +9,12 @@ import nLib
 import cv2
 import numpy as np
 
+import json
+import base64
+
+from server import handler
+from http_helper import msg, json_post, post, logged_in
+
 classifiers = {}
 
 def process_image(img):
@@ -59,3 +65,32 @@ def classify_image(img, classifier_name):
         return False, "Error while trying to analyze the image"
 
     return True, Y[0][1] / np.sum(Y)
+
+
+def load_b64img(b64):
+    """
+    Loads image from data uri
+    """
+    b64 = bytes(b64[max(0, b64.find(",") + 1):], "utf-8")
+    nparr = np.fromstring(base64.b64decode(b64), np.uint8)
+    img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
+    return img
+
+@handler("v", "POST")
+def classify(req):
+    data = json_post(req)
+
+    #try:
+    classifier_name = data["c"]
+    b64url = data["i"]
+    img = load_b64img(b64url)
+
+    status, obj = classify_image(img, classifier_name)
+    
+    if status:
+        return 200, {"Access-Control-Allow-Origin": "*"}, json.dumps({"result": float(obj)})
+    else:
+        return 200, {"Access-Control-Allow-Origin": "*"}, msg(obj)
+
+    #except:
+    #    return 400, {}, msg("Incorrect argumnet format")

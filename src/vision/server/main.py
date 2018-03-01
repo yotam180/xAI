@@ -9,6 +9,7 @@ import authentication
 import tokenizer
 import dataset
 import classifiers
+import evaluator
 
 # Running our server
 serv = server.run()
