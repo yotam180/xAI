@@ -33,7 +33,7 @@ import shutil
 import time
 
 # Constants and settings
-from constants import IMG_SIZE, DEBUG
+from constants import IMG_SIZE, DEBUG, CLASSIFIER_DIRECTORY
 
 # Defining our own constants
 LEARNING_RATE = 1e-3
@@ -257,4 +257,14 @@ def train_classifier(classifier_id, dataset):
     shutil.rmtree(CHECKPOINT_DIR)
 
     # And returning the result
+    return net
+
+def load_classifier(classifier_name):
+    """
+    Loads a pre-trained classifier model from ckpt files under CLASSIFIER_DIRECTORY
+    Parameters:
+        classifier name (not database ID)
+    """
+    net = define_evaluation_model()
+    net.load(os.path.join(CLASSIFIER_DIRECTORY, classifier_name))
     return net
