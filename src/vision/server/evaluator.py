@@ -9,6 +9,8 @@ import nLib
 import cv2
 import numpy as np
 
+classifiers = {}
+
 def process_image(img):
     """
     Converts an arbitary image to a matrix that can be fed into a classifier.
@@ -35,15 +37,21 @@ def classify_image(img, classifier_name):
     """
     Classifying an image
     """
+    global classifiers
+
     try:
         X = process_image(img)
     except:
         return False, "Error while trying to process the image"
     
-    try:
-        C = nLib.load_classifier(classifier_name)
-    except:
-        return False, "Error while trying to load the classifier"
+    if classifier_name in classifiers.keys():
+        C = classifiers[classifier_name]
+    else:
+        try:
+            C = nLib.load_classifier(classifier_name)
+            classifiers[classifier_name] = C
+        except:
+            return False, "Error while trying to load the classifier"
 
     try:
         Y = C.predict(X.reshape(-1, nLib.IMG_SIZE, nLib.IMG_SIZE, 1))
