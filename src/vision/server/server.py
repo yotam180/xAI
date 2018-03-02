@@ -31,7 +31,7 @@ class RequestHandler(BaseHTTPRequestHandler):
             self.wfile.write(bytes(content, "utf8"))
 
         else:
-            page = static_files.get(self.path)
+            page, mime = static_files.get(self.path)
 
             if page is None:
                 self.send_response(404)
@@ -40,9 +40,9 @@ class RequestHandler(BaseHTTPRequestHandler):
 
             else:
                 self.send_response(200)
-                self.send_header("Conten-Type", "text/html")
+                self.send_header("Conten-Type", mime)
                 self.end_headers()
-                self.wfile.write(bytes(page, "utf-8"))
+                self.wfile.write(bytes(page, "utf-8") if type(page) == str else page)
         return
 
     def do_POST(self):
