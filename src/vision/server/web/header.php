@@ -65,7 +65,7 @@
         });
 
         $("#account_btn").click(function() {
-            $("#section6").fadeIn();
+            window.location = "login.php";
         });
 
         $("#top_logo").click(function() {
