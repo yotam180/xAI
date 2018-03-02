@@ -6,6 +6,7 @@
 
 import os
 import re
+import io
 import magic
 
 def mime_content_type(filename):
@@ -98,7 +99,7 @@ def get(path):
     print(os.path.exists(p))
     if os.path.exists(p):
         if ".php" in p:
-            with open(p, "r") as f:
+            with io.open(p, mode="r", encoding="utf-8") as f:
                 page = f.read() 
             while re.findall("<\?php.+?require\(\"(.+?)\"\);.+?\?>", page):
                 page = re.sub("<\?php.+?require\(\"(.+?)\"\);.+?\?>", sub, page)
