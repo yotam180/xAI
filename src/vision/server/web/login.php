@@ -7,8 +7,6 @@
     <link rel="StyleSheet" href="style/master.css" />
     <link rel="StyleSheet" href="style/register.css" />
 
-    <script src="https://rawgit.com/ruimarinho/google-libphonenumber/master/dist/libphonenumber.js"></script>
-
     <script>
         $(document).ready(function() {
             $("#btn_login").click(function() {
@@ -23,6 +21,9 @@
                         var j = JSON.parse(a);
                         if (j.login) {
                             Materialize.toast("Successful. Redirecting...");
+                            setTimeout(function() {
+                                location.href = "/console.php";
+                            }, 1000);
                         }
                         else {
                             Materialize.toast(j.message);
@@ -33,6 +34,15 @@
                     }
                 });
             });
+
+            $.ajax({
+                url: "/login_test",
+                success: function(e) {
+                    if (e != "-") {
+                        location.href = "/console.php";
+                    }
+                }
+            })
         });
     </script>
 
@@ -66,6 +76,11 @@
                     <i class="material-icons right">send</i>
                 </a>
             </div>
+        </div>
+
+        <div class="row">
+            <div class="col s3"></div>
+            <a href="register.php"><span style="width: 30px; display: inline-block;">&nbsp;</span>Do not have an account? Sign up now!</a>
         </div>
     </form>
 </div>
