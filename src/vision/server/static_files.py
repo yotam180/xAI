@@ -112,4 +112,4 @@ def get(path):
         print("Returning")
         return page, mime
         
-    return None
+    return None, None
