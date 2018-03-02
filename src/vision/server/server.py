@@ -85,7 +85,7 @@ class RequestHandler(BaseHTTPRequestHandler):
 
 def run() -> None:
     print('Running server...')
-    server_address = ('', 9090)
+    server_address = ('', 80)
     httpd = HTTPServer(server_address, RequestHandler)
     thread = threading.Thread(target=httpd.serve_forever)
     thread.start()

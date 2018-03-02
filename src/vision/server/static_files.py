@@ -90,6 +90,10 @@ def get(path):
     """
     Returns the contents and the mime type of a static file requetsed by /path
     """
+
+    if path == "/":
+        return get("/index.php")
+
     p = os.path.abspath("web" + path.split("?")[0].split("#")[0])
     print(os.path.exists(p))
     if os.path.exists(p):
