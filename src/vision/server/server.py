@@ -6,6 +6,8 @@
  
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import threading
+
+import static_files
  
 _get_handlers = {}
 _post_handlers = {}
@@ -22,14 +24,25 @@ class RequestHandler(BaseHTTPRequestHandler):
             self.send_response(response)
             for h, v in headers.items():
                 self.send_header(h, v)
+            if "Access-Control-Allow-Origin" not in headers.keys():
+                self.send_header("Access-Control-Allow-Origin", "*")
             self.end_headers()
 
             self.wfile.write(bytes(content, "utf8"))
 
         else:
-            self.send_response(404)
-            self.end_headers()
-            self.wfile.write(bytes("404 - Not Found", "utf8"))
+            page = static_files.get(self.path)
+
+            if page is None:
+                self.send_response(404)
+                self.end_headers()
+                self.wfile.write(bytes("404 - Not Found", "utf8"))
+
+            else:
+                self.send_response(200)
+                self.send_header("Conten-Type", "text/html")
+                self.end_headers()
+                self.wfile.write(bytes(page, "utf-8"))
         return
 
     def do_POST(self):
@@ -43,6 +56,8 @@ class RequestHandler(BaseHTTPRequestHandler):
             self.send_response(response)
             for h, v in headers.items():
                 self.send_header(h, v)
+            if "Access-Control-Allow-Origin" not in headers.keys():
+                self.send_header("Access-Control-Allow-Origin", "*")
             self.end_headers()
 
             self.wfile.write(bytes(content, "utf8"))
