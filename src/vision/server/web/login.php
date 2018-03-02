@@ -9,13 +9,11 @@
 
     <script src="https://rawgit.com/ruimarinho/google-libphonenumber/master/dist/libphonenumber.js"></script>
 
-    <script>window.SERV = "http://localhost:9090";</script>
-
     <script>
         $(document).ready(function() {
             $("#btn_login").click(function() {
                 $.ajax({
-                    url: window.SERV + "/login",
+                    url: "/login",
                     type: "POST",
                     data: JSON.stringify({
                         username: $("#txt_username").val(),

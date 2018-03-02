@@ -9,8 +9,6 @@
 
     <script src="https://rawgit.com/ruimarinho/google-libphonenumber/master/dist/libphonenumber.js"></script>
 
-    <script>window.SERV = "http://localhost:9090";</script>
-
     <script>
         $(document).ready(function() {
             $('select').material_select();
@@ -129,7 +127,7 @@
                 let $me = $(this);
                 $me.attr("disabled", true);
                 $.ajax({
-                    url: window.SERV + "/register",
+                    url: "/register",
                     type: "POST",
                     data: JSON.stringify({
                         "username": $("#txt_username").val(),

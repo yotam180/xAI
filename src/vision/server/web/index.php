@@ -197,7 +197,6 @@
     <div id="x_button">X</div>
     <div style="height: 10vh; width: 0; display: block;"></div>
     <div style="position: relative; left: 32vw; width: 35vw; top: 0; color: white; z-index: 10; background-color: #2dcc8f; padding: 20px; font-size: 4.5vh; display: block;"><strong>Login</strong></div>
-    <?php require("login_form.html"); ?>
 </div>
 
 </body>
