@@ -77,10 +77,19 @@ def mime_content_type(filename):
         return 'application/octet-stream'
 
 def sub(x):
+    """
+    For substituting the <?php?> require tags with the inner content of the required pages.
+    We are actually simulating here the behaviour of an Apache server, since the webpages already
+    use PHP, and we don't want to change the infrastructure.
+    So we give them what they need in the same framework they work on.
+    """
     with open("web/" + x.group(1), "r") as f:
         return f.read()
 
 def get(path):
+    """
+    Returns the contents and the mime type of a static file requetsed by /path
+    """
     p = os.path.abspath("web" + path.split("?")[0].split("#")[0])
     print(os.path.exists(p))
     if os.path.exists(p):
