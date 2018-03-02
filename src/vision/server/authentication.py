@@ -20,6 +20,7 @@ from http_helper import msg, get_session, post, json_post, logged_in
 
 # Using the login module to interface with the user database
 import login
+import nets
 #Using the email module to send requests
 #import mail
 #Using hashlib and random to create hash recovery code
@@ -126,7 +127,10 @@ def profile_get(req: RequestHandler) -> tuple:
     user = logged_in(req)
     if not user:
         return 403, {}, ""
-    return 200, {}, json.dumps(user.data)
+    obj = user.data
+    obj["datasets"] = {i.item_id: i.data for i in nets.get_datasets(user.item_id)}
+    obj["classifiers"] = {i.item_id: i.data for i in nets.get_classifiers(user.item_id)}
+    return 200, {}, json.dumps(obj)
 
 @handler("recover","GET")
 def recvoer(req:RequestHandler)->tuple:

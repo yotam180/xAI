@@ -1,6 +1,6 @@
 <html>
 <head>
-    <title>xAI - register</title>
+    <title>xAI - login</title>
 
     <?php require("include.php"); ?>
 

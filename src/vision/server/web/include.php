@@ -1,4 +1,4 @@
-<meta charset="UTF-8">
+<meta charset="utf-8">
 
 <link rel="StyleSheet" type="text/css" href="style/master.css"></link>
 
