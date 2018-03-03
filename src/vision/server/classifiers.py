@@ -68,7 +68,7 @@ def classifier_status_handler(req):
     if not "classifier_id" in qs:
         return 400, {}, msg("querystring is missing classifier_id")
 
-    return 200, {}, msg(ts.get_training_status("".join(qs["classifier_id"])))
+    return 200, {}, json.dumps(ts.get_training_status("".join(qs["classifier_id"])))
 
 def done_training(el):
     nets.mark_trained(pending[el["task_id"]])

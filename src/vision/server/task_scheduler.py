@@ -82,6 +82,7 @@ def get_next_training_candidate():
     
     el["epoch"] = 0
     el["val_acc"] = 0.0
+    el["best_val_acc"] = 0.0
     _current_training = el
     return el
 
@@ -114,6 +115,8 @@ def finished_training(el):
 def set_training_status(epoch, val_acc):
     _current_training["epoch"] = epoch
     _current_training["val_acc"] = val_acc
+    if val_acc > _current_training["best_val_acc"]:
+        _current_training["best_val_acc"] = val_acc
 
 
 def get_download_status(task_id):
@@ -137,9 +140,9 @@ def get_training_status(classifier_id):
     global _current_training
 
     if nets.get_classifier(classifier_id).get("trained"):
-        return "done"
+        return {"status": "done"}
     
     if _current_training and _current_training["classifier_id"] == nets.get_classifier(classifier_id).get("classifier_name"):
-        return "training"
+        return {"status": "training", "data": _current_training}
 
-    return "queued"
+    return {"status": "queued"}
