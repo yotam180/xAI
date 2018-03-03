@@ -19,6 +19,12 @@
                     window.PROFILE = JSON.parse(e);
                 }
             })
+
+            $(".chips").material_chip({
+                placeholder: "Enter a keyword"
+            });
+            $(".chips").find(".input")
+                       .css({color: "#039be5"});
         });
     </script>
 </head>
@@ -45,10 +51,17 @@
             <div class="row">
                 <div class="col s3"></div>
                 <div class="input-field col s6">
-                    <input id="txt_identifier" type="text" />
-                    <label for="txt_identifier">Dataset identifier</label>
+                    <input id="txt_description" type="text" />
+                    <label for="txt_description">Description (What is your subject about?)</label>
                 </div>
             </div>
+            <div class="row">
+                <div class="col s3"></div>
+                <div class="input-field col s6">
+                    <div class="chips white-text" id="txt_positives"></div>
+                </div>
+            </div>
+            <div class="row">
         </form>
     </div>
 </body>
