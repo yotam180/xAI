@@ -22,10 +22,12 @@
                             Materialize.toast(j.message);
                         }
                         else {
+                            $("#dataset_name").text(j.subject);
                             $("#downloaded").html(j.done.map(x => "<div class='chip'>" + x + "</div>").join(""));
                             $("#predownloaded").html(j.ready.map(x => "<div class='chip'>" + x + "</div>").join(""));
-                            if (!j.current) {
+                            if (j.working) {
                                 Materialize.toast("Finished downloading keywords");
+                                location.href = "/dataset.php#" + j.dbid;
                             }
                             else {
                                 if (j.current.downloaded) {
@@ -54,12 +56,13 @@
 </head>
 <body class="white-text">
     <a href="console.php"><i class="medium material-icons">arrow_back</i></a>
-    <div id="title"><strong>Dataset <span id="dataset_name">[...]</span></strong></div>
+    <div id="title"><strong>Your Dataset  <span id="dataset_name">[...]</span></strong></div>
     <div class="container section">
         <strong>Downloaded keywords: <span id="downloaded">[...],</span></strong>
         <br/><br/>
         <strong>Pre-downloaded keywords: <span id="predownloaded">[...],</span></strong>
-    </div> 
+    </div>
+    <div id="title"><strong>Machine Status:</strong></div>
     <div class="container section" id="indeter">
         <strong>Loading images of keyword <span class="keyword_name">[...]</span><br/></strong>
         <div class="progress">

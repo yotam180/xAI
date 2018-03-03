@@ -57,7 +57,10 @@ def create_dataset_handler(req):
         obj = {
             "tasks": [],
             "done": [],
-            "ready": []
+            "ready": [],
+            "subject": subject,
+            "description": description,
+            "identifier": identifier
         }
         for w in positive:
             if not kw.exists(w):
@@ -83,6 +86,8 @@ def create_dataset_handler(req):
             subject,
             description
         )
+
+        obj["dbid"] = obj_name
 
         if not success:
             return 200, {}, msg(obj_name)
@@ -127,6 +132,8 @@ def get_dataset_status(req):
         return 200, {}, msg("Not Found")
 
     cpy = json.loads(json.dumps(pending["".join(qs["id"])]))
+    ds = nets.get_dataset(cpy["dbid"])
+    cpy["working"] = ds.get("working")
     cpy["current"] = ts._current_keyword
     return 200, {}, json.dumps(cpy)
 

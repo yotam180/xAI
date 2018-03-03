@@ -43,7 +43,11 @@
                         negative: $("#txt_negatives").material_chip("data").map(x => x.tag)
                     }),
                     success: function(e) {
+                        j = JSON.parse(e);
                         Materialize.toast("Creating Dataset...");
+                        setTimeout(function() {
+                            location.href = "/dataset_status.php#" + j.dataset_id
+                        }, 1000);
                     },
                     error: function(a, b, c) {
                         try {
