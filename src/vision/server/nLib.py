@@ -19,6 +19,8 @@ from tflearn.layers.estimator import regression
 from tflearn.data_preprocessing import ImagePreprocessing
 from tflearn.data_augmentation import ImageAugmentation
 
+from tflearn.callbacks import Callback
+
 # OpenCV for image manipulations
 import cv2
 
@@ -34,6 +36,8 @@ import time
 
 # Constants and settings
 from constants import IMG_SIZE, DEBUG, CLASSIFIER_DIRECTORY
+
+import task_scheduler as ts
 
 # Defining our own constants
 LEARNING_RATE = 1e-3
@@ -161,6 +165,21 @@ def load_dataset(positives, negatives):
 
     return res
 
+class MyCallback(Callback):
+    """
+    Will be responsible for updating the task scheduler about the situation of the
+    currently training classifier.
+    """
+    def __init__(self):
+        pass
+
+    def on_epoch_end(self, training_state):
+        epoch = training_state.epoch
+        val_acc = training_state.val_acc
+        ts.set_training_status(epoch, val_acc)
+        print("Finished Epoch! " + str(epoch) + " val_acc " + str(val_acc))
+        
+
 def train_classifier(classifier_id, dataset):
     """
     Trains a classifier based on a given dataset.
@@ -201,7 +220,8 @@ def train_classifier(classifier_id, dataset):
         ),
         show_metric=True,
         snapshot_step=500,
-        run_id=classifier_id + "_model"
+        run_id=classifier_id + "_model",
+        callbacks=MyCallback()
     )
 
     # Retrieving the best checkpoint we have hit during the training process

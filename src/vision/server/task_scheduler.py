@@ -80,6 +80,8 @@ def get_next_training_candidate():
     with _cn:
         del _create_net[0]
     
+    el["epoch"] = 0
+    el["val_acc"] = 0.0
     _current_training = el
     return el
 
@@ -108,6 +110,10 @@ def finished_training(el):
         _current_training = None
         if (on_net_created):
             on_net_created(el)
+
+def set_training_status(epoch, val_acc):
+    _current_training["epoch"] = epoch
+    _current_training["val_acc"] = val_acc
 
 
 def get_download_status(task_id):
