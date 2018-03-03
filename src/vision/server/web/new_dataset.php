@@ -5,7 +5,11 @@
     <?php require("include.php"); ?>
 
     <link rel="StyleSheet" href="style/master.css" />
-
+    <style>
+        .chips ::placeholder {
+            color: #9e9e9e;
+        }
+    </style>
     <script>
         $(document).ready(function() {
             $("#txt_subject").on("input", function() {
@@ -20,11 +24,12 @@
                 }
             })
 
-            $(".chips").material_chip({
-                placeholder: "Enter a keyword"
-            });
-            $(".chips").find(".input")
-                       .css({color: "#039be5"});
+            $("#txt_positives").material_chip();
+            $("#txt_positives").find(".input").attr("placeholder", "Trigger Keywords");
+            $("#txt_negatives").material_chip()
+            $("#txt_negatives").find(".input").attr("placeholder", "Negative Keywords");
+        
+            $(".chips").find(".input").css({color: "#039be5"});
         });
     </script>
 </head>
@@ -62,6 +67,12 @@
                 </div>
             </div>
             <div class="row">
+                <div class="col s3"></div>
+                <div class="input-field col s6">
+                    <div class="chips white-text" id="txt_negatives"></div>
+                </div>
+            </div>
+            
         </form>
     </div>
 </body>
