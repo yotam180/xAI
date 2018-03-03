@@ -96,7 +96,6 @@ def get(path):
         return get("/index.php")
 
     p = os.path.abspath("web" + path.split("?")[0].split("#")[0])
-    print(os.path.exists(p))
     if os.path.exists(p):
         if ".php" in p:
             with io.open(p, mode="r", encoding="utf-8") as f:
@@ -107,9 +106,7 @@ def get(path):
             with open(p, "rb") as f:
                 page = f.read()
 
-        print("Mime")
         mime = mime_content_type(p)
-        print("Returning")
         return page, mime
         
     return None, None

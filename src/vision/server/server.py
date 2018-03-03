@@ -22,7 +22,6 @@ class RequestHandler(BaseHTTPRequestHandler):
 
         handler = self.path.split("/")[1].split("#")[0].split("?")[0]
 
-        print("Serving " + self.path + " to " + self.address_string())
 
         if handler in _get_handlers.keys():
             response, headers, content = _get_handlers[handler](self)
