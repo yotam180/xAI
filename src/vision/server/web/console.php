@@ -26,6 +26,7 @@
                             + j.datasets[i].positive_keywords.map(x => "<a href=\"/keyword.php#" + x + "\"><div class=\"chip\">" + x + "</div></a>").join(" ")
                             + "<br/><hr/><b>Negative keywords:</b> "
                             + j.datasets[i].negative_keywords.map(x => "<a href=\"/keyword.php#" + x + "\"><div class=\"chip\">" + x + "</div></a>").join(" ")
+                            + "<br/><a href=\"dataset.php#" + i + "\" class=\"center waves-effect waves-light btn\">Dataset page</a>"
                             + "</div></li>"
                     }
                     $("#datasets_ul").html(h);
