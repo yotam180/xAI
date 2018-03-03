@@ -67,7 +67,7 @@
                 </ul>
             </div>
             <div class="col s6">
-                <h4 class="header">Classifiers &nbsp;&nbsp;&nbsp;<a href="train_classifier.php"><span style="font-size: smaller;">(train new)</span></a></h4>
+                <h4 class="header">Classifiers &nbsp;&nbsp;&nbsp;<a href="new_classifier.php"><span style="font-size: smaller;">(train new)</span></a></h4>
                 <ul id="classifiers_ul" class="popout collapsible" data-collapsible="accordion">
                     <div class="progress">
                         <div class="indeterminate"></div>
