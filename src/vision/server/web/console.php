@@ -16,9 +16,9 @@
                     $("#name_span").text(j.first_name + " " + j.last_name);
                     var h = "";
                     for (var i in j.datasets) if (j.datasets.hasOwnProperty(i)) {
-                        h += "<li><div class=\"black-text collapsible-header\">"
-                            + j.datasets[i].subject
-                            + "</div><div class=\"collapsible-body\">"
+                        h += "<li><div class=\"black-text collapsible-header\"><b>"
+                            + j.datasets[i].subject + "</b>&nbsp;(" + i
+                            + ")</div><div class=\"collapsible-body\">"
                             + "<b>" + j.datasets[i].subject + "</b> — "
                             + j.datasets[i].description + "<br/><br/>"
                             + "<b>Last updated:</b> " + (new Date(j.datasets[i].last_updated * 1000).toString()) + "<br/>"
@@ -32,9 +32,9 @@
 
                     h = "";
                     for (var i in j.classifiers) if (j.classifiers.hasOwnProperty(i)) {
-                        h += "<li><div class=\"black-text collapsible-header\">"
-                            + j.classifiers[i].classifier_name
-                            + "</div><div class=\"collapsible-body\">"
+                        h += "<li><div class=\"black-text collapsible-header\"><b>"
+                            + j.classifiers[i].classifier_name + "</b>&nbsp;(" + i
+                            + ")</div><div class=\"collapsible-body\">"
                             + "<a href=\"/dataset.php#" + j.classifiers[i].dataset_trained + "\"><b>" + j.datasets[j.classifiers[i].dataset_trained].subject + "</b></a> — "
                             + j.datasets[j.classifiers[i].dataset_trained].description + "<br/><br/>"
                             + "<b>Training Date:</b> " + (new Date(j.classifiers[i].date_trained * 1000).toString()) + "<br/>"
@@ -53,24 +53,24 @@
 </head>
 <body class="white-text">
     <a href="console.php"><img class="top_logo" id="top_logo" src="img/logo_light.png" /></a>
-    <div id="title"><strong>Welcome to xAI, <span id="name_span">[...]</span>.</strong></div>
+    <div id="title"><strong>Welcome to xAI, <span id="name_span">[...]</span>. <a href="/logout" style="font-size: smaller;">(Log out)</a></strong></div>
 
     <div class="container">
         <div class="row">
             <div class="col s6">
-            <h4 class="header">Datasets</h4>
+            <h4 class="header">Datasets &nbsp;&nbsp;&nbsp;<a href="new_dataset.php"><span style="font-size: smaller;">(create new)</span></a></h4>
                 <ul id="datasets_ul" class="popout collapsible" data-collapsible="accordion">
-                <div class="progress">
-      <div class="indeterminate"></div>
-  </div>
+                    <div class="progress">
+                        <div class="indeterminate"></div>
+                    </div>
                 </ul>
             </div>
             <div class="col s6">
-                <h4 class="header">Classifiers</h4>
+                <h4 class="header">Classifiers &nbsp;&nbsp;&nbsp;<a href="train_classifier.php"><span style="font-size: smaller;">(train new)</span></a></h4>
                 <ul id="classifiers_ul" class="popout collapsible" data-collapsible="accordion">
-                <div class="progress">
-      <div class="indeterminate"></div>
-  </div>
+                    <div class="progress">
+                        <div class="indeterminate"></div>
+                    </div>
                 </ul>
             </div>
         </div>

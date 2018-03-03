@@ -53,7 +53,7 @@
 
 <div class="section"></div>
 <div class="container" style="color: #039be5;">
-    <form id="register_details" class="col s12">
+    <form id="login_details" class="col s12">
         <div class="row">
             <div class="col s3"></div>
             <div class="input-field col s6">
