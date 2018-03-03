@@ -73,4 +73,30 @@ def classifier_status_handler(req):
 def done_training(el):
     nets.mark_trained(pending[el["task_id"]])
 
+@handler("stop_training")
+def stop_training(req):
+    user = logged_in(req)
+    if not user:
+        return 403, {}, msg("Unauthorized")
+
+    qs = querystring(req)
+
+    s = ts._current_training
+
+    if not s:
+        return 403, {}, msg("Unauthorized 1")
+
+    c = nets.get_dataset(s["dataset_id"])
+
+    if not c:
+        return 403, {}, msg("Unauthorized 2")
+
+    if c.get("owner_id") != user.item_id:
+        return 403, {}, msg("Unauthorized 3")
+
+    ts.stop_training()
+    return 200, {}, msg("Training Stopped")
+
+
+
 ts.on_net_created = done_training

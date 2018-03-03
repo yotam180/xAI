@@ -165,6 +165,9 @@ def load_dataset(positives, negatives):
 
     return res
 
+class StopTraining(Exception):
+    pass
+
 class MyCallback(Callback):
     """
     Will be responsible for updating the task scheduler about the situation of the
@@ -178,6 +181,9 @@ class MyCallback(Callback):
         val_acc = training_state.val_acc
         ts.set_training_status(epoch, val_acc)
         print("Finished Epoch! " + str(epoch) + " val_acc " + str(val_acc))
+
+        if "stop" in ts._current_training and ts._current_training["stop"] == True:
+            raise StopTraining()
         
 
 def train_classifier(classifier_id, dataset):
@@ -210,19 +216,22 @@ def train_classifier(classifier_id, dataset):
     test_Y = [i[1] for i in test_data]
 
     # Doing the AI "magic" to train our model with the dataset we just created
-    net.fit(
-        {"input": X}, 
-        {"targets": Y}, 
-        n_epoch=2 if DEBUG else 300, 
-        validation_set=(
-            {"input": test_X},
-            {"targets": test_Y}
-        ),
-        show_metric=True,
-        snapshot_step=500,
-        run_id=classifier_id + "_model",
-        callbacks=MyCallback()
-    )
+    try:
+        net.fit(
+            {"input": X}, 
+            {"targets": Y}, 
+            n_epoch=2 if DEBUG else 300, 
+            validation_set=(
+                {"input": test_X},
+                {"targets": test_Y}
+            ),
+            show_metric=True,
+            snapshot_step=500,
+            run_id=classifier_id + "_model",
+            callbacks=MyCallback()
+        )
+    except StopTraining:
+        print("Training has been stopped by the user")
 
     # Retrieving the best checkpoint we have hit during the training process
     # So we are sure to take the best network out of the whole thing

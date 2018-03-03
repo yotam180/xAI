@@ -86,6 +86,9 @@ def get_next_training_candidate():
     _current_training = el
     return el
 
+def stop_training():
+    global _current_training
+    _current_training["stop"] = True
 
 def finished_download(el):
     """
