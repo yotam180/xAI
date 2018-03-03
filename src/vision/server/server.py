@@ -6,17 +6,23 @@
  
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import threading
+from socketserver import ThreadingMixIn
 
 import static_files
  
 _get_handlers = {}
 _post_handlers = {}
 
+class ThreadedHTTPServer(ThreadingMixIn, HTTPServer):
+    pass
+
 class RequestHandler(BaseHTTPRequestHandler):
     def do_GET(self):
         global _get_handlers, _post_handlers
 
         handler = self.path.split("/")[1].split("#")[0].split("?")[0]
+
+        print("Serving " + self.path + " to " + self.address_string())
 
         if handler in _get_handlers.keys():
             response, headers, content = _get_handlers[handler](self)
@@ -86,7 +92,7 @@ class RequestHandler(BaseHTTPRequestHandler):
 def run() -> None:
     print('Running server...')
     server_address = ('', 8080)
-    httpd = HTTPServer(server_address, RequestHandler)
+    httpd = ThreadedHTTPServer(server_address, RequestHandler)
     thread = threading.Thread(target=httpd.serve_forever)
     thread.start()
     return httpd
