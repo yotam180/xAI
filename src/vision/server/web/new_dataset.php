@@ -30,6 +30,32 @@
             $("#txt_negatives").find(".input").attr("placeholder", "Negative Keywords");
         
             $(".chips").find(".input").css({color: "#039be5"});
+
+            $("#btn_create").click(function() {
+                $.ajax({
+                    url: "/create_dataset",
+                    type: "POST",
+                    data: JSON.stringify({
+                        subject: $("#txt_subject").val(),
+                        identifier: $("#txt_identifier").val(),
+                        description: $("#txt_description").val(),
+                        positive: $("#txt_positives").material_chip("data").map(x => x.tag),
+                        negative: $("#txt_negatives").material_chip("data").map(x => x.tag)
+                    }),
+                    success: function(e) {
+                        Materialize.toast("Creating Dataset...");
+                    },
+                    error: function(a, b, c) {
+                        try {
+                            j = JSON.parse(a.responseText);
+                            Materialize.toast("Error " + a.status + ": " + j.message);
+                        }
+                        catch (e) {
+                            Materialize.toast("Error " + a.status);
+                        }
+                    }
+                });
+            });
         });
     </script>
 </head>
@@ -72,7 +98,15 @@
                     <div class="chips white-text" id="txt_negatives"></div>
                 </div>
             </div>
-            
+            <div class="row">
+                <div class="col s4"></div>
+                <div class="col s6">
+                    <a class="waves-effect waves-light btn" id="btn_create">
+                        Create Dataset
+                        <i class="material-icons right">add</i>
+                    </a>
+                </div>
+            </div>
         </form>
     </div>
 </body>

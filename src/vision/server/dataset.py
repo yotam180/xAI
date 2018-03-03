@@ -39,6 +39,21 @@ def create_dataset_handler(req):
         negative = data["negative"]
         identifier = data["identifier"] if "identifier" in data else user.get("username") + "_" + kw.get_id(subject)
 
+        if len(subject) < 1:
+            return 400, {}, msg("Must enter a subject")
+
+        if len(description) < 1:
+            return 400, {}, msg("Must enter a description")
+
+        if len(positive) < 3:
+            return 400, {}, msg("Must enter at least 3 trigger keywords")
+
+        if len(negative) < 3:
+            return 400, {}, msg("Must enter at least 3 negative keywords")
+
+        if len(identifier) < 1:
+            return 400, {}, msg("Invalid identifier")
+
         obj = {
             "tasks": [],
             "done": [],

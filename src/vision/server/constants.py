@@ -18,3 +18,7 @@ DEBUG = False
 The directory where the classifiers are stored
 """
 CLASSIFIER_DIRECTORY = "classifier"
+
+TF_ENABLED = True
+DOWNLOADER_ENABLED = True
+LOGIN_ENABLED = True
