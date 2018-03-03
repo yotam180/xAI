@@ -160,7 +160,19 @@ def delete_dataset(req):
 
     return nets.delete_dataset("".join(qs["id"]), user.item_id)
     
-    
+@handler("dataset")
+def dataset_get(req):
+    qs = querystring(req)
+
+    if "id" not in qs:
+        return 200, {}, msg("Not Found")
+
+    ds = nets.get_dataset("".join(qs["id"]))
+
+    if not ds:
+        return 200, {}, msg("Not Found")
+
+    return 200, {}, json.dumps(ds.data)
 
 # Registering the event handler
 ts.on_keyword_downloaded = done_task
