@@ -27,10 +27,10 @@
                     $(".status").text(j.working ? "Complete and Trainable" : "Downloading...")
                         .css({color: j.working ? "lime" : "red"})
                     $("#positives").html(
-                        j.positive_keywords.map(x => "<div class='chip'>" + x + "</div>").join("")
+                        j.positive_keywords.map(x => "<a href=\"/keyword.php#" + x + "\"><div class=\"chip\">" + x + "</div></a>").join(" ")
                     )
                     $("#negatives").html(
-                        j.negative_keywords.map(x => "<div class='chip'>" + x + "</div>").join("")
+                        j.negative_keywords.map(x => "<a href=\"/keyword.php#" + x + "\"><div class=\"chip\">" + x + "</div></a>").join(" ")
                     )
                 }
             });
