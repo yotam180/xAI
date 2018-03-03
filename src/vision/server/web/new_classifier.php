@@ -26,7 +26,46 @@
                         location.href = "/login.php"
                     }
                 }
-            })
+            });
+
+            $("#btn_create").click(function() {
+                if ($("#select_dataset").val() == null) {
+                    Materialize.toast("Please select a dataset", 3000);
+                    return;
+                }
+
+                if ($("#txt_classifiername").val().length < 2) {
+                    Materialize.toast("Please choose a name", 3000);
+                    return;
+                }
+
+                $.ajax({
+                    url: "/create_classifier",
+                    type: "POST",
+                    data: JSON.stringify({
+                        classifier_id: $("#txt_classifiername").val(),
+                        dataset_id: $("#select_dataset").val()
+                    }),
+                    success: function(e) {
+                        var j = JSON.parse(e);
+                        if (j.message) {
+                            Materialize.toast(j.message, 3000);
+                        }
+                        else {
+                            location.href = "train_classifier.php#" + j.classifier_id
+                        }
+                    },
+                    error: function(a) {
+                        try {
+                            var j = JSON.parse(a.responseText);
+                            Materialize.toast("Error " + a.status + ": " + j.message, 3000);
+                        }
+                        catch (e) {
+                            Materialize.toast("Error connecting: " + a.status, 3000);
+                        }
+                    }
+                })
+            });
         });
     </script>
 
