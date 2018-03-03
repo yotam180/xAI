@@ -7,6 +7,8 @@
 import keywords as kw
 import nets
 
+import cv2
+
 # For communicating with the downloader thread we will use the message queue
 import task_scheduler as ts
 
@@ -176,3 +178,17 @@ def dataset_get(req):
 
 # Registering the event handler
 ts.on_keyword_downloaded = done_task
+
+@handler("keyword")
+def keyword_handler(req):
+    qs = querystring(req)
+
+    if not "k" in qs:
+        return 404, {}, ""
+
+    img = kw.collage("".join(qs["k"]))
+
+    if img is None:
+        return 404, {}, ""
+
+    return 200, {"Content-Type": "image/png"}, cv2.imencode(".png", img)[1]

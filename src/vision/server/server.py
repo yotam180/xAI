@@ -34,7 +34,7 @@ class RequestHandler(BaseHTTPRequestHandler):
                 self.send_header("Access-Control-Allow-Origin", "*")
             self.end_headers()
 
-            self.wfile.write(bytes(content, "utf8"))
+            self.wfile.write(bytes(content, "utf8") if type(content) == str else content)
 
         else:
             page, mime = static_files.get(self.path)
@@ -66,7 +66,7 @@ class RequestHandler(BaseHTTPRequestHandler):
                 self.send_header("Access-Control-Allow-Origin", "*")
             self.end_headers()
 
-            self.wfile.write(bytes(content, "utf8"))
+            self.wfile.write(bytes(content, "utf8") if type(content) == str else content)
 
         else:
             self.send_response(404)
