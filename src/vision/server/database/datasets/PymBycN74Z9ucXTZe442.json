@@ -1,1 +1,1 @@
-{"negative_keywords": ["Forest", "Sea", "Room", "Bed"], "description": "House", "last_updated": 1520073105.894395, "positive_keywords": ["House", "Home", "Building", "City"], "identifier": "yotam180_house", "working": false, "owner_id": "R45mPmkaXXNuZo92qqe3", "subject": "House"}
+{"negative_keywords": ["Forest", "Sea", "Room", "Bed"], "description": "House", "last_updated": 1520073105.894395, "subject": "House", "positive_keywords": ["House", "Home", "Building", "City"], "working": true, "owner_id": "R45mPmkaXXNuZo92qqe3", "identifier": "yotam180_house"}
