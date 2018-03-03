@@ -20,6 +20,9 @@
                         var j = JSON.parse(e);
                         if (j.message) {
                             Materialize.toast(j.message);
+                            if (j.message == "Not Found") {
+                                location.href = "/console.php";
+                            }
                         }
                         else {
                             $("#dataset_name").text(j.subject);
