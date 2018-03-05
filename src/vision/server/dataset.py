@@ -7,6 +7,8 @@
 import keywords as kw
 import nets
 
+import cv2
+
 # For communicating with the downloader thread we will use the message queue
 import task_scheduler as ts
 
@@ -39,10 +41,28 @@ def create_dataset_handler(req):
         negative = data["negative"]
         identifier = data["identifier"] if "identifier" in data else user.get("username") + "_" + kw.get_id(subject)
 
+        if len(subject) < 1:
+            return 400, {}, msg("Must enter a subject")
+
+        if len(description) < 1:
+            return 400, {}, msg("Must enter a description")
+
+        if len(positive) < 3:
+            return 400, {}, msg("Must enter at least 3 trigger keywords")
+
+        if len(negative) < 3:
+            return 400, {}, msg("Must enter at least 3 negative keywords")
+
+        if len(identifier) < 1:
+            return 400, {}, msg("Invalid identifier")
+
         obj = {
             "tasks": [],
             "done": [],
-            "ready": []
+            "ready": [],
+            "subject": subject,
+            "description": description,
+            "identifier": identifier
         }
         for w in positive:
             if not kw.exists(w):
@@ -68,6 +88,8 @@ def create_dataset_handler(req):
             subject,
             description
         )
+
+        obj["dbid"] = obj_name
 
         if not success:
             return 200, {}, msg(obj_name)
@@ -112,6 +134,8 @@ def get_dataset_status(req):
         return 200, {}, msg("Not Found")
 
     cpy = json.loads(json.dumps(pending["".join(qs["id"])]))
+    ds = nets.get_dataset(cpy["dbid"])
+    cpy["working"] = ds.get("working")
     cpy["current"] = ts._current_keyword
     return 200, {}, json.dumps(cpy)
 
@@ -138,7 +162,33 @@ def delete_dataset(req):
 
     return nets.delete_dataset("".join(qs["id"]), user.item_id)
     
-    
+@handler("dataset")
+def dataset_get(req):
+    qs = querystring(req)
+
+    if "id" not in qs:
+        return 200, {}, msg("Not Found")
+
+    ds = nets.get_dataset("".join(qs["id"]))
+
+    if not ds:
+        return 200, {}, msg("Not Found")
+
+    return 200, {}, json.dumps(ds.data)
 
 # Registering the event handler
 ts.on_keyword_downloaded = done_task
+
+@handler("keyword")
+def keyword_handler(req):
+    qs = querystring(req)
+
+    if not "k" in qs:
+        return 404, {}, ""
+
+    img = kw.collage("".join(qs["k"]))
+
+    if img is None:
+        return 404, {}, ""
+
+    return 200, {"Content-Type": "image/png"}, cv2.imencode(".png", img)[1]

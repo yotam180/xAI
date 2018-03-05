@@ -7,6 +7,8 @@
 from random import randint
 from threading import Lock
 
+import nets
+
 # These are the queues of net training and for dataset downloading
 _create_net = []
 _download_keyword = []
@@ -78,9 +80,15 @@ def get_next_training_candidate():
     with _cn:
         del _create_net[0]
     
+    el["epoch"] = 0
+    el["val_acc"] = 0.0
+    el["best_val_acc"] = 0.0
     _current_training = el
     return el
 
+def stop_training():
+    global _current_training
+    _current_training["stop"] = True
 
 def finished_download(el):
     """
@@ -99,10 +107,19 @@ def finished_training(el):
     Should be called by the worker (trainer). 
     """
     global _current_training
+    print("Finished training")
+    print(el)
+    print(_current_training)
     if el["task_id"] == _current_training["task_id"]:
         _current_training = None
         if (on_net_created):
             on_net_created(el)
+
+def set_training_status(epoch, val_acc):
+    _current_training["epoch"] = epoch
+    _current_training["val_acc"] = val_acc
+    if val_acc > _current_training["best_val_acc"]:
+        _current_training["best_val_acc"] = val_acc
 
 
 def get_download_status(task_id):
@@ -118,9 +135,17 @@ def get_download_status(task_id):
         except:
             return "not_present"
 
-def get_training_status(task_id):
+def get_training_status(classifier_id):
     """
     Return the status of the training task currently being fulfilled.
     TODO: Implement this method.
     """
-    raise NotImplementedError()
+    global _current_training
+
+    if nets.get_classifier(classifier_id).get("trained"):
+        return {"status": "done"}
+    
+    if _current_training and _current_training["classifier_id"] == nets.get_classifier(classifier_id).get("classifier_name"):
+        return {"status": "training", "data": _current_training}
+
+    return {"status": "queued"}

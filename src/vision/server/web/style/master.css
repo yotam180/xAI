@@ -1,0 +1,59 @@
+@font-face {
+    font-family: Normal;
+    src: url("../font/font.woff");
+}
+
+body {
+    margin: 0;
+
+    overflow-x: hidden;
+
+    font-family: Normal;
+    color: white !important;
+}
+
+.top_logo {
+    position: fixed;
+    top: 4vh;
+    left: 2vw;
+    height: 40px;
+
+    cursor: pointer;
+}
+
+body {
+    background-color: black;
+}
+
+#title {
+    position: relative;
+    left: 10vw; 
+    width: 75vw; 
+    top: 2vh; 
+    color: white; 
+    z-index: 10; 
+    padding: 20px; 
+    font-size: 4.5vh; 
+    display: block;
+    text-align: center;
+}
+
+#maindiv {
+    position: fixed; 
+    width: 100%; 
+    bottom: 0; 
+    height: 85%;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    -webkit-transition-delay: 9999s;
+    -webkit-transition: color 9999s ease-out, background-color 9999s ease-out;
+}
+
+.input-field label {
+    width: 100%;
+    white-space: nowrap;
+}

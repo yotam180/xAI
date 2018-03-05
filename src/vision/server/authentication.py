@@ -20,6 +20,7 @@ from http_helper import msg, get_session, post, json_post, logged_in
 
 # Using the login module to interface with the user database
 import login
+import nets
 #Using the email module to send requests
 #import mail
 #Using hashlib and random to create hash recovery code
@@ -116,7 +117,7 @@ def logout(req: RequestHandler) -> tuple:
     # If the logout worked, deleting the session cookie at the client side. Otherwise, informing that
     # something wrong happened in the database.
     if res:
-        return 200, {"Set-Cookie": "_SESSION=deleted; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT"}, msg("Logged out")
+        return 303, {"Location": "/login.php","Set-Cookie": "_SESSION=deleted; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT"}, msg("Logged out")
     else:
         return 400, {}, msg("Session could not be found")
 
@@ -126,7 +127,10 @@ def profile_get(req: RequestHandler) -> tuple:
     user = logged_in(req)
     if not user:
         return 403, {}, ""
-    return 200, {}, json.dumps(user.data)
+    obj = user.data
+    obj["datasets"] = {i.item_id: i.data for i in nets.get_datasets(user.item_id)}
+    obj["classifiers"] = {i.item_id: i.data for i in nets.get_classifiers(user.item_id)}
+    return 200, {}, json.dumps(obj)
 
 @handler("recover","GET")
 def recvoer(req:RequestHandler)->tuple:
@@ -141,3 +145,8 @@ def recvoer(req:RequestHandler)->tuple:
     details["subject"] = "recovery_mail"
     mail.send(details)
     return 200,msg("Recovery mail sent")
+
+@handler("login_test")
+def login_test(req):
+    user = logged_in(req)
+    return 200, {}, user.get("username") if user else "-"

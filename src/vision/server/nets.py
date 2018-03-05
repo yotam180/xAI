@@ -78,6 +78,18 @@ def get_datasets(user_id):
     ds = datasets.query(lambda c: c.get("owner_id") == user_id)
     return list(ds)
 
+def get_classifiers(user_id):
+    """
+    Gets the classifier list for a specific user.
+    Parametrs:
+        user_id - (string) the id of the user
+    Return value:
+        the list of db_item representing the classifiers of the user.
+    """
+    classifiers = db.table("classifiers", db_entities.CLASSIFIER)
+    cs = classifiers.query(lambda c: c.get("owner_id") == user_id)
+    return list(cs)
+
 def get_dataset(dataset_id):
     """
     Gets a dataset by id from the database

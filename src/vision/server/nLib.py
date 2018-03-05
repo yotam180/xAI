@@ -19,6 +19,8 @@ from tflearn.layers.estimator import regression
 from tflearn.data_preprocessing import ImagePreprocessing
 from tflearn.data_augmentation import ImageAugmentation
 
+from tflearn.callbacks import Callback
+
 # OpenCV for image manipulations
 import cv2
 
@@ -33,7 +35,9 @@ import shutil
 import time
 
 # Constants and settings
-from constants import IMG_SIZE, DEBUG
+from constants import IMG_SIZE, DEBUG, CLASSIFIER_DIRECTORY
+
+import task_scheduler as ts
 
 # Defining our own constants
 LEARNING_RATE = 1e-3
@@ -48,91 +52,50 @@ def define_network():
     Constructs the basic structure of a network
     """
 
-    # Augmentation for images
+    # Defining image augmentation
+    # We want to create a stilted wider dataset
     aug = ImageAugmentation()
     aug.add_random_flip_leftright()
     aug.add_random_blur(sigma_max=3.)
-    aug.add_random_rotation(max_angle=40.)
-
+    aug.add_random_rotation(max_angle=20.)
+    
     T.reset_default_graph()
 
-    # First input layer
-    net = input_data(
-        shape=[None, IMG_SIZE, IMG_SIZE, 1],
-        name="input",
-        data_augmentation=aug
-    )
-
-    # 2D convolution layer
-    net = conv_2d(
-        net,
-        32,
-        5,
-        activation='relu'
-    )
-
-    # 2D convolution layer
-    net = conv_2d(
-        net,
-        64,
-        5,
-        activation='relu'
-    )
-
-    # 2D convolution layer
-    net = conv_2d(
-        net,
-        32,
-        5,
-        activation='relu'
-    )
-
-    # 2D convolution layer
-    net = conv_2d(
-        net,
-        64,
-        5,
-        activation='relu'
-    )
-
-    # 2D convolution layer
-    net = conv_2d(
-        net,
-        32,
-        5,
-        activation='relu'
-    )
-
-    # Hidden fully-connected layer
-    net = fully_connected(
-        net,
-        512,
-        activation='relu'
-    )
+    # Input layer
+    net = input_data(shape=[None, IMG_SIZE, IMG_SIZE, 1], name="input", \
+        data_augmentation=aug)
     
-    # Dropping out some nodes to prevent overfitting
-    net = dropout(
-        net,
-        0.8
-    )
+    # 2D Convolution layer
+    net = conv_2d(net, 32, 5, activation='relu')
+    net = max_pool_2d(net, 3)
 
-    # Hidden fully-connected layer
-    net = fully_connected(
-        net,
-        2,
-        activation='softmax'
-    )
+    # 2D Convolution layer
+    net = conv_2d(net, 64, 5, activation='relu')
+    net = max_pool_2d(net, 3)
 
-    # Regression
-    net = regression(
-        net,
-        optimizer='adam',
-        learning_rate=LEARNING_RATE,
-        loss='categorical_crossentropy',
-        name='targets'
-    )
+    # 2D Convolution layer
+    net = conv_2d(net, 32, 5, activation='relu')
+    net = max_pool_2d(net, 5)
 
-    # The network was successfully created
+    # 2D Convolution layer
+    net = conv_2d(net, 64, 5, activation='relu')
+    net = max_pool_2d(net, 5)
+
+    # 2D Convolution layer
+    net = conv_2d(net, 32, 5, activation='relu')
+    net = max_pool_2d(net, 5)
+
+    # Hidden network layer
+    net = fully_connected(net, 512, activation='relu')
+    net = dropout(net, 0.8)
+
+    # Output layer
+    net = fully_connected(net, 2, activation='softmax')
+
+    # Regression layer
+    net = regression(net, optimizer='adam', learning_rate=LEARNING_RATE, \
+        loss='categorical_crossentropy', name='targets')
+    
     return net
 
 def define_training_model(ckpt_id):
@@ -202,6 +165,27 @@ def load_dataset(positives, negatives):
 
     return res
 
+class StopTraining(Exception):
+    pass
+
+class MyCallback(Callback):
+    """
+    Will be responsible for updating the task scheduler about the situation of the
+    currently training classifier.
+    """
+    def __init__(self):
+        pass
+
+    def on_epoch_end(self, training_state):
+        epoch = training_state.epoch
+        val_acc = training_state.val_acc
+        ts.set_training_status(epoch, val_acc)
+        print("Finished Epoch! " + str(epoch) + " val_acc " + str(val_acc))
+
+        if "stop" in ts._current_training and ts._current_training["stop"] == True:
+            raise StopTraining()
+        
+
 def train_classifier(classifier_id, dataset):
     """
     Trains a classifier based on a given dataset.
@@ -218,8 +202,8 @@ def train_classifier(classifier_id, dataset):
     os.makedirs(CHECKPOINT_DIR)
 
     # Splitting to training and test data.
-    test_data = dataset[:len(dataset) // 10]
-    training_data = dataset[len(dataset) // 10:]
+    test_data = dataset[:len(dataset) * 3 // 10]
+    training_data = dataset[len(dataset) * 3 // 10:]
 
     # Creating our model to train
     net = define_training_model(classifier_id)
@@ -232,18 +216,22 @@ def train_classifier(classifier_id, dataset):
     test_Y = [i[1] for i in test_data]
 
     # Doing the AI "magic" to train our model with the dataset we just created
-    net.fit(
-        {"input": X}, 
-        {"targets": Y}, 
-        n_epoch=2 if DEBUG else 300, 
-        validation_set=(
-            {"input": test_X},
-            {"targets": test_Y}
-        ),
-        show_metric=True,
-        snapshot_step=500,
-        run_id=classifier_id + "_model"
-    )
+    try:
+        net.fit(
+            {"input": X}, 
+            {"targets": Y}, 
+            n_epoch=2 if DEBUG else 300, 
+            validation_set=(
+                {"input": test_X},
+                {"targets": test_Y}
+            ),
+            show_metric=True,
+            snapshot_step=500,
+            run_id=classifier_id + "_model",
+            callbacks=MyCallback()
+        )
+    except StopTraining:
+        print("Training has been stopped by the user")
 
     # Retrieving the best checkpoint we have hit during the training process
     # So we are sure to take the best network out of the whole thing
@@ -257,4 +245,14 @@ def train_classifier(classifier_id, dataset):
     shutil.rmtree(CHECKPOINT_DIR)
 
     # And returning the result
+    return net
+
+def load_classifier(classifier_name):
+    """
+    Loads a pre-trained classifier model from ckpt files under CLASSIFIER_DIRECTORY
+    Parameters:
+        classifier name (not database ID)
+    """
+    net = define_evaluation_model()
+    net.load(os.path.join(CLASSIFIER_DIRECTORY, classifier_name))
     return net
