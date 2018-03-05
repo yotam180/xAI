@@ -10,8 +10,12 @@ from threading import Thread
 import time
 import urllib.request
 import numpy as np
-import cv2
 import os
+
+try:
+	import cv2
+except:
+	nothing = None
 
 import task_scheduler as ts
 from keywords import DATASET_DIR, get_id

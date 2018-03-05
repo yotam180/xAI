@@ -144,5 +144,13 @@ namespace xAIDesktop
         {
             updateCatagories();
         }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            login l = new login();
+            this.Hide();
+            l.ShowDialog();
+            this.Close();
+        }
     }
 }
