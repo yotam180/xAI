@@ -8,7 +8,7 @@ if($_SERVER["REQUEST_METHOD"]!="GET"){
     header("Location:index.php");
     exit();
 }
-echo("<div id='count'>".$_GET["count"]."</div>");
+echo("<div id='count' style='display:none'>".$_GET["count"]."</div>");
 
 ?><center>
 <h1>Time left for picture:6</h1> 
