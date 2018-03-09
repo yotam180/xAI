@@ -124,6 +124,28 @@ def delete_dataset(dataset_id, user_id):
     
     return 200, {}, msg("Dataset deleted")
 
+def delete_classifier(classifier_id, user_id):
+    """
+    Deletes a classifier from the database (but not its trained model)
+    Parameters:
+        classifier_id - the id of the classifier to remove
+        user_id - the user that queried the action. Used for confirmation of deletion.
+    Return value:
+        None
+    """
+    classifiers = db.table("classifiers", db_entities.CLASSIFIER)
+    
+    cl = classifiers.load_item(classifier_id)
+    if cl is None:
+        return 200, {}, msg("Classifier ID not found")
+
+    if cl.get("owner_id") != user_id:
+        return 403, {}, msg("Not the owner of the classifier")
+
+    classifiers.delete(cl)
+    
+    return 200, {}, msg("Classifier deleted")
+
 def create_classifier(classifier_name, owner_id, dataset_id):
     """
     Creates a classifier in the database.

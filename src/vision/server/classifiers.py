@@ -113,5 +113,18 @@ def classifier_info_handler(req):
     cl.data["dataset"] = nets.get_dataset(cl.get("dataset_trained")).data
     return 200, {}, json.dumps(cl.data)
 
+@handler("delete_classifier", "GET")
+def delete_dataset(req):
+    user = logged_in(req)
+    qs = querystring(req)
+
+    if user is None:
+        return 403, {}, msg("Not Authenticated")
+
+    if "id" not in qs:
+        return 400, {}, msg("ID parameter is missing in query string")
+
+    return nets.delete_classifier("".join(qs["id"]), user.item_id)
+
 
 ts.on_net_created = done_training

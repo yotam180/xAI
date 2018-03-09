@@ -15,7 +15,10 @@
                     var j = JSON.parse(e);
                     $("#name_span").text(j.first_name + " " + j.last_name);
                     var h = "";
-                    for (var i in j.datasets) if (j.datasets.hasOwnProperty(i)) {
+                    var jd = Object.keys(j.datasets);
+                    jd.sort((m, n) => j.datasets[n].last_updated - j.datasets[m].last_updated);
+                    for (var x in jd) {
+                        i = jd[x];
                         h += "<li><div class=\"black-text collapsible-header\"><b>"
                             + j.datasets[i].subject + "</b>&nbsp;(" + i
                             + ")</div><div class=\"collapsible-body\">"
@@ -31,8 +34,11 @@
                     }
                     $("#datasets_ul").html(h);
 
+                    jd = Object.keys(j.classifiers);
+                    jd.sort((m, n) => j.classifiers[n].date_trained - j.classifiers[m].date_trained);
                     h = "";
-                    for (var i in j.classifiers) if (j.classifiers.hasOwnProperty(i)) {
+                    for (var x in jd) {
+                        i = jd[x];
                         h += "<li><div class=\"black-text collapsible-header\"><b>"
                             + j.classifiers[i].classifier_name + "</b>&nbsp;(" + i
                             + ")</div><div class=\"collapsible-body\">"
