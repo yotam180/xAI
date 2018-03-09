@@ -94,7 +94,7 @@
             <div class="progress" id="val_acc_prog">
                 <div class="determinate" style="background-color: red; width: 70%"></div>
             </div>
-            <strong>Best accuract measured so far:</strong> <span id="best_val_acc">[...]</span><br/><br/>
+            <strong>Best accuracy measured so far:</strong> <span id="best_val_acc">[...]</span><br/><br/>
             <div class="progress" id="best_val_acc_prog">
                 <div class="determinate" style="background-color: lime; width: 70%"></div>
             </div>
