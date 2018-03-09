@@ -42,7 +42,8 @@ CLASSIFIER = [
     "owner_id",
     "dataset_trained",
     "date_trained",
-    "trained"
+    "trained",
+    "accuracy"
 ]
 
 REVIEW = [

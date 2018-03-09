@@ -98,5 +98,20 @@ def stop_training(req):
     return 200, {}, msg("Training Stopped")
 
 
+@handler("classifier")
+def classifier_info_handler(req):
+    qs = querystring(req)
+
+    if not "id" in qs:
+        return 404, {}, ""
+
+    cl = nets.get_classifier("".join(qs["id"]))
+
+    if not cl:
+        return 404, {}, ""
+    
+    cl.data["dataset"] = nets.get_dataset(cl.get("dataset_trained")).data
+    return 200, {}, json.dumps(cl.data)
+
 
 ts.on_net_created = done_training
