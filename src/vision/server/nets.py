@@ -166,7 +166,7 @@ def get_classifier(classifier_id):
     table = db.table("classifiers", db_entities.CLASSIFIER)
     return table.load_item(classifier_id) or None
 
-def mark_trained(classifier_id):
+def mark_trained(classifier_id, accuracy):
     """
     Marks a classifier as trained after the training process has been finished.
     """
@@ -177,6 +177,7 @@ def mark_trained(classifier_id):
         return False
 
     classifier.set("trained", True)
+    classifier.set("accuracy", accuracy)
     table.update(classifier)
     
     return True

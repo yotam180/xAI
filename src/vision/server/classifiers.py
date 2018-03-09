@@ -71,7 +71,7 @@ def classifier_status_handler(req):
     return 200, {}, json.dumps(ts.get_training_status("".join(qs["classifier_id"])))
 
 def done_training(el):
-    nets.mark_trained(pending[el["task_id"]])
+    nets.mark_trained(pending[el["task_id"]], el["best_val_acc"] * 100)
 
 @handler("stop_training")
 def stop_training(req):
