@@ -39,6 +39,7 @@
                             + "<a href=\"/dataset.php#" + j.classifiers[i].dataset_trained + "\"><b>" + j.datasets[j.classifiers[i].dataset_trained].subject + "</b></a> — "
                             + j.datasets[j.classifiers[i].dataset_trained].description + "<br/><br/>"
                             + "<b>Training Date:</b> " + (new Date(j.classifiers[i].date_trained * 1000).toString()) + "<br/>"
+                            + "<br/><a href=\"classifier.php#" + i + "\" class=\"center waves-effect waves-light btn\">Classifier page</a>"
                             + "</div></li>"
                     }
                     $("#classifiers_ul").html(h);
