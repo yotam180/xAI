@@ -7,6 +7,8 @@
     <link rel="StyleSheet" href="style/master.css" />
 
     <script>
+        window.classifier_name = "";
+
         $(document).ready(function() {
             $.ajax({
                 url: "/classifier",
@@ -24,6 +26,7 @@
                     $(".status").css({color: j.trained ? "lime" : "red"});
                     $("#accuracy").find(".determinate").css({width: j.accuracy + "%"});
                     $(".acc").text(j.accuracy + "%");
+                    window.classifier_name = j.classifier_name;
                 },
                 error: function(e) {
                     Materialize.toast("Error " + e.status, 5000);
@@ -31,6 +34,37 @@
             });
 
             $('.modal').modal();
+
+            $("#fileupload").on("change", function() {
+                var ext = $("#fileupload").val().split(".").pop();
+                if (!~(["png", "jpg", "jpeg", "bmp"].indexOf(ext.toLowerCase()))) {
+                    Materialize.toast("Only png, jpg, and bmp files are allowed", 5000);
+                    return;
+                }
+
+                var reader = new FileReader();
+                reader.readAsDataURL($(this)[0].files[0]);
+                reader.onload = function() {
+                    //console.log(reader.result); // Never uncomment this.
+                    $.ajax({
+                        url: "v",
+                        type: "POST",
+                        data: JSON.stringify({
+                            c: window.classifier_name,
+                            i: reader.result
+                        }),
+                        success: function(e) {
+                            $("#result_json").text(e);
+                        },
+                        error: function(e) {
+                            $("#result_json").text("Error: " + e.status + ", " + e.responseText);
+                        }
+                    });
+                };
+                reader.onerror = function(e) {
+                    Materialize.toast("Error: " + e);
+                };
+            });
         });
 
         function delete_classifier() {
@@ -85,6 +119,21 @@
                     <a class="modal-action modal-close waves-effect waves-green btn-flat">No, keep my classifier.</a>
                 </div>
             </div>
+        </div>
+        <div class="row">
+            <h5 class="header center">Try the classifier</h5>
+            <form action="#">
+                <div class="file-field input-field">
+                <div class="btn red">
+                    <span>File</span>
+                    <input type="file" id="fileupload">
+                </div>
+                <div class="file-path-wrapper">
+                    <input class="file-path validate" type="text">
+                </div>
+                </div>
+            </form>
+            <div id="result_json"></div>
         </div>
     </div>
 </body>
