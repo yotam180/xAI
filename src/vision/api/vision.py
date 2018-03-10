@@ -11,12 +11,37 @@ except:
     numpy_exists = False
 
 import requests
+import base64
+import json
 
-def __classify_ndarray(image, classifier_id):
-    pass
+__server = "http://localhost:8080/v?id="
 
-def __classify_file(image, classifier_id):
-    pass
+def __hexdump_bytes(b):
+    """
+    Encodes bytes object into base64 string.
+    """
+    return str(base64.b64encode(b), "ascii")
+
+def __hex_ndarray(image):
+    """
+    Transforms an ndarray to a base64 string that is sendable to xAI.
+    """
+    image = image.reshape((-1))
+    return __hexdump_bytes(bytes(image))
+
+def __hex_file(image):
+    """
+    Reads a file and converts it to a base64 string that is sendabe to xAI.
+    """
+    cont = image.read()
+    return __hexdump_bytes(cont)
+
+def __classify(hx, cid):
+    """
+    Sends a base64 payload to xAI and returns the result.
+    """
+    r = requests.post(__server, data=json.dumps({"c": cid, "i": hx}))
+    return r.json()
 
 def classify(image, classifier_id):
     """
@@ -32,9 +57,12 @@ def classify(image, classifier_id):
     Return value:
         dictionary - the result returned from the xAI server.
     """
+
     if numpy_exists and type(image) == np.ndarray:
-        __classify_ndarray(image, classifier_id)
+        payload = __hex_ndarray(image)
     elif type(image) == str:
-        __classify_file(open(image, "rb"))
+        payload = __hex_file(open(image, "rb"))
     else:
-        __classify_file(image)
+        payload = __hex_file(image)
+
+    return __classify(payload, classifier_id)
