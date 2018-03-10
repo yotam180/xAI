@@ -10,9 +10,15 @@ try:
 except:
     numpy_exists = False
 
+import requests
 
+def __classify_ndarray(image, classifier_id):
+    pass
 
-def classify(image):
+def __classify_file(image, classifier_id):
+    pass
+
+def classify(image, classifier_id):
     """
     Classifies an image using one of xAI's convolutional neural networks.
     
@@ -26,4 +32,9 @@ def classify(image):
     Return value:
         dictionary - the result returned from the xAI server.
     """
-    pass
+    if numpy_exists and type(image) == np.ndarray:
+        __classify_ndarray(image, classifier_id)
+    elif type(image) == str:
+        __classify_file(open(image, "rb"))
+    else:
+        __classify_file(image)
