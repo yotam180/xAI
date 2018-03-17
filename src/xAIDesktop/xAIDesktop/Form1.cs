@@ -12,6 +12,7 @@ namespace xAIDesktop
 {
     public partial class Form1 : Form
     {
+        public string username = "";
         const string CATPATH = "catagories.txt";
         public Form1()
         {
@@ -147,10 +148,29 @@ namespace xAIDesktop
 
         private void button5_Click(object sender, EventArgs e)
         {
-            login l = new login();
-            this.Hide();
-            l.ShowDialog();
-            this.Close();
+                login l = new login();
+                this.Hide();
+                l.ShowDialog();
+                this.Close();
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            if(username=="")
+            {
+                login lg = new login();
+                this.Hide();
+                lg.ShowDialog();
+                this.Close();
+            }
+            else
+            {
+                gameEnter menu = new gameEnter();
+                menu.username = this.username;
+                this.Hide();
+                menu.ShowDialog();
+                this.Close();
+            }
         }
     }
 }

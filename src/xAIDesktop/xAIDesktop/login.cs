@@ -12,6 +12,7 @@ namespace xAIDesktop
 {
     public partial class login : Form
     {
+        public string username = "";
         public login()
         {
             InitializeComponent();
@@ -50,6 +51,16 @@ namespace xAIDesktop
                     }
                 }
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.username = textBox1.Text;
+            Form1 f = new Form1();
+            f.username = this.username;
+            this.Hide();
+            f.ShowDialog();
+            this.Close();
         }
     }
 }
