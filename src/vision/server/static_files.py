@@ -7,7 +7,6 @@
 import os
 import re
 import io
-import magic
 
 def mime_content_type(filename):
     """Get mime type
