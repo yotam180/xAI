@@ -27,16 +27,16 @@ def get_changes(list1, list2):
 #responsible for saving directory changes
 def update_changes(additions, deletions):
     for file in deletions:
-        os.remove(file)
+        delete_from_server(file)
     for file in additions:
         save_to_server(file)
 
 #saves the given file to remote server
 def save_to_server(file):
     no = None
+def delete_from_server(file)
+    no = None
     
-
-
 listDir = os.listdir(os.getcwd())
 #thread = Thread(target = sync_changes())
 
