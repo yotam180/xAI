@@ -34,6 +34,7 @@ def update_changes(additions, deletions):
 #saves the given file to remote server
 def save_to_server(file):
     no = None
+#deletes the given file from the remote server
 def delete_from_server(file)
     no = None
     
