@@ -2,8 +2,8 @@ import os
 from threading import Thread
 import time
 
-listDir = os.listdir(os.getcwd())
 
+#thread function to get changes and save them on cloud or server
 def sync_changes():
     global listDir
     while(True):
@@ -14,6 +14,32 @@ def sync_changes():
         listDir = tempDir
         additions = changes[0]
         deletions =  changes[1]
-    
+        update_changes(additions,deletions)
+
+
+#returns differences between two lists
+#returns two lists
+#first list is additions
+#second list is deletions
 def get_changes(list1, list2):
     return [i for i in list1 if i not in list2],[i for i in list2 if i not in list1]
+
+#responsible for saving directory changes
+def update_changes(additions, deletions):
+    for file in deletions:
+        os.remove(file)
+    for file in additions:
+        save_to_server(file)
+
+#saves the given file to remote server
+def save_to_server(file):
+    no = None
+    
+
+
+listDir = os.listdir(os.getcwd())
+#thread = Thread(target = sync_changes())
+
+
+
+
