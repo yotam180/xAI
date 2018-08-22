@@ -1,20 +1,27 @@
-import os
+import sys,os
+import time, json
 from threading import Thread
-import time
 
+
+sourceDir = "\songs"
+listDir = os.listdir(os.getcwd())
+if(len(sys.argv) > 1):
+    sourceDir = sys.argv[1]
 
 #thread function to get changes and save them on cloud or server
 def sync_changes():
     global listDir
     while(True):
-        time.sleep(1)
-        tempDir = os.listdir(os.getcwd())
+        time.sleep(2)
+        tempDir = os.listdir(os.getcwd()+ sourceDir)
         changes = get_changes(tempDir, listDir)
         #reorganizing the array into listDir and changes to additions and deletions
         listDir = tempDir
         additions = changes[0]
         deletions =  changes[1]
         update_changes(additions,deletions)
+        #debug print line
+        print(json.dumps(listDir) + "->" + json.dumps(additions) + ";" + json.dumps(deletions))
 
 
 #returns differences between two lists
@@ -35,11 +42,11 @@ def update_changes(additions, deletions):
 def save_to_server(file):
     no = None
 #deletes the given file from the remote server
-def delete_from_server(file)
+def delete_from_server(file):
     no = None
+
     
-listDir = os.listdir(os.getcwd())
-#thread = Thread(target = sync_changes())
+thread = Thread(target = sync_changes())
 
 
 
