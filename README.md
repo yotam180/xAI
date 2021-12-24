@@ -1,4 +1,4 @@
-# xAI <span style='font-size: medium;'>- A Research Project in the Field of Machine Learning</span> <br/> [![Build status](https://ci.appveyor.com/api/projects/status/tauop0ntg9w83npp?svg=true)](https://ci.appveyor.com/project/yotam180/xai) [![BCH compliance](https://bettercodehub.com/edge/badge/yotam180/xAI?branch=master)](https://bettercodehub.com/results/yotam180/xAI) [![codebeat badge](https://codebeat.co/badges/6d12a390-c0e2-4c11-9093-a095d1f23072)](https://codebeat.co/projects/github-com-yotam180-xai-master) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/d25c63790f7d49cabfd8642a3bd06fd6)](https://www.codacy.com/app/yotam.salmon/xAI?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=yotam180/xAI&amp;utm_campaign=Badge_Grade)
+# xAI <span style='font-size: medium;'>- A Research Project in the Field of Computer Vision & Machine Learning</span> <br/> [![Build status](https://ci.appveyor.com/api/projects/status/tauop0ntg9w83npp?svg=true)](https://ci.appveyor.com/project/yotam180/xai) [![BCH compliance](https://bettercodehub.com/edge/badge/yotam180/xAI?branch=master)](https://bettercodehub.com/results/yotam180/xAI) [![codebeat badge](https://codebeat.co/badges/6d12a390-c0e2-4c11-9093-a095d1f23072)](https://codebeat.co/projects/github-com-yotam180-xai-master) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/d25c63790f7d49cabfd8642a3bd06fd6)](https://www.codacy.com/app/yotam.salmon/xAI?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=yotam180/xAI&amp;utm_campaign=Badge_Grade)
 
 ## Do you watch us from GitLab™? #
 
@@ -19,7 +19,10 @@ This repository is being Auto-Secured and Unit-Tested by [![](https://i.imgur.co
 
 ![](https://avatars1.githubusercontent.com/u/24625060?s=200)
 
-*[About yourself here]*
+>A B.Sc of Software Engineering student at Tehcnion-Israel Institute of Technology.<br/>
+>Experimenting with Machine Learning and Computer Vision, other works include: Random dimensional reduction with Deep Learning over unstructured data,<br/>
+>Lifting preprocessing for Linear Regression ML, Implementing Descent based optimization algorithms, RNN and Attention based methods for sentiment analysis,<br/>
+>Distributed learning for DNNs and more..
 
 ### Yotam Salmon ###
 
